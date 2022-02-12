@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "express": "^4.17.2",
+    "express-admin": "^1.4.3",
+    "express-handlebars": "^6.0.2",
+    "express-validator": "^6.14.0",
+    "mysql2": "^2.3.3",
+    "vue": "^3.2.31"
+  }
+}
