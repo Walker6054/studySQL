@@ -1,0 +1,97 @@
+<header id="header" class="container container-lg">
+    <nav class="navbar navbar-expand-lg navbar-dark py-1 navbar-custom">
+        <div class="container">
+            <a class="navbar-brand logo" href="#" onclick="window.location=window.location.origin">Family Guy</a>
+            {{#if auth}}
+                <div class="buttons">
+                    <button type="button" id="buttonIn" class="btn btn-success" data-bs-toggle="modal"
+                        data-bs-target="#modalReg">Регистрация
+                    </button>
+                    <button type="button" id="buttonIn" class="btn btn-success" data-bs-toggle="modal" 
+                        data-bs-target="#modalLogin">Войти
+                    </button>
+                </div>
+                <!-- Modal Reg -->
+                <div class="modal fade" id="modalReg" tabindex="-1">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="modalRegLabel">Регистрация</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                    <div class="mb-3">
+                                        <label for="InputReg1" class="form-label">Логин</label>
+                                        <input type="text" class="form-control" id="InputReg1" aria-describedby="emailHelp">
+                                        <div id="emailHelp" class="form-text">Мы никогда не делимся информацией о вас с кем-либо</div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="InputRegPassword1" class="form-label">Пароль</label>
+                                        <input type="password" class="form-control" id="InputRegPassword1">
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отменить</button>
+                                <button type="button" data-bs-dismiss="modal" id="buttonReg" class="btn btn-primary">Зарегистрироваться</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal LOGIN -->
+                <div class="modal fade" id="modalLogin" tabindex="-1">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="modalLoginLabel">Авторизация</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                    <div class="mb-3">
+                                        <label for="InputLogin1" class="form-label">Логин</label>
+                                        <input type="text" class="form-control" id="InputLogin1" aria-describedby="emailHelp">
+                                        <div id="emailHelp" class="form-text">Мы никогда не делимся информацией о вас с кем-либо</div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="InputLoginPassword1" class="form-label">Пароль</label>
+                                        <input type="password" class="form-control" id="InputLoginPassword1">
+                                    </div>
+                                    <div class="mb-3 form-check">
+                                        <input type="checkbox" class="form-check-input" id="passRememb">
+                                        <label class="form-check-label" for="passRememb">Запомнить пароль</label>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отменить</button>
+                                <button type="button" data-bs-dismiss="modal" id="buttonLogIn" class="btn btn-primary">Авторизоваться</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {{else}}
+            <div class="rowUser">
+                <div class="col-md-4 col-4 col-lg-4 colAvatar">
+                    <img class="avatarUser" src="/static/image/avatar.jpg" />
+                </div>
+                <div class="col-md-8 col-8 col-lg-8 colListUser">
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle btnUser" type="button" id="dropdownMenuButton2"
+                            data-bs-toggle="dropdown">{{userName}}</button>
+                        <ul class="dropdown-menu dropdown-menu-dark">
+                            <li><a onclick="window.location=window.location.origin+'/favorite'" class="dropdown-item" href="#">Избранное</a></li>
+                            <li>
+                                <hr class="dropdown-divider" />
+                            </li>
+                            <li><button id="buttonLogOut" class="dropdown-item">Выйти</button></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            {{/if}}
+        </div>
+    </nav>
+</header>

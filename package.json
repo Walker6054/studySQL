@@ -1,10 +1,29 @@
 {
-  "dependencies": {
-    "express": "^4.17.2",
-    "express-admin": "^1.4.3",
-    "express-handlebars": "^6.0.2",
-    "express-validator": "^6.14.0",
-    "mysql2": "^2.3.3",
-    "vue": "^3.2.31"
-  }
+    "name": "studysql",
+    "version": "1.0.0",
+    "description": "Study project \"Get start learning SQL language\"",
+    "main": "index.js",
+    "devDependencies": {},
+    "scripts": {
+        "start": "node index.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Walker6054/studySQL.git"
+    },
+    "author": "Walker6054",
+    "license": "ISC",
+    "dependencies": {
+        "express": "^4.17.2",
+        "express-admin": "^1.4.3",
+        "express-handlebars": "^6.0.2",
+        "express-validator": "^6.14.0",
+        "jsonwebtoken": "^8.5.1",
+        "mysql2": "^2.3.3",
+        "vue": "^3.2.31"
+    },
+    "bugs": {
+        "url": "https://github.com/Walker6054/studySQL/issues"
+    },
+        "homepage": "https://github.com/Walker6054/studySQL#readme"
 }
