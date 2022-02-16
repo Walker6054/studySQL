@@ -1,21 +1,21 @@
 const connect = require("./.connectDB");
 
-exports.allAdmins = () => {
-    return connect.query("SELECT * from admins");
+exports.allLecturers = () => {
+    return connect.query("SELECT * from lecturers");
 }
 
-exports.admin = (id) => {
-    return connect.query("SELECT * from admins");
+exports.lecturers = (id) => {
+    return connect.query("SELECT * from lecturers where idlecturers = " + id);
 }
 
-exports.addAdmin = (x1, x2) => {
-    return connect.query("SELECT * from admins");
+exports.addLecturers = (login, password, f, i , o, institute) => {
+    return connect.query("call add_lecturers('"+ login + "', '"+ password + "', '"+ f + "', '"+ i + "', '"+ o + "', '"+ institute +"')");
 }
 
-exports.updateAdmin = (id, x1, x2) => {
-    return connect.query("SELECT * from admins");
+exports.updateLecturers = (id, login, password, f, i , o, institute) => {
+    return connect.query("call update_lecturers("+ id +", '" + login + "', '"+ password + "', '"+ f + "', '"+ i + "', '"+ o + "', '"+ institute +"')");
 }
 
-exports.delAdmin = (id) => {
-    return connect.query("SELECT * from admins");
+exports.delLecturers = (id) => {
+    return connect.query("call del_lecturers("+ id +")");
 }

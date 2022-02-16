@@ -4,28 +4,22 @@ exports.allStudents = () => {
     return connect.query("SELECT * from students");
 }
 
-exports.student = (login) => {
-    return connect.query(`SELECT * from students 
+exports.students = (login) => {
+    return connect.query(`SELECT * from students
         where login = "`+ login + `" OR
               email = "`+ login + `"
         `
     );
 }
 
-exports.addStudent = (login, password, email, group, f, i, o) => {
-    let query = "INSERT INTO students ";
-
-    // let temp = "";
-    // if (o) {
-    //     temp = 
-    // }
-    return connect.query();
+exports.addStudents = (login, email, password, shifr, f, i, o) => {
+    return connect.query("call add_students('"+ login + "', '"+ email + "', '"+ password + "', '"+ shifr + "', '"+ f + "', "+ i +", '"+ o +"')");
 }
 
-exports.updateStudent = (id, x1, x2) => {
-    return connect.query("SELECT * from admins");
+exports.updateStudents = (id, login, email, password, shifr, f, i, o) => {
+    return connect.query("call update_students("+ id + ", '"+ login + "', '"+ email + "', '"+ password + "', '"+ shifr + "', '"+ f + "', "+ i +", '"+ o +"')");
 }
 
-exports.delStudent = (id) => {
-    return connect.query("SELECT * from admins");
+exports.delStudents= (id) => {
+    return connect.query("call del_students("+ id +")");
 }

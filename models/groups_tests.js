@@ -1,21 +1,21 @@
 const connect = require("./.connectDB");
 
-exports.allAdmins = () => {
-    return connect.query("SELECT * from admins");
+exports.allGroups_tests = () => {
+    return connect.query("SELECT * from groups_tests");
 }
 
-exports.admin = (id) => {
-    return connect.query("SELECT * from admins");
+exports.groups_tests = (id) => {
+    return connect.query("SELECT * from groups_tests where idgroups_tests = " + id);
 }
 
-exports.addAdmin = (x1, x2) => {
-    return connect.query("SELECT * from admins");
+exports.addGroups_tests = (shifr, idtest) => {
+    return connect.query("call add_groups_tests('"+shifr+"', "+idtest+")");
 }
 
-exports.updateAdmin = (id, x1, x2) => {
-    return connect.query("SELECT * from admins");
+exports.updateGroups_tests = (id, shifr, idtest) => {
+    return connect.query("call update_groups_tests("+ id +", '"+ shifr +"', "+ idtest +")");
 }
 
-exports.delAdmin = (id) => {
-    return connect.query("SELECT * from admins");
+exports.delGroups_tests = (id) => {
+    return connect.query("call del_groups_tests("+ id +")");
 }

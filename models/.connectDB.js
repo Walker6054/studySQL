@@ -9,15 +9,3 @@ try {
 }
 
 module.exports = connection;
-
-
-
-
-
-// connection.connect((err) => {
-//     if (err) {
-//         return console.error("Ошибка: " + err.message);
-//     } else {
-//         console.log("Подключение к серверу MySQL успешно установлено");
-//     }
-// });

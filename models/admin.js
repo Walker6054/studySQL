@@ -4,18 +4,18 @@ exports.allAdmins = () => {
     return connect.query("SELECT * from admins");
 }
 
-exports.admin = (id) => {
-    return connect.query("SELECT * from admins");
+exports.admins = (id) => {
+    return connect.query("SELECT * from admins where idadmins = " + id);
 }
 
-exports.addAdmin = (x1, x2) => {
-    return connect.query("SELECT * from admins");
+exports.addAdmins = (login, pass) => {
+    return connect.query("call add_admins('" + login + "', '" + pass + "')");
 }
 
-exports.updateAdmin = (id, x1, x2) => {
-    return connect.query("SELECT * from admins");
+exports.updateAdmins = (id, login, pass) => {
+    return connect.query("call update_admins("+id+", '" + login + "', '" + pass + "')");
 }
 
-exports.delAdmin = (id) => {
-    return connect.query("SELECT * from admins");
+exports.delAdmins = (id) => {
+    return connect.query("call del_admins(" + id + ")");
 }
