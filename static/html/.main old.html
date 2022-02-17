@@ -20,11 +20,6 @@
                     </button>
                     <a class="navbar-brand" href="#" onclick="window.location=window.location.origin">Образовательная системаа "Основы SQL"</a>
 
-                    <!-- <form class="d-flex">
-                        <input class="form-control me-2" type="search" placeholder="Поиск" />
-                        <button class="btn btn-outline-success" type="submit">Поиск</button>
-                    </form> -->
-
                     <div class="buttons">
                         <button type="button" id="buttonIn" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#modalReg">Регистрация</button>
                         <button type="button" id="buttonIn" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#modalLogin">Войти</button>
@@ -72,66 +67,6 @@
                     </div>
                 </div>
             </nav>
-            <div class="modal fade" id="modalReg" tabindex="-1">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="modalRegLabel">Регистрация</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <form>
-                                <div class="mb-3">
-                                    <label for="InputReg1" class="form-label">Логин</label>
-                                    <input type="text" class="form-control" id="InputReg1" aria-describedby="emailHelp" />
-                                    <div id="emailHelp" class="form-text">Мы никогда не делимся информацией о вас с кем-либо</div>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="InputRegPassword1" class="form-label">Пароль</label>
-                                    <input type="password" class="form-control" id="InputRegPassword1" />
-                                </div>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отменить</button>
-                            <button type="button" data-bs-dismiss="modal" id="buttonReg" class="btn btn-primary">Зарегистрироваться</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Modal LOGIN -->
-            <div class="modal fade" id="modalLogin" tabindex="-1">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="modalLoginLabel">Авторизация</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <form>
-                                <div class="mb-3">
-                                    <label for="InputLogin1" class="form-label">Логин</label>
-                                    <input type="text" class="form-control" id="InputLogin1" aria-describedby="emailHelp" />
-                                    <div id="emailHelp" class="form-text">Мы никогда не делимся информацией о вас с кем-либо</div>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="InputLoginPassword1" class="form-label">Пароль</label>
-                                    <input type="password" class="form-control" id="InputLoginPassword1" />
-                                </div>
-                                <div class="mb-3 form-check">
-                                    <input type="checkbox" class="form-check-input" id="passRememb" />
-                                    <label class="form-check-label" for="passRememb">Запомнить пароль</label>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отменить</button>
-                            <button type="button" data-bs-dismiss="modal" id="buttonLogIn" class="btn btn-primary">Войти</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </header>
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>

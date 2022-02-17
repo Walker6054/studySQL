@@ -1,4 +1,5 @@
 <header>
+    {{#if viewHeader}}
     <!-- НАВИГАЦИОННАЯ ПАНЕЛЬ -->
     <nav class="navbar navbar-light bg-light fixed-top">
         <div class="container">
@@ -7,89 +8,19 @@
             </button>
             <a class="navbar-brand" href="#" onclick="window.location=window.location.origin">{{headPage}}</a>
 
-            {{#if auth}}
-                <div class="rowUser">
-                    <div class="dropdown">
-                        <button class="btn btn-outline-secondary dropdown-toggle btnUser" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown">{{userName}}</button>
-                        <ul class="dropdown-menu dropdown-menu-secondary">
-                            <li><a onclick="window.location=window.location.origin+''" class="dropdown-item" href="#">Личный кабинет</a></li>
-                            <li><a onclick="window.location=window.location.origin+''" class="dropdown-item" href="#">Оценки</a></li>
-                            <li>
-                                <hr class="dropdown-divider" />
-                            </li>
-                            <li><button id="buttonLogOut" class="dropdown-item">Выйти</button></li>
-                        </ul>
-                    </div>
+            <div class="rowUser">
+                <div class="dropdown">
+                    <button class="btn btn-outline-secondary dropdown-toggle btnUser" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown">{{userName}}</button>
+                    <ul class="dropdown-menu dropdown-menu-secondary">
+                        <li><a onclick="window.location=window.location.origin+''" class="dropdown-item" href="#">Личный кабинет</a></li>
+                        <li><a onclick="window.location=window.location.origin+''" class="dropdown-item" href="#">Оценки</a></li>
+                        <li>
+                            <hr class="dropdown-divider" />
+                        </li>
+                        <li><button id="buttonLogOut" class="dropdown-item">Выйти</button></li>
+                    </ul>
                 </div>
-            {{else}}
-                <div class="buttons">
-                    <button type="button" id="buttonIn" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#modalReg">Регистрация</button>
-                    <button type="button" id="buttonIn" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#modalLogin">Войти</button>
-                </div>
-
-                <!-- Modal Reg -->
-                <div class="modal fade" id="modalReg" tabindex="-1">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="modalRegLabel">Регистрация</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <form>
-                                    <div class="mb-3">
-                                        <label for="InputReg1" class="form-label">Логин</label>
-                                        <input type="text" class="form-control" id="InputReg1" aria-describedby="emailHelp" />
-                                        <div id="emailHelp" class="form-text">Мы никогда не делимся информацией о вас с кем-либо</div>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="InputRegPassword1" class="form-label">Пароль</label>
-                                        <input type="password" class="form-control" id="InputRegPassword1" />
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отменить</button>
-                                <button type="button" data-bs-dismiss="modal" id="buttonReg" class="btn btn-primary">Зарегистрироваться</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Modal LOGIN -->
-                <div class="modal fade" id="modalLogin" tabindex="-1">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="modalLoginLabel">Авторизация</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <form>
-                                    <div class="mb-3">
-                                        <label for="InputLogin1" class="form-label">Логин</label>
-                                        <input type="text" class="form-control" id="InputLogin1" aria-describedby="emailHelp" />
-                                        <div id="emailHelp" class="form-text">Мы никогда не делимся информацией о вас с кем-либо</div>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="InputLoginPassword1" class="form-label">Пароль</label>
-                                        <input type="password" class="form-control" id="InputLoginPassword1" />
-                                    </div>
-                                    <div class="mb-3 form-check">
-                                        <input type="checkbox" class="form-check-input" id="passRememb" />
-                                        <label class="form-check-label" for="passRememb">Запомнить пароль</label>
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отменить</button>
-                                <button type="button" data-bs-dismiss="modal" id="buttonLogIn" class="btn btn-primary">Войти</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            {{/if}}
-            
+            </div>      
 
             <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar">
                 <div class="offcanvas-header">
@@ -120,4 +51,5 @@
             </div>
         </div>
     </nav>
+    {{/if}}
 </header>

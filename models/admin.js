@@ -4,8 +4,8 @@ exports.allAdmins = () => {
     return connect.query("SELECT * from admins");
 }
 
-exports.admins = (id) => {
-    return connect.query("SELECT * from admins where idadmins = " + id);
+exports.admins = (login) => {
+    return connect.query("call get_admins('"+ login + "')");
 }
 
 exports.addAdmins = (login, pass, email) => {

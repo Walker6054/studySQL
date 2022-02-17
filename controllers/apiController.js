@@ -1,6 +1,8 @@
 const connectDB = require("../models/.connectDB");
 const jwt = require("jsonwebtoken");
 
+const users = require("../models/users");
+
 exports.reguser = function (request, response) {
     let data = request.body;
     let sqlIn = sqlIniect(data);
@@ -19,21 +21,35 @@ exports.reguser = function (request, response) {
     }
 }
 
-exports.loguser = function (request, response) {
+exports.loguser = async (request, response) => {
     let data = request.body;
+    console.log(data);
     let sqlIn = sqlIniect(data);
+
     if (sqlIn) {
         response.status(800).send("Попытка SQL-инъекции!");
     } else {
-        let user = new UserLog(data["login"], data["password"]);
-        user.alreadyExistInDB(user.getLogin());
-        setTimeout(() => {
-            if (user.getExists()) {
-                response.status(200).send(user.getToken());
-            } else {
-                response.status(801).send("Пользователь с таким логином и паролем не существует! Проверьте правильность введенных данных!");
-            }
-        }, 1000);
+        let exists;
+        await users.users(data.login)
+            .then((res) => {
+                exists = res[0][0][0];
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+        console.log(exists);
+
+        console.log((exists != undefined) & ((data.login == exists.login)||(data.login == exists.email)) & (data.password == exists.password));
+        if ((exists != undefined) & ((data.login == exists.login)||(data.login == exists.email)) & (data.password == exists.password)) {
+            let token = jwt.sign({
+                login: exists.login,
+                email: exists.email
+            }, exists.idusers.toString())
+
+            response.status(200).send(token);
+        } else {
+            response.status(801).send("Пользователь с таким логином и паролем не существует! Проверьте правильность введенных данных!");
+        }
     }
 }
 

@@ -4,4 +4,6 @@ const mainRouter = express.Router();
 
 mainRouter.get("/", mainController.index);
 
+mainRouter.get("/login", mainController.login);
+
 module.exports = mainRouter;

@@ -1,4 +1,7 @@
 /* Навигация */
+.container {
+    justify-content: space-around;
+}
 .offcanvas-start {
     width: 30vw;
     background-color: azure;
