@@ -8,12 +8,12 @@ exports.admins = (id) => {
     return connect.query("SELECT * from admins where idadmins = " + id);
 }
 
-exports.addAdmins = (login, pass) => {
-    return connect.query("call add_admins('" + login + "', '" + pass + "')");
+exports.addAdmins = (login, pass, email) => {
+    return connect.query("call add_admins('" + login + "', '" + pass + "', "+ email +" ')");
 }
 
-exports.updateAdmins = (id, login, pass) => {
-    return connect.query("call update_admins("+id+", '" + login + "', '" + pass + "')");
+exports.updateAdmins = (id, login, pass, email) => {
+    return connect.query("call update_admins("+id+", '" + login + "', '" + pass + "', "+ email +" ')");
 }
 
 exports.delAdmins = (id) => {

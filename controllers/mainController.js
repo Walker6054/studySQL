@@ -4,7 +4,6 @@ const pathDir = path.dirname(__dirname);
 //получение записи локального хранилища
 let tokenUser;
 exports.localstorage = function (request, response) {
-    //console.log(request);
     let data = request.body;
     if (data.exist) {
         tokenUser = data.data;
@@ -15,31 +14,20 @@ exports.localstorage = function (request, response) {
 }
 
 exports.index = async (request, response) => {
-    const admins = require("../models/admin");
-    
-    await admins.admins()
-        .then((res) => {
-            console.log(res);
-        })
-        .catch((err) => {
-            console.log(err);
-        });
-    
+
     let cookieUser = getCookie(request.rawHeaders);
-    let userName;
+    let userName = "Гаськов";
     let authCheck = false;
 
-    if (cookieUser != "true") {
-        response.render(pathDir + "/views/main.hbs",
-            {
-                auth: !authCheck,
-                seasons: seasons,
-                title: "FamilyGuy Главная страница",
-                page: "main"
-            }
-        );
-    } else {
-    }
+    response.render(pathDir + "/views/main.hbs",
+        {
+            auth: true,
+            title: "Основы SQL",
+            headPage: 'Образовательная системаа "Основы SQL"',
+            userName: userName,
+            page: "main"
+        }
+    );
 };
 
 

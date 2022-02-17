@@ -5,11 +5,7 @@ exports.allStudents = () => {
 }
 
 exports.students = (login) => {
-    return connect.query(`SELECT * from students
-        where login = "`+ login + `" OR
-              email = "`+ login + `"
-        `
-    );
+    return connect.query("call get_students('"+ login + "')");
 }
 
 exports.addStudents = (login, email, password, shifr, f, i, o) => {

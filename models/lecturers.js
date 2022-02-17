@@ -4,8 +4,8 @@ exports.allLecturers = () => {
     return connect.query("SELECT * from lecturers");
 }
 
-exports.lecturers = (id) => {
-    return connect.query("SELECT * from lecturers where idlecturers = " + id);
+exports.lecturers = (login) => {
+    return connect.query("call get_lecturers('"+ login + "')");
 }
 
 exports.addLecturers = (login, password, f, i , o, institute) => {
