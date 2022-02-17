@@ -1,6 +1,6 @@
 const path = require('path');
 const express = require("express");
-//испортируем приложение
+//импортируем приложение
 const app = express();
 
 //маршруты
@@ -44,7 +44,7 @@ app.set('view engine', 'hbs');
 
 
 
-
+//инициализация админ панели
 const adm = require("express-admin");
 let config = {
     dpath: './config/',

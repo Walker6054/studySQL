@@ -1,0 +1,17 @@
+{
+    "forgot_password" : {
+        "subject": "Восстановление пароля",
+        "helloStart": "<p style='font-size: 3vw;text-align: center;font-weight: 600;'>Здравствуйте, ",
+        "helloEnd": "!</p>",
+        "mainTextStart": "<p style='font-size: 2vw; font-weight: 400;'>Для восстановления пароля перейдите по данной ссылке:  <a href='",
+        "mainTextEnd": "'>Восстановление пароля</a></p>",
+        "text": ""
+    },
+    "registration" : {
+        "subject": "Вы успешно зарегистрировались",
+        "helloStart": "<p style='font-size: 3vw;text-align: center;font-weight: 600;'>Здравствуйте, ",
+        "helloEnd": "!</p>",
+        "mainText": "<p style='font-size: 2vw; font-weight: 400;'>Поздравляем, вы успешно зарегистрировались!<br>Пользовательские данные можно будет поменять в личном кабинете.</p>",
+        "text": ""
+    }
+}
