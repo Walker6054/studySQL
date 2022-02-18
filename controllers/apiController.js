@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 const users = require("../models/users");
 const students = require("../models/students");
 const lecturers = require("../models/lecturers");
+const mailer = require("../mailer/mailer");
 
 exports.reguser = async function (request, response) {
     let data = request.body;
@@ -37,6 +38,7 @@ exports.reguser = async function (request, response) {
                         email: user.email
                     }, user.idusers.toString());
 
+                    mailer.sendMail(user.email, user.login, "reg");
                     response.status(200).send(token);
                 }
                 break;
@@ -65,6 +67,7 @@ exports.reguser = async function (request, response) {
                         email: user.email
                     }, user.idusers.toString());
 
+                    mailer.sendMail(user.email, user.login, "reg");
                     response.status(200).send(token);
                 }
                 break;
