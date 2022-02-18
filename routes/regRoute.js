@@ -8,4 +8,8 @@ regRouter.get("/student", regController.regStudent);
 
 regRouter.get("/lecturer", regController.regLecturer);
 
+regRouter.get("/forgotPass", regController.forgotPass);
+
+regRouter.get("/recoveryPass(=)?*", regController.recoveryPass);
+
 module.exports = regRouter;

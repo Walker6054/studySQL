@@ -10,4 +10,8 @@ apiRouter.post('/api-reguser', parser, apiController.reguser);
 
 apiRouter.post('/api-loguser', parser, apiController.loguser);
 
+apiRouter.post('/api-forgotpass', parser, apiController.forgotpass);
+
+apiRouter.post('/api-recoverypass', parser, apiController.recoverypass);
+
 module.exports = apiRouter;

@@ -1,17 +1,38 @@
-//процедура авторизации
 let buttonLog = document.getElementById("buttonLogIn");
-let inputLog = document.getElementById("inputLogin");
+let inputLogin = document.getElementById("inputLogin");
 let inputLogPass = document.getElementById("inputPassword");
 let inputCheckRememb = document.getElementById("checkRemember");
 
-buttonLog.addEventListener("click", processLog);
+buttonLog.addEventListener("click", validation);
 
-function processLog() {
-    //сохраняем входные данные
-    let user = {
-        login: inputLog.value,
-        password: inputLogPass.value
+function validation() {
+    let flag = false;
+
+    if (inputLogin.value) {
+        inputLogin.setAttribute("class", "form-control is-valid");
+    } else {
+        inputLogin.setAttribute("class", "form-control is-invalid");
+        flag = true;
     }
+
+    if (inputLogPass.value) {
+        inputLogPass.setAttribute("class", "form-control is-valid");
+    } else {
+        inputLogPass.setAttribute("class", "form-control is-invalid");
+        flag = true;
+    }
+
+    if (!flag) {
+        let user = {
+            login: inputLogin.value,
+            pass: inputLogPass.value
+        }
+        processLog(user);
+    }
+}
+
+function processLog(user) {
+
     //инициализируем запрос на сервер
     let LogReq = new XMLHttpRequest();
         //указывается тип запроса, url

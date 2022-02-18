@@ -14,6 +14,7 @@ let transporter = nodemailer.createTransport({
 
 exports.sendMail = async (email, login, mailLayout, other) => {
     let layout;
+    let status;
     switch (mailLayout) {
         case "forgot":
             layout = layouts.forgot_password;
@@ -28,6 +29,12 @@ exports.sendMail = async (email, login, mailLayout, other) => {
             layout.text += layout.helloEnd;
             layout.text += layout.mainText;
             break;
+        case "rec":
+            layout = layouts.recovery_password;
+            layout.text = layout.helloStart + login;
+            layout.text += layout.helloEnd;
+            layout.text += layout.mainText;
+            break;
     }
     await transporter.sendMail({
         from: '"Study SQL" ' + config.mail,
@@ -38,8 +45,12 @@ exports.sendMail = async (email, login, mailLayout, other) => {
     })
         .then((res) => {
             console.log(res);
+            console.log(layout.text);
+            status = true;
         })
         .catch((err) => {
             console.log(err);
+            status = false;
         })
+    return status;
 };

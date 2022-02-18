@@ -6,6 +6,16 @@ let inputInst = document.getElementById("inputInst");
 let inputF = document.getElementById("inputF");
 let inputI = document.getElementById("inputI");
 let inputO = document.getElementById("inputO");
+let checkPass = document.getElementById("checkPass");
+
+checkPass.addEventListener("change", viewPass);
+function viewPass() {
+    if (checkPass.checked) {
+        inputPass.setAttribute("type", "text");
+    } else {
+        inputPass.setAttribute("type", "password");
+    }
+}
 
 buttonReg.addEventListener("click", validation);
 

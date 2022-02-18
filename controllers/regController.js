@@ -44,3 +44,13 @@ exports.forgotPass = (request, response) => {
         }
     );
 }
+
+exports.recoveryPass = (request, response) => {
+    response.render(pathDir + "/views/registration/recoveryPass.hbs",
+        {
+            title: "Восстановление пароля",
+            page: "recoveryPass",
+            view: false
+        }
+    );
+}
