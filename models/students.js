@@ -9,11 +9,11 @@ exports.students = (login) => {
 }
 
 exports.addStudents = (login, email, password, shifr, f, i, o) => {
-    return connect.query("call add_students('"+ login + "', '"+ email + "', '"+ password + "', '"+ shifr + "', '"+ f + "', "+ i +", '"+ o +"')");
+    return connect.query("call add_students('"+ login + "', '"+ password + "', '"+ email + "', '"+ shifr + "', '"+ f + "', '"+ i +"', '"+ o +"')");
 }
 
 exports.updateStudents = (id, login, email, password, shifr, f, i, o) => {
-    return connect.query("call update_students("+ id + ", '"+ login + "', '"+ email + "', '"+ password + "', '"+ shifr + "', '"+ f + "', "+ i +", '"+ o +"')");
+    return connect.query("call update_students("+ id + ", '"+ login + "', '"+ password + "', '"+ email + "', '"+ shifr + "', '"+ f + "', '"+ i +"', '"+ o +"')");
 }
 
 exports.delStudents= (id) => {

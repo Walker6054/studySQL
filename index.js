@@ -6,6 +6,7 @@ const app = express();
 //маршруты
 const mainRouter = require("./routes/mainRoute");
 const apiRouter = require("./routes/apiRoute");
+const regRouter = require("./routes/regRoute");
 
 //шаблонизатор
 const expressHbs = require('express-handlebars');
@@ -13,6 +14,7 @@ const expressHbs = require('express-handlebars');
 //инициализация начальных путей маршрутов для дальйнешей обработки
 app.use("/", mainRouter);
 app.use("/api", apiRouter);
+app.use("/registration", regRouter);
 
 //Обработка ошибок
 app.use((err, req, res, next) => {

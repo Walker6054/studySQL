@@ -18,7 +18,7 @@ exports.login = (request, response) => {
 exports.index = (request, response) => {
     let cookieUser = getCookie(request.rawHeaders);
 
-    if (cookieUser) {
+    if ((cookieUser != "")&&(cookieUser != "false")) {
         checkToken(cookieUser)
             .then((user) => {
                 response.render(pathDir + "/views/main.hbs",
@@ -76,14 +76,3 @@ function getCookie(req) {
     }
     return cookieUser;
 }
-
-
-
-
-// let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpbiI6IjEyMzQ1Njc4OTAiLCJpYXQiOjF9.jsgUE8CtX0zkPTwkxzbmUz8xDzT9a2sn1UdsSjFL8Ew";
-// console.log(token);
-// let user = {login: "1234567890" };
-// console.log(jwt.verify(token, "1"));
-// let token2 = jwt.sign(user, "1");
-// console.log(token2);
-// console.log(jwt.verify(token2, "1"));

@@ -1,0 +1,30 @@
+#buttonScroll {
+    display: none;
+    transition: 0.5s ease-in-out;
+    position: fixed;
+
+    bottom: 1vw;
+    right: 1vw;
+    z-index: 99;
+
+    background-color: transparent;
+    cursor: pointer;
+    border: none;
+    border-radius: 0.3vw;
+    width: 4vw;
+    height: 4vw;
+    transition: 0.3ss ease-in-out;
+    padding: 0px;
+}
+
+.logoScroll {
+    width: 3vw;
+    height: 3vw;
+    transition: 0.3s ease-in-out;
+}
+
+footer {
+    background-color: cadetblue;
+    color: white;
+    padding: 2vw;
+}

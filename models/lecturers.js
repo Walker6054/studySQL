@@ -8,12 +8,12 @@ exports.lecturers = (login) => {
     return connect.query("call get_lecturers('"+ login + "')");
 }
 
-exports.addLecturers = (login, password, f, i , o, institute) => {
-    return connect.query("call add_lecturers('"+ login + "', '"+ password + "', '"+ f + "', '"+ i + "', '"+ o + "', '"+ institute +"')");
+exports.addLecturers = (login, password, email, f, i , o, institute) => {
+    return connect.query("call add_lecturers('"+ login + "', '"+ password + "', '"+ email + "', '"+ f + "', '"+ i + "', '"+ o + "', '"+ institute +"')");
 }
 
-exports.updateLecturers = (id, login, password, f, i , o, institute) => {
-    return connect.query("call update_lecturers("+ id +", '" + login + "', '"+ password + "', '"+ f + "', '"+ i + "', '"+ o + "', '"+ institute +"')");
+exports.updateLecturers = (id, login, password, email, f, i , o, institute) => {
+    return connect.query("call update_lecturers("+ id +", '" + login + "', '"+ password + "', '"+ email + "', '"+ f + "', '"+ i + "', '"+ o + "', '"+ institute +"')");
 }
 
 exports.delLecturers = (id) => {

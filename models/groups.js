@@ -1,11 +1,11 @@
 const connect = require("./.connectDB");
 
 exports.allGroups = () => {
-    return connect.query("SELECT * from groups");
+    return connect.query("SELECT * from `groups`");
 }
 
 exports.groups = (id) => {
-    return connect.query("SELECT * from groups where idgroups = " + id);
+    return connect.query("SELECT * from `groups` where idgroups = " + id);
 }
 
 exports.addGroups = (shifr) => {
