@@ -3,6 +3,8 @@ const users = require("../models/users");
 const students = require("../models/students");
 const lecturers = require("../models/lecturers");
 const tests = require("../models/tests");
+const get_data = require("../models/get_data");
+const questions = require("../models/questions");
 const mailer = require("../mailer/mailer");
 
 //авторизация/регистрация/восстановление пароля
@@ -233,6 +235,80 @@ exports.del_test = async (request, response) => {
 exports.update_test = async (request, response) => {
     
 }
+exports.new_test = async (request, response) => {
+    let data = request.body;
+    console.log(data);
+
+    if (data.token != undefined) {
+        let verify;
+        await checkToken(data.token)
+            .then((res) => {
+                verify = res;
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+        if (verify) {
+            let flag_add_test;
+            await tests.addTests(verify.login, data.name, data.desc, data.maxTry)
+                .then((res) => {
+                    //console.log(res);
+                    flag_add_test = res[0].affectedRows;
+                })
+                .catch((err) => {
+                    console.log(err);
+                    response.status(801).send("Ошибка при добавлении теста!");
+                });
+            
+            if (flag_add_test != 0) {
+                let idtest;
+                await get_data.get_lecturer_tests(verify.login)
+                    .then((res) => {
+                        idtest = get_max_idtests(res[0][0]);
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    });
+                
+                for (let i = 0; i < data.questions.length; i++) {
+                    let flag_interactive;
+                    if (data.questions[i].interactive) {
+                        flag_interactive = 1;
+                    } else {
+                        flag_interactive = 0;
+                    }
+                    let rightAnswers = data.questions[i].rightAnswer.split("\n");
+                    rightAnswers.forEach((el) => {
+                        el = Number(el) - 1;
+                    })
+
+                    await questions.addQuestions(
+                        idtest,
+                        data.questions[i].formilation,
+                        JSON.stringify(data.questions[i].answers.split("\n")),
+                        JSON.stringify(rightAnswers),
+                        data.questions[i].comment,
+                        flag_interactive
+                    )
+                        .then((res) => {
+                            //console.log(res);
+                        })
+                        .catch((err) => {
+                            console.log(err);
+                            response.status(801).send("Ошибка при добавлении одного из вопросов!");
+                        })
+                    response.status(200).send("Тест успешно добавлен!");
+                }
+            } else {
+                response.status(801).send("Ошибка при добавлении теста!");
+            }
+        } else {
+            response.status(801).send("Ошибка в авторизации пользователя!");
+        }
+    } else {
+        response.status(801).send("Ошибка в авторизации пользователя!");
+    }
+}
 
 
 function sqlIniect(data) {
@@ -272,4 +348,16 @@ async function checkToken(token) {
             })
     }
     return final;
+}
+
+function get_max_idtests(data) {
+    let max = -1;
+    
+    for (let i = 0; i < data.length; i++){
+        if (data[i].idtests > max) {
+            max = data[i].idtests;
+        }
+    }
+
+    return max;
 }
