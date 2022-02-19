@@ -2,8 +2,10 @@ const jwt = require("jsonwebtoken");
 const users = require("../models/users");
 const students = require("../models/students");
 const lecturers = require("../models/lecturers");
+const tests = require("../models/tests");
 const mailer = require("../mailer/mailer");
 
+//авторизация/регистрация/восстановление пароля
 exports.reguser = async (request, response) => {
     let data = request.body;
     let sqlIn = sqlIniect(data);
@@ -72,7 +74,6 @@ exports.reguser = async (request, response) => {
         }
     }
 }
-
 exports.loguser = async (request, response) => {
     let data = request.body;
     console.log(data);
@@ -106,7 +107,6 @@ exports.loguser = async (request, response) => {
         }
     }
 }
-
 exports.forgotpass = async (request, response) => {
     let data = request.body;
     console.log(data);
@@ -154,7 +154,6 @@ exports.forgotpass = async (request, response) => {
         }
     }
 }
-
 exports.recoverypass = async (request, response) => {
     let data = request.body;
     console.log(data);
@@ -197,6 +196,44 @@ exports.recoverypass = async (request, response) => {
     }
 }
 
+//раздел тестов
+exports.del_test = async (request, response) => {
+    let data = request.body;
+    console.log(data);
+
+    if (data.token != undefined) {
+        let verify;
+        await checkToken(data.token)
+            .then((res) => {
+                verify = res;
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+        if (verify) {
+            await tests.delTests(data.id)
+                .then((res) => {
+                    if (res[0].affectedRows > 0) {
+                        response.status(200).send("Тест успешно удален!");
+                    } else {
+                        response.status(801).send("Ошибка при удалении теста");
+                    }
+                })
+                .catch((err) => {
+                    console.log(err);
+                    response.status(801).send("Ошибка при удалении теста");
+                });
+        } else {
+            response.status(801).send("Ошибка в авторизации пользователя!");
+        }
+    } else {
+        response.status(801).send("Ошибка в авторизации пользователя!");
+    }
+}
+exports.update_test = async (request, response) => {
+    
+}
+
 
 function sqlIniect(data) {
     let flag = false;
@@ -218,4 +255,21 @@ function sqlIniect(data) {
     });
     
     return flag;
+}
+
+async function checkToken(token) {
+    let user = jwt.decode(token);
+    let userDB;
+    let final = false;
+    if (user) {
+        await users.users(user.login)
+            .then((res) => {
+                userDB = res[0][0][0];
+                final = jwt.verify(token, userDB.idusers.toString());
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+    }
+    return final;
 }

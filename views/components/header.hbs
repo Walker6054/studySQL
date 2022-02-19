@@ -1,11 +1,10 @@
 <header>
     {{#if viewHeader}}
-    <!-- НАВИГАЦИОННАЯ ПАНЕЛЬ -->
-    <nav class="navbar navbar-light bg-light fixed-top">
+    <nav class="navbar navbar-light bg-light">
         <div class="container">
-            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar">
+            {{!-- <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar">
                 <span class="navbar-toggler-icon"></span>
-            </button>
+            </button> --}}
             <a class="navbar-brand" href="#" onclick="window.location=window.location.origin">{{headPage}}</a>
 
             <div class="rowUser">
@@ -13,7 +12,9 @@
                     <button class="btn btn-outline-secondary dropdown-toggle btnUser" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown">{{userName}}</button>
                     <ul class="dropdown-menu dropdown-menu-secondary">
                         <li><a onclick="window.location=window.location.origin+''" class="dropdown-item" href="#">Личный кабинет</a></li>
-                        <li><a onclick="window.location=window.location.origin+''" class="dropdown-item" href="#">Оценки</a></li>
+                        {{#if student}}
+                            <li><a onclick="window.location=window.location.origin+''" class="dropdown-item" href="#">Оценки</a></li>
+                        {{/if}}
                         <li>
                             <hr class="dropdown-divider" />
                         </li>
@@ -22,7 +23,7 @@
                 </div>
             </div>      
 
-            <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar">
+            {{!-- <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar">
                 <div class="offcanvas-header">
                     <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Навигация</h5>
                     <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"></button>
@@ -48,8 +49,19 @@
                         </li>
                     </ul>
                 </div>
-            </div>
+            </div> --}}
         </div>
+    </nav>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            {{#each breadcrumb}}
+                {{#if this.active}}
+                    <li class="breadcrumb-item active">{{this.title}}</li>
+                {{else}}
+                    <li class="breadcrumb-item"><a href="{{this.href}}">{{this.title}}</a></li>
+                {{/if}}
+            {{/each}}
+        </ol>
     </nav>
     {{/if}}
 </header>

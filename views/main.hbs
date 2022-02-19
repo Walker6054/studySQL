@@ -1,2 +1,40 @@
 <div class="container">
+    {{#if lecturer}}
+        <div class="card border-info mb-3">
+            <div class="card-header">
+                <h5 class="card-title">Тесты</h5>
+            </div>
+            <div class="card-body">
+                <p class="card-text">
+                    <a href = "/tests/">Перейти к списку тестов</a>
+                </p>
+            </div>
+        </div>
+        <div class="card border-info mb-3">
+            <div class="card-header">
+                <h5 class="card-title">Тесты прикрепленные к группам</h5>
+            </div>
+            <div class="card-body">
+                <p class="card-text">
+                    <a href = "/tests/group_test">Перейти к списку группа-тест</a>
+                </p>
+            </div>
+        </div>
+        <div class="card border-info mb-3">
+            <div class="card-header">
+                <h5 class="card-title">Результаты тестирования групп</h5>
+            </div>
+            <div class="card-body">
+                <p class="card-text">
+                    <a href = "/tests/result">Перейти к списку результаты тестирования</a>
+                </p>
+            </div>
+        </div>
+    {{/if}}
+    {{#if student}}
+
+    {{/if}}
+    {{#if admin}}
+
+    {{/if}}
 </div>

@@ -1,0 +1,7 @@
+#add_test {
+}
+
+.col_add_test {
+    display: flex;
+    flex-direction: column;
+}

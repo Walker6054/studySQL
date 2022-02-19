@@ -3,44 +3,86 @@ const pathDir = path.dirname(__dirname);
 const jwt = require("jsonwebtoken");
 
 const users = require("../models/users");
+const get_data = require("../models/get_data");
 
 exports.login = (request, response) => {
     let cookieUser = getCookie(request.rawHeaders);
-    response.render(pathDir + "/views/login.hbs",
-        {
-            title: "Основы SQL",
-            page: "login",
-            view: false
-        }
-    );
+
+    if ((cookieUser != "") && (cookieUser != "false")) {
+        response.redirect("/");
+    } else {
+        response.render(pathDir + "/views/login.hbs",
+            {
+                title: "Основы SQL",
+                page: "login",
+                view: false
+            }
+        );
+    }
 }
 
-exports.index = (request, response) => {
+exports.index = async (request, response) => {
     let cookieUser = getCookie(request.rawHeaders);
 
-    if ((cookieUser != "")&&(cookieUser != "false")) {
-        checkToken(cookieUser)
-            .then((user) => {
-                response.render(pathDir + "/views/main.hbs",
-                    {
-                        title: "Основы SQL",
-                        headPage: 'Образовательная системаа "Основы SQL"',
-                        userName: user.login,
-                        page: "main",
-                        viewHeader: true
-                    }
-                );
+    if ((cookieUser != "") && (cookieUser != "false")) {
+        let user;
+        await checkToken(cookieUser)
+            .then((res) => {
+                user = res;
             })
             .catch((err) => {
                 console.log(err);
             });
+        
+        let type;
+        await get_data.return_type_user(user.login)
+            .then((res) => {
+                type = Object.values(res[0][0])[0];
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+        
+        let flagStudent = false;
+        let flagLecturer = false;
+        let flagAdmin = false;
+        switch (type) {
+            case "student":
+                flagStudent = true;
+                break;
+            case "lecturer":
+                flagLecturer = true;
+                break;
+            case "admin":
+                flagAdmin = true;
+                break;
+        }
+
+        //инициализация пути
+        let breadcrumb = Array();
+        breadcrumb.push({
+            title: "Главная",
+            href: "/",
+            active: "active"
+        })
+
+        response.render(pathDir + "/views/main.hbs",
+            {
+                title: "Основы SQL",
+                headPage: 'Образовательная система "Основы SQL"',
+                userName: user.login,
+                page: "main",
+                viewHeader: true,
+                student: flagStudent,
+                lecturer: flagLecturer,
+                admin: flagAdmin,
+                breadcrumb: breadcrumb
+            }
+        );
     } else {
         response.redirect("/login");
     }
 };
-
-
-
 
 
 async function checkToken(token) {
