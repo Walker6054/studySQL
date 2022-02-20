@@ -14,7 +14,7 @@ apiRouter.post('/api-recoverypass', parser, apiController.recoverypass);
 
 //раздел тестов
 apiRouter.post('/api-del_test', parser, apiController.del_test);
-apiRouter.post('/api-update_test', parser, apiController.update_test);
 apiRouter.post('/api-new_test', parser, apiController.new_test);
+apiRouter.post('/api-update_test', parser, apiController.update_test);
 
 module.exports = apiRouter;

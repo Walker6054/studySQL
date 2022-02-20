@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 
 const users = require("../models/users");
 const get_data = require("../models/get_data");
+const tests = require('../models/tests');
 
 exports.index = async (request, response) => {
     let cookieUser = getCookie(request.rawHeaders);
@@ -52,7 +53,7 @@ exports.index = async (request, response) => {
 
         //инициализация пути
         let breadcrumb = Array();
-        breadcrumb.push({ title: "Главная", href: "/", active: false });
+        breadcrumb.push({ title: "Главная", href: "", active: false });
         breadcrumb.push({ title: "Тесты", href: "/tests", active: true });
 
         response.render(pathDir + "/views/tests/tests.hbs",
@@ -60,7 +61,7 @@ exports.index = async (request, response) => {
                 title: "Основы SQL",
                 headPage: 'Образовательная система "Основы SQL"',
                 userName: user.login,
-                page: "tests",
+                page: "tests/tests",
                 viewHeader: true,
                 student: flagStudent,
                 lecturer: flagLecturer,
@@ -120,23 +121,27 @@ exports.new_test = async (request, response) => {
 
         //инициализация пути
         let breadcrumb = Array();
-        breadcrumb.push({ title: "Главная", href: "/", active: false });
+        breadcrumb.push({ title: "Главная", href: "", active: false });
         breadcrumb.push({ title: "Тесты", href: "/tests", active: false });
         breadcrumb.push({ title: "Создание теста", href: "/tests/new_test", active: true });
 
-        response.render(pathDir + "/views/tests/new_test.hbs",
-            {
-                title: "Основы SQL",
-                headPage: 'Образовательная система "Основы SQL"',
-                userName: user.login,
-                page: "new_test",
-                viewHeader: true,
-                student: flagStudent,
-                lecturer: flagLecturer,
-                admin: flagAdmin,
-                breadcrumb: breadcrumb
-            }
-        );
+        if (flagStudent) {
+            response.redirect("/tests");
+        } else {
+            response.render(pathDir + "/views/tests/new_test.hbs",
+                {
+                    title: "Основы SQL",
+                    headPage: 'Образовательная система "Основы SQL"',
+                    userName: user.login,
+                    page: "tests/new_test",
+                    viewHeader: true,
+                    student: flagStudent,
+                    lecturer: flagLecturer,
+                    admin: flagAdmin,
+                    breadcrumb: breadcrumb
+                }
+            );
+        }
     } else {
         response.redirect("/login");
     }
@@ -144,6 +149,7 @@ exports.new_test = async (request, response) => {
 
 exports.update_test = async (request, response) => {
     let cookieUser = getCookie(request.rawHeaders);
+    let idtest = request.url.split("=")[1];
 
     if ((cookieUser != "") && (cookieUser != "false")) {
         let user;
@@ -181,27 +187,76 @@ exports.update_test = async (request, response) => {
 
         //инициализация пути
         let breadcrumb = Array();
-        breadcrumb.push({ title: "Главная", href: "/", active: "" });
-        breadcrumb.push({ title: "Тесты", href: "/tests", active: "disabled" });
+        breadcrumb.push({ title: "Главная", href: "", active: false });
+        breadcrumb.push({ title: "Тесты", href: "/tests", active: false });
+        breadcrumb.push({ title: "Изменение теста", href: "update_test", active: true });
 
         if (flagStudent) {
-            response.redirect("/");
+            response.redirect("/tests");
         } else {
-            response.render(pathDir + "/views/tests/tests.hbs",
-                {
-                    title: "Основы SQL",
-                    headPage: 'Образовательная система "Основы SQL"',
-                    userName: user.login,
-                    page: "tests",
-                    viewHeader: true,
-                    student: flagStudent,
-                    lecturer: flagLecturer,
-                    admin: flagAdmin,
-                    breadcrumb: breadcrumb
+            let test;
+            let all_questions_res;
+            await tests.tests(idtest)
+                .then((res) => {
+                    test = res[0][0];
+                })
+                .catch((err) => {
+                    console.log(err);
+                })
+            await get_data.get_questions_test(idtest)
+                .then((res) => {
+                    all_questions_res = res[0][0];
+                })
+                .catch((err) => {
+                    console.log(err);
+                })
+            
+            if ((test == undefined) || (all_questions_res.length == 0)) {
+                response.redirect("/tests/");
+            } else {
+                let all_questions = Array();
+                for (let i = 0; i < all_questions_res.length; i++) {
+                    let answers = all_questions_res[i].answers[0];
+                    for (let j = 1; j < all_questions_res[i].answers.length; j++){
+                        answers += "\n" + all_questions_res[i].answers[j];
+                    }
+                    let ranswers = all_questions_res[i].rightAnswer[0];
+                    for (let j = 1; j < all_questions_res[i].rightAnswer.length; j++){
+                        ranswers += "\n" + all_questions_res[i].rightAnswer[j];
+                    }
+                    let interactive = "";
+                    let hidden = "";
+                    if (all_questions_res[i].interactive == 1) {
+                        interactive = "checked";
+                        hidden = "hidden";
+                    }
+                    let temp = {
+                        formulation: all_questions_res[i].formulation,
+                        comment: all_questions_res[i].comment,
+                        answers: answers,
+                        rightAnswer: ranswers,
+                        interactive: interactive,
+                        hidden: hidden
+                    }
+                    all_questions.push(temp);
                 }
-            );
-        }
 
+                response.render(pathDir + "/views/tests/update_test.hbs",
+                    {
+                        title: "Основы SQL",
+                        headPage: 'Образовательная система "Основы SQL"',
+                        userName: user.login,
+                        page: "tests/update_test",
+                        viewHeader: true,
+                        lecturer: flagLecturer,
+                        admin: flagAdmin,
+                        breadcrumb: breadcrumb,
+                        test: test,
+                        questions: all_questions
+                    }
+                );
+            }
+        }
     } else {
         response.redirect("/login");
     }
@@ -252,7 +307,7 @@ exports.group_test = async (request, response) => {
                     title: "Основы SQL",
                     headPage: 'Образовательная система "Основы SQL"',
                     userName: user.login,
-                    page: "group_test",
+                    page: "tests/group_test",
                     viewHeader: true,
                     lecturer: flagLecturer,
                     admin: flagAdmin
@@ -305,7 +360,7 @@ exports.result_tests = async (request, response) => {
                 title: "Основы SQL",
                 headPage: 'Образовательная система "Основы SQL"',
                 userName: user.login,
-                page: "result_tests",
+                page: "tests/result_tests",
                 viewHeader: true,
                 student: flagStudent,
                 lecturer: flagLecturer,

@@ -1,4 +1,4 @@
-let button_new_test = document.getElementById("button_new_test");
+let button_update_test = document.getElementById("button_update_test");
 let inputName = document.getElementById("inputName"); 
 let inputDesc = document.getElementById("inputDesc");
 let inputMaxTry = document.getElementById("inputMaxTry");
@@ -7,11 +7,17 @@ let button_add_question = document.getElementById("button_add_question");
 let block_to_add = document.getElementById("add_question");
 let rowQuestions_pattern = document.getElementById("rowQuestions_pattern");
 
-//слушатели первого вопроса
-let button_del_question_first = document.getElementsByClassName("button_del_question")[1];
-button_del_question_first.addEventListener("click", del_question);
-let checkInteractive_first = document.getElementsByClassName("checkInteractive")[1];
-checkInteractive_first.addEventListener("change", listen_interactive);
+//добавление слушателей после загрузки
+let rowQuestions_first = document.getElementsByClassName("rowQuestions");
+for (let i = 0; i < rowQuestions_first.length; i++) {
+    rowQuestions_first[i].getElementsByClassName("card-title")[0].innerHTML = "Вопрос " + (i + 1);
+
+    let checkInteractive = rowQuestions_first[i].getElementsByClassName("checkInteractive")[0];
+    checkInteractive.addEventListener("change", listen_interactive);
+
+    let button_del_question = rowQuestions_first[i].getElementsByClassName("button_del_question")[0];
+    button_del_question.addEventListener("click", del_question);
+}
 
 //слушатели добавления вопросов
 button_add_question.addEventListener("click", add_question);
@@ -60,7 +66,7 @@ function del_question() {
 
 
 
-button_new_test.addEventListener("click", validation)
+button_update_test.addEventListener("click", validation)
 function validation() {
     let flag = false;
 
@@ -70,6 +76,7 @@ function validation() {
         inputName.setAttribute("class", "form-control is-invalid");
         flag = true;
     }
+
     if (inputDesc.value) {
         inputDesc.setAttribute("class", "form-control is-valid");
     } else {
@@ -92,21 +99,26 @@ function validation() {
             inputFormulation.setAttribute("class", "form-control inputFormulation is-invalid");
             flag = true;
         }
+
         if (inputComment.value) {
             inputComment.setAttribute("class", "form-control inputComment is-valid");
         } else {
             inputComment.setAttribute("class", "form-control inputComment is-invalid");
             flag = true;
         }
+
         if (inputVariants.value) {
             inputVariants.setAttribute("class", "form-control inputVariants is-valid");
         } else {
             inputVariants.setAttribute("class", "form-control inputVariants is-invalid");
             flag = true;
         }
+
         if (inputRA.value && !checkInteractive.checked) {
             inputRA.setAttribute("class", "form-control inputRA is-valid");
-        } else {
+        }
+
+        if (!inputRA.value && !checkInteractive.checked) {
             inputRA.setAttribute("class", "form-control inputRA is-invalid");
             flag = true;
         }
@@ -122,36 +134,37 @@ function validation() {
 
     if (!flag) {
         let test = {
+            id: window.location.pathname.split("=")[1],
             name: inputName.value,
             desc: inputDesc.value,
             maxTry: inputMaxTry.value,
             questions: questions,
             token: ""
         }
-        processAdd(test);
+        processUpdate(test);
     }
 }
 
-function processAdd(test) {
+function processUpdate(test) {
     let token = getCookie("C0o1o2k3i4e5L6o7g8i9n10U11s12e13r14");
     test.token = token;
 
-    let add_test_req = new XMLHttpRequest();
-        add_test_req.open("post", "/api/api-new_test", true);    
-        add_test_req.setRequestHeader(
+    let update_test_req = new XMLHttpRequest();
+        update_test_req.open("post", "/api/api-update_test", true);    
+        update_test_req.setRequestHeader(
             'Content-Type',
             'application/json'
         )
-    add_test_req.send(JSON.stringify(test));
+    update_test_req.send(JSON.stringify(test));
     
-    add_test_req.onload = () => {
-        if (add_test_req.status == 200) {
+    update_test_req.onload = () => {
+        if (update_test_req.status == 200) {
             setTimeout(() => {
-                alert(add_test_req.responseText);
-                window.location = window.location.origin + "/tests";
+                alert(update_test_req.responseText);
+                window.location = window.location.origin + "/tests/";
             }, 50);
         } else {
-            alert(add_test_req.responseText);
+            alert(update_test_req.responseText);
         }
     };
 }

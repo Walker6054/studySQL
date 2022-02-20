@@ -1,0 +1,17 @@
+.needed {
+    color: red;
+}
+
+.colButton {
+    display: flex;
+    flex-direction: column;
+}
+
+.card-body {
+    padding: 0;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+}

@@ -233,7 +233,81 @@ exports.del_test = async (request, response) => {
     }
 }
 exports.update_test = async (request, response) => {
-    
+    let data = request.body;
+    console.log(data);
+
+    if (data.token != undefined) {
+        let verify;
+        await checkToken(data.token)
+            .then((res) => {
+                verify = res;
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+        if (verify) {
+            let flag_add_test;
+            await tests.updateTests(Number(data.id), verify.login, data.name, data.desc, data.maxTry)
+                .then((res) => {
+                    flag_add_test = res[0].affectedRows;
+                })
+                .catch((err) => {
+                    console.log(err);
+                    response.status(801).send("Ошибка при изменении теста!");
+                });
+            
+            if (flag_add_test != 0) {
+
+                let old_questions;
+                await get_data.get_questions_test(data.id)
+                    .then((res) => {
+                        old_questions = res[0][0];
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    })
+                for (let i = 0; i < old_questions.length; i++) {
+                    await questions.delQuestions(old_questions[i].idquestions)
+                        .catch((err) => {
+                            console.log(err);
+                        })
+                }
+                 
+                for (let i = 0; i < data.questions.length; i++) {
+                    let flag_interactive;
+                    if (data.questions[i].interactive) {
+                        flag_interactive = 1;
+                    } else {
+                        flag_interactive = 0;
+                    }
+                    let rightAnswers = data.questions[i].rightAnswer.split("\n");
+                    rightAnswers.forEach((el) => {
+                        el = Number(el) - 1;
+                    })
+
+                    await questions.addQuestions(
+                        data.id,
+                        data.questions[i].formilation,
+                        JSON.stringify(data.questions[i].answers.split("\n")),
+                        JSON.stringify(rightAnswers),
+                        data.questions[i].comment,
+                        flag_interactive
+                    )
+                        .catch((err) => {
+                            console.log(err);
+                            response.status(801).send("Ошибка при изменении одного из вопросов!");
+                        })
+                    response.status(200).send("Тест успешно изменен!");
+                }
+            } else {
+                response.status(801).send("Ошибка при изменении теста!");
+            }
+        } else {
+            response.status(801).send("Ошибка в авторизации пользователя!");
+        }
+    } else {
+        response.status(801).send("Ошибка в авторизации пользователя!");
+    }
 }
 exports.new_test = async (request, response) => {
     let data = request.body;
@@ -278,6 +352,7 @@ exports.new_test = async (request, response) => {
                         flag_interactive = 0;
                     }
                     let rightAnswers = data.questions[i].rightAnswer.split("\n");
+                    //попробовать потом исправить конструкцию
                     rightAnswers.forEach((el) => {
                         el = Number(el) - 1;
                     })
