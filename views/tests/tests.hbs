@@ -29,10 +29,42 @@
             </div>
         </div>
     {{/if}}
+
     {{#if student}}
 
     {{/if}}
-    {{#if admin}}
 
+    {{#if admin}}
+        <div class="row row-cols-2">
+            {{#each tests}}
+                <div class="col">
+                    <div class="card border-info mb-3">
+                        <div class="card-header">
+                            <h5 class="card-title">{{this.name}}</h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">
+                                Описание: {{this.desc}}
+                            </p>
+                            <p class="card-text">
+                                Максимальное число попыток: {{this.maxTry}}
+                            </p>
+                            <p class="card-text">
+                                Добавлено: {{this.login}} {{this.f}} {{this.i}} {{this.o}}
+                            </p>
+                        </div>
+                        <div class="card-footer">
+                            <button type="button" class="btn btn-outline-info button_update_test" name="{{this.idtests}}">Редактировать</button>
+                            <button type="button" class="btn btn-outline-danger button_del_test" name="{{this.idtests}}">Удалить</button>
+                        </div>
+                    </div>
+                </div>
+            {{/each}}
+        </div>
+        <div class="row">
+            <div class="col-6 col_add_test">
+                <button type="button" class="btn btn-outline-success" id="button_new_test">Создать тест</button>
+            </div>
+        </div>
     {{/if}}
 </div>

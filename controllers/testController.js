@@ -5,6 +5,7 @@ const jwt = require("jsonwebtoken");
 const users = require("../models/users");
 const get_data = require("../models/get_data");
 const tests = require('../models/tests');
+const console = require('console');
 
 exports.index = async (request, response) => {
     let verify = await get_cookie_check_user(request.rawHeaders);
@@ -53,6 +54,13 @@ exports.index = async (request, response) => {
                 );
                 break;
             case "admin":
+                await get_data.get_tests()
+                    .then((res) => {
+                        test_user = res[0][0];
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    })
                 response.render(pathDir + "/views/tests/tests.hbs",
                     {
                         title: "Основы SQL",

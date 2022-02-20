@@ -23,3 +23,7 @@ exports.get_lecturers_groups = (login) => {
 exports.return_type_user = (login) => {
     return connect.query("select return_type_user('" + login + "')");
 }
+
+exports.get_tests = () => {
+    return connect.query("call get_tests()");
+}
