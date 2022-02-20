@@ -1,0 +1,233 @@
+<div class="container">
+    {{#if lecturer}}
+        <div class="row rowHeader">
+            <h2 class="mainHeader" name="{{type}}">Личный кабинет - Преподаватель</h2>
+        </div>
+        <form class="row rowForm needs-validation" novalidate>
+            <div class="row rowForm mb-3">
+                <div class="col-6 colForm">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" id="inputLogin" value="{{lect_info.login}}" placeholder=" " />
+                        <label for="inputLogin">Логин</label>
+                        <div class="invalid-feedback">Обязательно к заполнению!</div>
+                    </div>
+                </div>
+                <div class="col-6 colForm">
+                    <div class="form-floating">
+                        <input type="password" class="form-control" id="inputOldPass" placeholder=" " />
+                        <label for="inputOldPass">Старый пароль</label>
+                        <div class="invalid-feedback">Обязательно к заполнению!</div>
+                    </div>
+                </div>
+            </div>
+            <div class="row rowForm mb-3">
+                <div class="col-6 colForm">
+                    <div class="form-floating">
+                        <input type="email" class="form-control" id="inputEmail" value="{{lect_info.email}}" placeholder=" " />
+                        <label for="inputEmail">Email</label>
+                        <div class="invalid-feedback">Обязательно к заполнению!</div>
+                    </div>
+                </div>
+                <div class="col-6 colForm">
+                    <div class="form-floating">
+                        <input type="password" class="form-control" id="inputNewPass" placeholder=" " />
+                        <label for="inputNewPass">Новый пароль</label>
+                        <div class="invalid-feedback">Обязательно к заполнению!</div>
+                    </div>
+                </div>
+            </div>
+            <div class="row rowForm mb-3">
+                <div class="col-6 colForm">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" id="inputF" value="{{lect_info.f}}" placeholder=" " />
+                        <label for="inputF">Фамилия</label>
+                        <div class="invalid-feedback"> Обязательно к заполнению! </div>
+                    </div>
+                </div>
+                <div class="col-6 colForm">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="checkPass" />
+                        <label class="form-check-label" for="checkPass"> Показать пароль </label>
+                    </div>
+                </div>
+            </div>
+            <div class="row rowForm mb-3">
+                <div class="col-6 colForm">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" id="inputI" value="{{lect_info.i}}" placeholder=" " />
+                        <label for="inputI">Имя</label>
+                        <div class="invalid-feedback"> Обязательно к заполнению! </div>
+                    </div>
+                </div>
+                <div class="col-6 colForm"></div>
+            </div>
+            <div class="row rowForm mb-3">
+                <div class="col-6 colForm">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" id="inputO" value="{{lect_info.o}}" placeholder=" " />
+                        <label for="inputO">Отчество</label>
+                    </div>
+                </div>
+                <div class="col-6 colForm"></div>
+            </div>
+            <div class="row rowForm mb-3">
+                <div class="col-6 colForm">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" id="inputInst" value="{{lect_info.institute}}" placeholder=" " />
+                        <label for="inputInst">Институт</label>
+                        <div class="invalid-feedback"> Обязательно к заполнению! </div>
+                    </div>
+                </div>
+                <div class="col-6 colForm"></div>
+            </div>
+            <div class="row rowForm mb-3">
+                <div class="col-6 colButton">
+                    <button type="button" id="buttonUpdate" class="btn btn-outline-success">Изменить данные</button>
+                </div>
+            </div>
+        </form>
+    {{/if}}
+
+    {{#if student}}
+        <div class="row rowHeader">
+            <h2 class="mainHeader" name="{{type}}">Личный кабинет - Студент</h2>
+        </div>
+        <form class="row rowForm needs-validation" novalidate>
+            <div class="row rowForm mb-3">
+                <div class="col-6 colForm">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" id="inputLogin" value="{{student_info.login}}" placeholder=" " />
+                        <label for="inputLogin">Логин</label>
+                        <div class="invalid-feedback">Обязательно к заполнению!</div>
+                    </div>
+                </div>
+                <div class="col-6 colForm">
+                    <div class="form-floating">
+                        <input type="password" class="form-control" id="inputOldPass" placeholder=" " />
+                        <label for="inputOldPass">Старый пароль</label>
+                        <div class="invalid-feedback">Обязательно к заполнению!</div>
+                    </div>
+                </div>
+            </div>
+            <div class="row rowForm mb-3">
+                <div class="col-6 colForm">
+                    <div class="form-floating">
+                        <input type="email" class="form-control" id="inputEmail" value="{{student_info.email}}" placeholder=" " />
+                        <label for="inputEmail">Email</label>
+                        <div class="invalid-feedback">Обязательно к заполнению!</div>
+                    </div>
+                </div>
+                <div class="col-6 colForm">
+                    <div class="form-floating">
+                        <input type="password" class="form-control" id="inputNewPass" placeholder=" " />
+                        <label for="inputNewPass">Новый пароль</label>
+                        <div class="invalid-feedback">Обязательно к заполнению!</div>
+                    </div>
+                </div>
+            </div>
+            <div class="row rowForm mb-3">
+                <div class="col-6 colForm">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" id="inputF" value="{{student_info.f}}" placeholder=" " />
+                        <label for="inputF">Фамилия</label>
+                        <div class="invalid-feedback"> Обязательно к заполнению! </div>
+                    </div>
+                </div>
+                <div class="col-6 colForm">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="checkPass" />
+                        <label class="form-check-label" for="checkPass"> Показать пароль </label>
+                    </div>
+                </div>
+            </div>
+            <div class="row rowForm mb-3">
+                <div class="col-6 colForm">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" id="inputI" value="{{student_info.i}}" placeholder=" " />
+                        <label for="inputI">Имя</label>
+                        <div class="invalid-feedback"> Обязательно к заполнению! </div>
+                    </div>
+                </div>
+                <div class="col-6 colForm"></div>
+            </div>
+            <div class="row rowForm mb-3">
+                <div class="col-6 colForm">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" id="inputO" value="{{student_info.o}}" placeholder=" " />
+                        <label for="inputO">Отчество</label>
+                    </div>
+                </div>
+                <div class="col-6 colForm"></div>
+            </div>
+            <div class="row rowForm mb-3">
+                <div class="col-6 colForm">
+                    <div class="form-floating">
+                        <input class="form-control" type="text" value="{{student_info.shifr}}" placeholder=" " id="inputGroup" disabled readonly>
+                        <label for="inputGroup">Группа</label>
+                        <div class="invalid-feedback"> Обязательно к заполнению! </div>
+                    </div>
+                </div>
+                <div class="col-6 colForm"></div>
+            </div>
+            <div class="row rowForm mb-3">
+                <div class="col-6 colButton">
+                    <button type="button" id="buttonUpdate" class="btn btn-outline-success">Изменить данные</button>
+                </div>
+            </div>
+        </form>
+    {{/if}}
+
+    {{#if admin}}
+        <div class="row rowHeader">
+            <h2 class="mainHeader" name="{{type}}">Личный кабинет - Администратор</h2>
+        </div>
+        <form class="row rowForm needs-validation" novalidate>
+            <div class="row rowForm mb-3">
+                <div class="col-6 colForm">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" id="inputLogin" value="{{student_info.login}}" placeholder=" " />
+                        <label for="inputLogin">Логин</label>
+                        <div class="invalid-feedback">Обязательно к заполнению!</div>
+                    </div>
+                </div>
+                <div class="col-6 colForm">
+                    <div class="form-floating">
+                        <input type="password" class="form-control" id="inputOldPass" placeholder=" " />
+                        <label for="inputOldPass">Старый пароль</label>
+                        <div class="invalid-feedback">Обязательно к заполнению!</div>
+                    </div>
+                </div>
+            </div>
+            <div class="row rowForm mb-3">
+                <div class="col-6 colForm">
+                    <div class="form-floating">
+                        <input type="email" class="form-control" id="inputEmail" value="{{student_info.email}}" placeholder=" " />
+                        <label for="inputEmail">Email</label>
+                        <div class="invalid-feedback">Обязательно к заполнению!</div>
+                    </div>
+                </div>
+                <div class="col-6 colForm">
+                    <div class="form-floating">
+                        <input type="password" class="form-control" id="inputNewPass" placeholder=" " />
+                        <label for="inputNewPass">Новый пароль</label>
+                        <div class="invalid-feedback">Обязательно к заполнению!</div>
+                    </div>
+                </div>
+            </div>
+            <div class="row rowForm mb-3">
+                <div class="col-6 colForm"></div>
+                <div class="col-6 colForm">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="checkPass" />
+                        <label class="form-check-label" for="checkPass"> Показать пароль </label>
+                    </div>
+                </div>
+            </div>
+            <div class="row rowForm mb-3">
+                <div class="col-6 colButton">
+                    <button type="button" id="buttonUpdate" class="btn btn-outline-success">Изменить данные</button>
+                </div>
+            </div>
+        </form>
+    {{/if}}
+</div>

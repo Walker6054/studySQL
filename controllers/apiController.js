@@ -134,7 +134,7 @@ exports.forgotpass = async (request, response) => {
                     email: exists.email
                 }, exists.idusers.toString());
 
-                await mailer.sendMail(exists.email, exists.login, "forgot", "localhost:3000/registration/recoveryPass=" + token)
+                await mailer.sendMail(exists.email, exists.login, "forgot", '<a href="http://localhost:3000/registration/recoveryPass=' + token + '">')
                     .then((res) => {
                         switch (res) {
                             case true:
@@ -235,10 +235,10 @@ exports.update_test = async (request, response) => {
             })
             .catch((err) => {
                 console.log(err);
-                response.status(801).send("Ошибка при изменении теста!");
+                flag_add_test = false;
             });
         
-        if (flag_add_test != 0) {
+        if ((flag_add_test != 0) && (flag_add_test != false)) {
 
             let old_questions;
             await get_data.get_questions_test(data.id)
@@ -254,7 +254,8 @@ exports.update_test = async (request, response) => {
                         console.log(err);
                     })
             }
-                
+            
+            let proc_is_ok = true;
             for (let i = 0; i < data.questions.length; i++) {
                 let flag_interactive;
                 if (data.questions[i].interactive) {
@@ -277,9 +278,14 @@ exports.update_test = async (request, response) => {
                 )
                     .catch((err) => {
                         console.log(err);
-                        response.status(801).send("Ошибка при изменении одного из вопросов!");
+                        proc_is_ok = false;
+                        
                     })
-                response.status(200).send("Тест успешно изменен!");
+            }
+            if (proc_is_ok) {
+                response.status(200).send("Тест успешно добавлен!");
+            } else {
+                response.status(801).send("Ошибка при добавлении одного из вопросов!");
             }
         } else {
             response.status(801).send("Ошибка при изменении теста!");
@@ -301,10 +307,10 @@ exports.new_test = async (request, response) => {
             })
             .catch((err) => {
                 console.log(err);
-                response.status(801).send("Ошибка при добавлении теста!");
+                flag_add_test = false;
             });
         
-        if (flag_add_test != 0) {
+        if ((flag_add_test != 0) && (flag_add_test != false)) {
             let idtest;
             await get_data.get_lecturer_tests(verify.login)
                 .then((res) => {
@@ -314,6 +320,7 @@ exports.new_test = async (request, response) => {
                     console.log(err);
                 });
             
+            let proc_is_ok = true;
             for (let i = 0; i < data.questions.length; i++) {
                 let flag_interactive;
                 if (data.questions[i].interactive) {
@@ -335,13 +342,16 @@ exports.new_test = async (request, response) => {
                     data.questions[i].comment,
                     flag_interactive
                 )
-                    .then((res) => {
-                        response.status(200).send("Тест успешно добавлен!");
-                    })
                     .catch((err) => {
                         console.log(err);
-                        response.status(801).send("Ошибка при добавлении одного из вопросов!");
+                        proc_is_ok = false;
+                        
                     })
+            }
+            if (proc_is_ok) {
+                response.status(200).send("Тест успешно добавлен!");
+            } else {
+                response.status(801).send("Ошибка при добавлении одного из вопросов!");
             }
         } else {
             response.status(801).send("Ошибка при добавлении теста!");

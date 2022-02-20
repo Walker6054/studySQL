@@ -2,54 +2,23 @@
     {{#if viewHeader}}
     <nav class="navbar navbar-light bg-light">
         <div class="container">
-            {{!-- <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar">
-                <span class="navbar-toggler-icon"></span>
-            </button> --}}
             <a class="navbar-brand" href="#" onclick="window.location=window.location.origin">{{headPage}}</a>
 
             <div class="rowUser">
                 <div class="dropdown">
                     <button class="btn btn-outline-secondary dropdown-toggle btnUser" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown">{{userName}}</button>
                     <ul class="dropdown-menu dropdown-menu-secondary">
-                        <li><a onclick="window.location=window.location.origin+''" class="dropdown-item" href="#">Личный кабинет</a></li>
+                        <li {{lk}}><a class="dropdown-item" href="/lk">Личный кабинет</a></li>
                         {{#if student}}
-                            <li><a onclick="window.location=window.location.origin+''" class="dropdown-item" href="#">Оценки</a></li>
+                            <li><a class="dropdown-item" href="#">Оценки</a></li>
                         {{/if}}
-                        <li>
+                        <li {{lk}}>
                             <hr class="dropdown-divider" />
                         </li>
                         <li><button id="buttonLogOut" class="dropdown-item">Выйти</button></li>
                     </ul>
                 </div>
             </div>      
-
-            {{!-- <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar">
-                <div class="offcanvas-header">
-                    <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Навигация</h5>
-                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"></button>
-                </div>
-                <div class="offcanvas-body">
-                    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                        <li class="nav-item">
-                            <a class="nav-link active" href="#">Главная</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Ссылка</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="offcanvasNavbarDropdown" role="button" data-bs-toggle="dropdown"> Выпадающий список </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">1</a></li>
-                                <li><a class="dropdown-item" href="#">2</a></li>
-                                <li>
-                                    <hr class="dropdown-divider" />
-                                </li>
-                                <li><a class="dropdown-item" href="#">3</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </div> --}}
         </div>
     </nav>
     <nav aria-label="breadcrumb">

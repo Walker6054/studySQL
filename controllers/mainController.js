@@ -3,6 +3,9 @@ const pathDir = path.dirname(__dirname);
 const jwt = require("jsonwebtoken");
 
 const users = require("../models/users");
+const students = require("../models/students");
+const lecturers = require("../models/lecturers");
+const admin = require("../models/admin");
 const get_data = require("../models/get_data");
 
 exports.login = async (request, response) => {
@@ -40,7 +43,7 @@ exports.index = async (request, response) => {
 
         //инициализация пути
         let breadcrumb = Array();
-        breadcrumb.push({ title: "Главная", href: "/", active: "active" });
+        breadcrumb.push({ title: "Главная", href: "", active: true });
 
         response.render(pathDir + "/views/main.hbs",
             {
@@ -60,95 +63,91 @@ exports.index = async (request, response) => {
     }
 };
 
-exports.group_test = async (request, response) => {
+exports.lk = async (request, response) => {
     let verify = await get_cookie_check_user(request.rawHeaders);
-
+    
     //инициализация пути
     let breadcrumb = Array();
     breadcrumb.push({ title: "Главная", href: "", active: false });
-    breadcrumb.push({ title: "Тесты прикрепленные к группам", href: "group_test", active: true });
+    breadcrumb.push({ title: "ЛК", href: "/lk", active: true });
 
     if (verify[0]) {
         switch (verify[1]) {
             case "student":
-                response.redirect("/tests");
+                let student_info;
+                await students.students(verify[0].login)
+                    .then((res) => {
+                        student_info = res[0][0][0];
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    })
+                response.render(pathDir + "/views/lk.hbs",
+                    {
+                        title: "Основы SQL",
+                        headPage: 'Образовательная система "Основы SQL"',
+                        userName: verify[0].login,
+                        page: "lk",
+                        viewHeader: true,
+                        student: true,
+                        student_info: student_info,
+                        breadcrumb: breadcrumb,
+                        lk: "hidden",
+                        type: verify[1]
+                    }
+                );
                 break;
             
             case "lecturer":
-                response.render(pathDir + "/views/group_test.hbs",
+                let lect_info;
+                await lecturers.lecturers(verify[0].login)
+                    .then((res) => {
+                        lect_info = res[0][0][0];
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    })
+                response.render(pathDir + "/views/lk.hbs",
                     {
                         title: "Основы SQL",
                         headPage: 'Образовательная система "Основы SQL"',
                         userName: verify[0].login,
-                        page: "group_test",
+                        page: "lk",
                         viewHeader: true,
                         lecturer: true,
-                        breadcrumb: breadcrumb
+                        lect_info: lect_info,
+                        breadcrumb: breadcrumb,
+                        lk: "hidden",
+                        type: verify[1]
                     }
                 );
-                break;
-            case "admin":
-                response.render(pathDir + "/views/group_test.hbs",
-                    {
-                        title: "Основы SQL",
-                        headPage: 'Образовательная система "Основы SQL"',
-                        userName: verify[0].login,
-                        page: "group_test",
-                        viewHeader: true,
-                        admin: true,
-                        breadcrumb: breadcrumb
-                    }
-                );
-                break;
-        }
-
-    } else {
-        response.redirect("/login");
-    }
-};
-
-exports.result_tests = async (request, response) => {
-    let verify = await get_cookie_check_user(request.rawHeaders);
-
-    //инициализация пути
-    let breadcrumb = Array();
-    breadcrumb.push({ title: "Главная", href: "", active: false });
-    breadcrumb.push({ title: "Результаты групп по прохождению тестов", href: "/result_tests", active: true });
-
-    if (verify[0]) {
-        switch (verify[1]) {
-            case "student":
-                response.redirect("/tests");
                 break;
             
-            case "lecturer":
-                response.render(pathDir + "/views/result_tests.hbs",
-                    {
-                        title: "Основы SQL",
-                        headPage: 'Образовательная система "Основы SQL"',
-                        userName: verify[0].login,
-                        page: "result_tests",
-                        viewHeader: true,
-                        lecturer: true,
-                        breadcrumb: breadcrumb
-                    }
-                );
-                break;
             case "admin":
-                response.render(pathDir + "/views/result_tests.hbs",
+                let admin_info;
+                await admin.admins(verify[0].login)
+                    .then((res) => {
+                        admin_info = res[0][0][0];
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    })
+                response.render(pathDir + "/views/lk.hbs",
                     {
                         title: "Основы SQL",
                         headPage: 'Образовательная система "Основы SQL"',
                         userName: verify[0].login,
-                        page: "result_tests",
+                        page: "lk",
                         viewHeader: true,
                         admin: true,
-                        breadcrumb: breadcrumb
+                        admin_info: admin_info,
+                        breadcrumb: breadcrumb,
+                        lk : "hidden",
+                        type: verify[1]
                     }
                 );
                 break;
-        }
-
+        }      
     } else {
         response.redirect("/login");
     }

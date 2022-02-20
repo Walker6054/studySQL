@@ -20,8 +20,7 @@ exports.sendMail = async (email, login, mailLayout, other) => {
             layout = layouts.forgot_password;
             layout.text = layout.helloStart + login;
             layout.text += layout.helloEnd;
-            layout.text += layout.mainTextStart + other;
-            layout.text += layout.mainTextEnd;
+            layout.text += layout.mainTextStart + other + layout.mainTextEnd;
             break;
         case "reg":
             layout = layouts.registration;
@@ -45,7 +44,6 @@ exports.sendMail = async (email, login, mailLayout, other) => {
     })
         .then((res) => {
             console.log(res);
-            console.log(layout.text);
             status = true;
         })
         .catch((err) => {

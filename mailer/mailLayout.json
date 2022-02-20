@@ -3,8 +3,8 @@
         "subject": "Восстановление пароля",
         "helloStart": "<p style='font-size: 3vw;text-align: center;font-weight: 600;'>Здравствуйте, ",
         "helloEnd": "!</p>",
-        "mainTextStart": "<p style='font-size: 2vw; font-weight: 400;'>Для восстановления пароля перейдите по данной ссылке: </p>  <a href='",
-        "mainTextEnd": "'>Восстановление пароля</a>",
+        "mainTextStart": "<p style='font-size: 2vw; font-weight: 400;'>Для восстановления пароля перейдите по данной ссылке: </p>",
+        "mainTextEnd": "Восстановление пароля</a>",
         "text": ""
     },
     "registration" : {

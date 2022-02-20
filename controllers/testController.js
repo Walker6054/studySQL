@@ -108,16 +108,7 @@ exports.new_test = async (request, response) => {
                 );
                 break;
             case "admin":
-                response.render(pathDir + "/views/tests/new_test.hbs",
-                    {
-                        title: "Основы SQL",
-                        headPage: 'Образовательная система "Основы SQL"',
-                        userName: verify[0].login,
-                        page: "tests/new_test",
-                        viewHeader: true,
-                        breadcrumb: breadcrumb
-                    }
-                );
+                response.redirect("/tests");
                 break;
         }
     } else {
@@ -205,6 +196,100 @@ exports.update_test = async (request, response) => {
                 }
                 break;
         }
+    } else {
+        response.redirect("/login");
+    }
+};
+
+exports.group_test = async (request, response) => {
+    let verify = await get_cookie_check_user(request.rawHeaders);
+
+    //инициализация пути
+    let breadcrumb = Array();
+    breadcrumb.push({ title: "Главная", href: "", active: false });
+    breadcrumb.push({ title: "Тесты прикрепленные к группам", href: "group_test", active: true });
+
+    if (verify[0]) {
+        switch (verify[1]) {
+            case "student":
+                response.redirect("/tests");
+                break;
+            
+            case "lecturer":
+                response.render(pathDir + "/views/tests/group_test.hbs",
+                    {
+                        title: "Основы SQL",
+                        headPage: 'Образовательная система "Основы SQL"',
+                        userName: verify[0].login,
+                        page: "tests/group_test",
+                        viewHeader: true,
+                        lecturer: true,
+                        breadcrumb: breadcrumb
+                    }
+                );
+                break;
+            case "admin":
+                response.render(pathDir + "/views/tests/group_test.hbs",
+                    {
+                        title: "Основы SQL",
+                        headPage: 'Образовательная система "Основы SQL"',
+                        userName: verify[0].login,
+                        page: "tests/group_test",
+                        viewHeader: true,
+                        admin: true,
+                        breadcrumb: breadcrumb
+                    }
+                );
+                break;
+        }
+
+    } else {
+        response.redirect("/login");
+    }
+};
+
+exports.result_tests = async (request, response) => {
+    let verify = await get_cookie_check_user(request.rawHeaders);
+
+    //инициализация пути
+    let breadcrumb = Array();
+    breadcrumb.push({ title: "Главная", href: "", active: false });
+    breadcrumb.push({ title: "Результаты групп по прохождению тестов", href: "/result_tests", active: true });
+
+    if (verify[0]) {
+        switch (verify[1]) {
+            case "student":
+                response.redirect("/tests");
+                break;
+            
+            case "lecturer":
+                response.render(pathDir + "/views/tests/result_tests.hbs",
+                    {
+                        title: "Основы SQL",
+                        headPage: 'Образовательная система "Основы SQL"',
+                        userName: verify[0].login,
+                        page: "tests/result_tests",
+                        viewHeader: true,
+                        lecturer: true,
+                        breadcrumb: breadcrumb
+                    }
+                );
+                break;
+            case "admin":
+                response.render(pathDir + "/views/tests/result_tests.hbs",
+                    {
+                        title: "Основы SQL",
+                        headPage: 'Образовательная система "Основы SQL"',
+                        userName: verify[0].login,
+                        page: "tests/result_tests",
+                        viewHeader: true,
+                        admin: true,
+                        breadcrumb: breadcrumb
+                    }
+                );
+                break;
+        }
+
     } else {
         response.redirect("/login");
     }
