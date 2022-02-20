@@ -152,7 +152,7 @@ function processAdd(test) {
         if (add_test_req.status == 200) {
             setTimeout(() => {
                 alert(add_test_req.responseText);
-                window.location = window.location.origin + "/tests/";
+                window.location = window.location.origin + "/tests";
             }, 50);
         } else {
             alert(add_test_req.responseText);

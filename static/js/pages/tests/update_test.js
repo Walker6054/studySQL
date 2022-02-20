@@ -64,8 +64,6 @@ function del_question() {
     }
 }
 
-
-
 button_update_test.addEventListener("click", validation)
 function validation() {
     let flag = false;
@@ -161,7 +159,7 @@ function processUpdate(test) {
         if (update_test_req.status == 200) {
             setTimeout(() => {
                 alert(update_test_req.responseText);
-                window.location = window.location.origin + "/tests/";
+                window.location = window.location.origin + "/tests";
             }, 50);
         } else {
             alert(update_test_req.responseText);

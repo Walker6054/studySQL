@@ -14,7 +14,7 @@ exports.regStudent = (request, response) => {
                 {
                     title: "Регистрация студент",
                     groups: groups,
-                    page: "regStudent",
+                    page: "login/regStudent",
                     view: false
                 }
             );
@@ -29,7 +29,7 @@ exports.regLecturer = (request, response) => {
     response.render(pathDir + "/views/registration/regLecturer.hbs",
         {
             title: "Регистрация преподаватель",
-            page: "regLecturer",
+            page: "login/regLecturer",
             view: false
         }
     );
@@ -39,7 +39,7 @@ exports.forgotPass = (request, response) => {
     response.render(pathDir + "/views/registration/forgotPass.hbs",
         {
             title: "Восстановление пароля",
-            page: "forgotPass",
+            page: "login/forgotPass",
             view: false
         }
     );
@@ -49,7 +49,7 @@ exports.recoveryPass = (request, response) => {
     response.render(pathDir + "/views/registration/recoveryPass.hbs",
         {
             title: "Восстановление пароля",
-            page: "recoveryPass",
+            page: "login/recoveryPass",
             view: false
         }
     );

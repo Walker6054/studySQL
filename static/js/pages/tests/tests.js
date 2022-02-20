@@ -3,7 +3,7 @@ let buttons_update_test = document.getElementsByClassName("button_update_test");
 let buttons_del_test = document.getElementsByClassName("button_del_test");
 
 button_new_test.addEventListener("click", () => {
-    window.location = window.location.href + "new_test";
+    window.location = window.location.origin + "/tests/new_test";
 })
 
 if (buttons_update_test.length != 0) {
