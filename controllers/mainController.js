@@ -183,8 +183,12 @@ async function get_cookie_check_user(req) {
             .catch((err) => {
                 console.log(err);
             })
-        user_checked[0] = jwt.verify(token, userDB.idusers.toString());
-
+        
+        try {
+            user_checked[0] = jwt.verify(token, userDB.idusers.toString());
+        } catch {
+            user_checked[0] = false;
+        }
         await get_data.return_type_user(user.login)
             .then((res) => {
                 user_checked[1] = Object.values(res[0][0])[0];

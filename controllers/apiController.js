@@ -1,13 +1,14 @@
 const jwt = require("jsonwebtoken");
 const users = require("../models/users");
 const students = require("../models/students");
+const admins = require("../models/admin");
 const lecturers = require("../models/lecturers");
 const tests = require("../models/tests");
 const get_data = require("../models/get_data");
 const questions = require("../models/questions");
 const mailer = require("../mailer/mailer");
 
-//авторизация/регистрация/восстановление пароля
+//авторизация/регистрация/восстановление пароля + изменение данных в ЛК
 exports.reguser = async (request, response) => {
     let data = request.body;
     let sqlIn = sqlIniect(data);
@@ -197,6 +198,99 @@ exports.recoverypass = async (request, response) => {
         
     }
 }
+exports.update_user = async (request, response) => {
+    let data = request.body;
+    console.log(data);
+
+    let sqlIn = sqlIniect(data);
+
+    if (sqlIn) {
+        response.status(800).send("Попытка SQL-инъекции!");
+    } else {
+        let verify = await check_user(data.token)
+            .catch((err) => {
+                console.log(err);
+            })
+        
+        if (verify) {
+            if (data.new_pass) {
+                data.old_pass = data.new_pass;
+            }
+
+            let flag = 0;
+            switch (data.type) {
+                case "admin":
+                    await admins.updateAdmins(data.id, verify.login, data.old_pass, verify.email)
+                        .then((res) => {
+                            flag = res[0].affectedRows;
+                        })
+                        .catch((err) => {
+                            console.log(err);
+                            flag = -1;
+                        })
+                    switch (flag) {
+                        case 0:
+                            response.status(800).send("Исходные данные не были изменены!");
+                            break;
+                        case -1:
+                            response.status(801).send("Произошла ошибка при изменении данных!");
+                            break;
+                        default:
+                            response.status(200).send("Данные успешно обновлены!");
+                            break;
+                    }
+                    break;
+                
+                case "lecturer":
+                    await lecturers.updateLecturers(data.id, verify.login, data.old_pass, verify.email, data.f, data.i, data.o, data.inst)
+                        .then((res) => {
+                            flag = res[0].affectedRows;
+                        })
+                        .catch((err) => {
+                            console.log(err);
+                            flag = -1;
+                        })
+                    switch (flag) {
+                        case 0:
+                            response.status(800).send("Исходные данные не были изменены!");
+                            break;
+                        case -1:
+                            response.status(801).send("Произошла ошибка при изменении данных!");
+                            break;
+                        default:
+                            response.status(200).send("Данные успешно обновлены!");
+                            break;
+                    }
+                    break;
+                
+                case "student":
+                    await students.updateStudents(data.id, verify.login, verify.email, data.old_pass, data.group, data.f, data.i, data.o)
+                        .then((res) => {
+                            flag = res[0].affectedRows;
+                        })
+                        .catch((err) => {
+                            console.log(err);
+                            flag = -1;
+                        })
+                    switch (flag) {
+                        case 0:
+                            response.status(800).send("Исходные данные не были изменены!");
+                            break;
+                        case -1:
+                            response.status(801).send("Произошла ошибка при изменении данных!");
+                            break;
+                        default:
+                            response.status(200).send("Данные успешно обновлены!");
+                            break;
+                    }
+                    break;
+                }
+
+        } else {
+            response.status(801).send("Ошибка верификации пользователя!");
+        }        
+    }
+}
 
 //раздел тестов
 exports.del_test = async (request, response) => {
@@ -367,6 +461,7 @@ function sqlIniect(data) {
     let dataArr = Object.values(data);
 
     dataArr.forEach(el => {
+        el = el.toString();
         if (el.toLowerCase().includes("select") ||
             el.toLowerCase().includes("where")  ||
             el.toLowerCase().includes("from")   ||
