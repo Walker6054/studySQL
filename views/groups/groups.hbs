@@ -7,10 +7,10 @@
                 </div>
                 <div class="card-body">
                     <p class="card-text">
-                        <a class="btn btn-outline-success" href = "/groups/tests_update_id={{this.}}" role="button">
+                        <a class="btn btn-outline-success" href = "/groups/tests_update_id={{this.idgroups}}" role="button">
                             Прикрепленные тесты
                         </a>
-                        <a class="btn btn-outline-success" href = "/groups/tests_results" role="button">
+                        <a class="btn btn-outline-success" href = "/groups/tests_results_id={{this.idgroups}}" role="button">
                             Результаты тестирования
                         </a>
                     </p>
@@ -18,9 +18,7 @@
             </div>
         {{/each}}
     {{/if}}
-    {{#if student}}
-
-    {{/if}}
+    
     {{#if admin}}
         {{#each groups}}
             <div class="card border-secondary mb-3">
@@ -29,10 +27,10 @@
                 </div>
                 <div class="card-body">
                     <p class="card-text">
-                        <a class="btn btn-outline-success" href = "/groups/tests_update" role="button">
+                        <a class="btn btn-outline-success" href = "/groups/tests_update_id={{this.idgroups}}" role="button">
                             Прикрепленные тесты
                         </a>
-                        <a class="btn btn-outline-success" href = "/groups/tests_results" role="button">
+                        <a class="btn btn-outline-success" href = "/groups/tests_results_id={{this.idgroups}}" role="button">
                             Результаты тестирования
                         </a>
                     </p>

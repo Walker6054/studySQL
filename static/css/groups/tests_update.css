@@ -1,0 +1,10 @@
+.colButton {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.head_main {
+    text-align: center;
+    margin: 0;
+}

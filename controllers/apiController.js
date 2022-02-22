@@ -348,7 +348,7 @@ exports.update_test = async (request, response) => {
     let verify = await check_user(data.token);
     if (verify) {
         let flag_add_test;
-        await tests.updateTests(Number(data.id), verify.login, data.name, data.desc, data.maxTry)
+        await tests.updateTests(Number(data.id), data.name, data.desc, data.maxTry)
             .then((res) => {
                 flag_add_test = res[0].affectedRows;
             })
@@ -402,7 +402,7 @@ exports.update_test = async (request, response) => {
                     })
             }
             if (proc_is_ok) {
-                response.status(200).send("Тест успешно добавлен!");
+                response.status(200).send("Тест успешно изменен!");
             } else {
                 response.status(801).send("Ошибка при добавлении одного из вопросов!");
             }
@@ -478,6 +478,31 @@ exports.new_test = async (request, response) => {
     } else {
         response.status(801).send("Ошибка в авторизации пользователя!");
     }
+}
+
+//раздел группа-тест
+exports.del_group_test = async (request, response) => {
+    let data = request.body;
+    console.log(data);
+
+    // let verify = await check_user(data.token);
+    // console.log(verify);
+    // if (verify) {
+    //     await tests.delTests(data.id)
+    //         .then((res) => {
+    //             if (res[0].affectedRows > 0) {
+    //                 response.status(200).send("Тест успешно удален!");
+    //             } else {
+    //                 response.status(801).send("Ошибка при удалении теста");
+    //             }
+    //         })
+    //         .catch((err) => {
+    //             console.log(err);
+    //             response.status(801).send("Ошибка при удалении теста");
+    //         });
+    // } else {
+    //     response.status(801).send("Ошибка в авторизации пользователя!");
+    // }
 }
 
 

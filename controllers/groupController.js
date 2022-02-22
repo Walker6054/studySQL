@@ -17,7 +17,7 @@ exports.index = async (request, response) => {
     //инициализация пути
     let breadcrumb = Array();
     breadcrumb.push({ title: "Главная", href: "", active: false });
-    breadcrumb.push({ title: "Группы", href: "groups", active: true });
+    breadcrumb.push({ title: "Группы", href: "/groups", active: true });
 
     let groups_list;
     if (verify[0]) {
@@ -80,17 +80,25 @@ exports.index = async (request, response) => {
 };
 
 exports.tests_update = async (request, response) => {
-    let id_group = request.url.split("=");
+    let id_group = request.url.split("=")[1];
     let verify = await get_cookie_check_user(request.rawHeaders);
-    console.log(verify);
 
     //инициализация пути
     let breadcrumb = Array();
     breadcrumb.push({ title: "Главная", href: "", active: false });
-    breadcrumb.push({ title: "Группы", href: "groups", active: false });
-    breadcrumb.push({ title: "Прикрепленные тесты", href: "tests_update", active: true });
+    breadcrumb.push({ title: "Группы", href: "/groups", active: false });
+    breadcrumb.push({ title: "Прикрепленные тесты", href: "/tests_update", active: true });
 
-    let groups;
+    let tests;
+    let group_shifr;
+    await groups.groups(id_group)
+        .then((res) => {
+            group_shifr = res[0][0].shifr;
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+    
     if (verify[0]) {
         switch (verify[1]) {
             case "student":
@@ -98,38 +106,49 @@ exports.tests_update = async (request, response) => {
                 break;
             
             case "lecturer":
-                await get_data.get_lecturers_groups(verify[0].login)
+                await get_data.get_group_tests(verify[0].login, id_group)
                     .then((res) => {
-                        groups = res[0][0];
+                        tests = res[0][0];
                         console.log(res);
                     })
                     .catch((err) => {
                         console.log(err);
                     })
                 
-                response.render(pathDir + "/views/groups/groups.hbs",
+                response.render(pathDir + "/views/groups/tests_update.hbs",
                     {
                         title: "Основы SQL",
                         headPage: 'Образовательная система "Основы SQL"',
                         userName: verify[0].login,
-                        page: "groups/groups",
+                        page: "groups/tests_update",
                         viewHeader: true,
                         lecturer: true,
                         breadcrumb: breadcrumb,
-                        groups: groups
+                        tests: tests,
+                        group: group_shifr
                     }
                 );
                 break;
             case "admin":
-                response.render(pathDir + "/views/groups/groups.hbs",
+                await get_data.get_groups_tests(id_group)
+                    .then((res) => {
+                        tests = res[0][0];
+                        console.log(res);
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    })
+                response.render(pathDir + "/views/groups/tests_update.hbs",
                     {
                         title: "Основы SQL",
                         headPage: 'Образовательная система "Основы SQL"',
                         userName: verify[0].login,
-                        page: "groups/groups",
+                        page: "groups/tests_update",
                         viewHeader: true,
                         admin: true,
-                        breadcrumb: breadcrumb
+                        breadcrumb: breadcrumb,
+                        tests: tests,
+                        group: group_shifr
                     }
                 );
                 break;

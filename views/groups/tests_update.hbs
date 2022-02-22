@@ -1,0 +1,81 @@
+<div class="container">
+    {{#if lecturer}}
+
+        <div class="row row_main mb-3">
+            <div class="col-8 colButton">
+                <h5 class="head_main">{{group}}</h5>
+            </div>
+            <div class="col-4 colButton">
+                <button class="btn btn-success" id="button_add">Добавить тест к группе</button>
+            </div>
+        </div>
+
+        {{#each tests}}
+            <div class="card border-secondary mb-3">
+                <div class="row card-header">
+                    <div class="col-10">
+                        <h5 class="card-title">{{this.name}}</h5>
+                    </div>
+                    <div class="col-2 colButton">
+                        <button class="btn btn-danger button_del" name="{{this.idgroups_tests}}">Удалить</button>
+                    </div>
+                </div>
+                <div class="row card-body">
+                    <div class="col-8">
+                        <p class="card-text">
+                            Описание: {{this.desc}}
+                        </p>
+                    </div>
+                    <div class="col-4">
+                        <p class="card-text">
+                            Максимальное число попыток: {{this.maxTry}}
+                        </p>                    
+                    </div>
+                </div>
+            </div>
+        {{/each}}
+    {{/if}}
+    
+    {{#if admin}}
+        <div class="row row_main mb-3">
+            <div class="col-8 colButton">
+                <h5 class="head_main">{{group}}</h5>
+            </div>
+            <div class="col-4 colButton">
+                <button class="btn btn-success" id="button_add">Добавить тест к группе</button>
+            </div>
+        </div>
+
+        {{#each tests}}
+            <div class="card border-secondary mb-3">
+                <div class="row card-header">
+                    <div class="col-10">
+                        <h5 class="card-title">{{this.name}}</h5>
+                    </div>
+                    <div class="col-2 colButton">
+                        <button class="btn btn-danger button_del" name="{{this.idgroups_tests}}">Удалить</button>
+                    </div>
+                </div>
+                <div class="row card-body">
+                    <div class="col-8">
+                        <p class="card-text">
+                            Создано: {{this.login}} - {{this.f}} {{this.i}} {{this.o}}
+                        </p>
+                    </div>
+                    <div class="col-4">
+                        <p class="card-text">
+                            Максимальное число попыток: {{this.maxTry}}
+                        </p>                    
+                    </div>
+                </div>
+                <div class="row card-body">
+                    <div class="col">
+                        <p class="card-text">
+                            Описание: {{this.desc}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        {{/each}}
+    {{/if}}
+</div>

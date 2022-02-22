@@ -27,3 +27,11 @@ exports.return_type_user = (login) => {
 exports.get_tests = () => {
     return connect.query("call get_tests()");
 }
+
+exports.get_group_tests = (login, id) => {
+    return connect.query("call get_group_tests('" + login + "', "+ id +")");
+}
+
+exports.get_groups_tests = (id) => {
+    return connect.query("call get_groups_tests(" + id + ")");
+}
