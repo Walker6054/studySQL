@@ -8,6 +8,7 @@ const mainRouter = require("./routes/mainRoute");
 const apiRouter = require("./routes/apiRoute");
 const regRouter = require("./routes/regRoute");
 const testRouter = require("./routes/testRoute");
+const groupRouter = require("./routes/groupRoute");
 
 //шаблонизатор
 const expressHbs = require('express-handlebars');
@@ -17,6 +18,8 @@ app.use("/", mainRouter);
 app.use("/api", apiRouter);
 app.use("/registration", regRouter);
 app.use("/tests", testRouter);
+app.use("/groups", groupRouter);
+
 
 //Обработка ошибок
 app.use((err, req, res, next) => {

@@ -1,7 +1,7 @@
 <div class="container">
     {{#if lecturer}}
         <div class="row rowHeader">
-            <h2 class="mainHeader" name="{{type}}" id="{{lect_info.idlecturers}}">Личный кабинет - Преподаватель</h2>
+            <h2 class="mainHeader">Личный кабинет - Преподаватель</h2>
         </div>
         <form class="row rowForm needs-validation" novalidate>
             <div class="row rowForm mb-3">
@@ -23,7 +23,7 @@
             <div class="row rowForm mb-3">
                 <div class="col-6 colForm">
                     <div class="form-floating">
-                        <input type="email" class="form-control" id="inputEmail" value="{{lect_info.email}}" placeholder=" " disabled readonly/>
+                        <input type="email" class="form-control" id="inputEmail" value="{{lect_info.email}}" placeholder=" "/>
                         <label for="inputEmail">Email</label>
                         <div class="invalid-feedback">Обязательно к заполнению!</div>
                     </div>
@@ -84,13 +84,17 @@
                 <div class="col-6 colButton">
                     <button type="button" id="buttonUpdate" class="btn btn-outline-success">Изменить данные</button>
                 </div>
+                <div class="col-6 ">
+                    <p>Для подтверждения изменения данных в левой части, нужно ввести пароль в поле "Старый пароль"</p>
+                    <p>Если же вы так же желаете сменить пароль, то введите новый пароль в поле "Новый пароль"</p>
+                </div>
             </div>
         </form>
     {{/if}}
 
     {{#if student}}
         <div class="row rowHeader">
-            <h2 class="mainHeader" name="{{type}}" id="{{student_info.idstudents}}">Личный кабинет - Студент</h2>
+            <h2 class="mainHeader">Личный кабинет - Студент</h2>
         </div>
         <form class="row rowForm needs-validation" novalidate>
             <div class="row rowForm mb-3">
@@ -112,7 +116,7 @@
             <div class="row rowForm mb-3">
                 <div class="col-6 colForm">
                     <div class="form-floating">
-                        <input type="email" class="form-control" id="inputEmail" value="{{student_info.email}}" placeholder=" " disabled readonly/>
+                        <input type="email" class="form-control" id="inputEmail" value="{{student_info.email}}" placeholder=" "/>
                         <label for="inputEmail">Email</label>
                         <div class="invalid-feedback">Обязательно к заполнению!</div>
                     </div>
@@ -173,13 +177,17 @@
                 <div class="col-6 colButton">
                     <button type="button" id="buttonUpdate" class="btn btn-outline-success">Изменить данные</button>
                 </div>
+                <div class="col-6 ">
+                    <p>Для подтверждения изменения данных в левой части, нужно ввести пароль в поле "Старый пароль"</p>
+                    <p>Если же вы так же желаете сменить пароль, то введите новый пароль в поле "Новый пароль"</p>
+                </div>
             </div>
         </form>
     {{/if}}
 
     {{#if admin}}
         <div class="row rowHeader">
-            <h2 class="mainHeader" name="{{type}}" id="{{admin_info.idadmins}}">Личный кабинет - Администратор</h2>
+            <h2 class="mainHeader">Личный кабинет - Администратор</h2>
         </div>
         <form class="row rowForm needs-validation" novalidate>
             <div class="row rowForm mb-3">
@@ -201,7 +209,7 @@
             <div class="row rowForm mb-3">
                 <div class="col-6 colForm">
                     <div class="form-floating">
-                        <input type="email" class="form-control" id="inputEmail" value="{{admin_info.email}}" placeholder=" " disabled readonly/>
+                        <input type="email" class="form-control" id="inputEmail" value="{{admin_info.email}}" placeholder=" "/>
                         <label for="inputEmail">Email</label>
                         <div class="invalid-feedback">Обязательно к заполнению!</div>
                     </div>

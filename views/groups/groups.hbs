@@ -1,0 +1,43 @@
+<div class="container">
+    {{#if lecturer}}
+        {{#each groups}}
+            <div class="card border-secondary mb-3">
+                <div class="card-header">
+                    <h5 class="card-title">{{this.shifr}}</h5>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">
+                        <a class="btn btn-outline-success" href = "/groups/tests_update_id={{this.}}" role="button">
+                            Прикрепленные тесты
+                        </a>
+                        <a class="btn btn-outline-success" href = "/groups/tests_results" role="button">
+                            Результаты тестирования
+                        </a>
+                    </p>
+                </div>
+            </div>
+        {{/each}}
+    {{/if}}
+    {{#if student}}
+
+    {{/if}}
+    {{#if admin}}
+        {{#each groups}}
+            <div class="card border-secondary mb-3">
+                <div class="card-header">
+                    <h5 class="card-title">{{this.shifr}}</h5>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">
+                        <a class="btn btn-outline-success" href = "/groups/tests_update" role="button">
+                            Прикрепленные тесты
+                        </a>
+                        <a class="btn btn-outline-success" href = "/groups/tests_results" role="button">
+                            Результаты тестирования
+                        </a>
+                    </p>
+                </div>
+            </div>
+        {{/each}}
+    {{/if}}
+</div>

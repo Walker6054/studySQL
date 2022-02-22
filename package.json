@@ -13,6 +13,7 @@
     "author": "Walker6054",
     "license": "ISC",
     "dependencies": {
+        "antlr4": "^4.9.3",
         "express": "^4.17.2",
         "express-admin": "^1.4.3",
         "express-handlebars": "^6.0.2",

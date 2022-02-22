@@ -212,15 +212,24 @@ exports.update_user = async (request, response) => {
                 console.log(err);
             })
         
-        if (verify) {
+        if (verify[0]) {
             if (data.new_pass) {
                 data.old_pass = data.new_pass;
             }
 
             let flag = 0;
-            switch (data.type) {
+            let id_user;
+            switch (verify[1]) {
                 case "admin":
-                    await admins.updateAdmins(data.id, verify.login, data.old_pass, verify.email)
+                    await admins.id_admins(verify[0].login)
+                        .then((res) => {
+                            console.log(res);
+                            id_user = res[0][0][0].idadmins;
+                        })
+                        .catch((err) => {
+                            console.log(err);
+                        })
+                    await admins.lk_updateAdmins(id_user, data.old_pass, data.email)
                         .then((res) => {
                             flag = res[0].affectedRows;
                         })
@@ -242,7 +251,15 @@ exports.update_user = async (request, response) => {
                     break;
                 
                 case "lecturer":
-                    await lecturers.updateLecturers(data.id, verify.login, data.old_pass, verify.email, data.f, data.i, data.o, data.inst)
+                    await lecturers.id_lecturers(verify[0].login)
+                        .then((res) => {
+                            console.log(res);
+                            id_user = res[0][0][0].idlecturers;
+                        })
+                        .catch((err) => {
+                            console.log(err);
+                        })
+                    await lecturers.lk_updateLecturers(id_user, data.old_pass, data.email, data.f, data.i, data.o, data.inst)
                         .then((res) => {
                             flag = res[0].affectedRows;
                         })
@@ -264,7 +281,15 @@ exports.update_user = async (request, response) => {
                     break;
                 
                 case "student":
-                    await students.updateStudents(data.id, verify.login, verify.email, data.old_pass, data.group, data.f, data.i, data.o)
+                    await students.id_students(verify[0].login)
+                        .then((res) => {
+                            console.log(res);
+                            id_user = res[0][0][0].idstudents;
+                        })
+                        .catch((err) => {
+                            console.log(err);
+                        })
+                    await students.lk_updateStudents(id_user, data.old_pass, data.email, data.f, data.i, data.o)
                         .then((res) => {
                             flag = res[0].affectedRows;
                         })
@@ -490,7 +515,8 @@ function get_max_idtests(data) {
 }
 
 async function check_user(token) {
-    let user_checked = false;
+    let user_checked = Array();
+    user_checked[0] = false;
 
     if ((token != "") && (token != "false")) {
         let user = jwt.decode(token);
@@ -502,7 +528,19 @@ async function check_user(token) {
             .catch((err) => {
                 console.log(err);
             })
-        user_checked = jwt.verify(token, userDB.idusers.toString());
+        
+        try {
+            user_checked[0] = jwt.verify(token, userDB.idusers.toString());
+        } catch {
+            user_checked[0] = false;
+        }
+        await get_data.return_type_user(user.login)
+            .then((res) => {
+                user_checked[1] = Object.values(res[0][0])[0];
+            })
+            .catch((err) => {
+                console.log(err);
+            })
     }
     return user_checked;
 }

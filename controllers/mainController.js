@@ -77,6 +77,7 @@ exports.lk = async (request, response) => {
                 let student_info;
                 await students.students(verify[0].login)
                     .then((res) => {
+                        console.log(res);
                         student_info = res[0][0][0];
                     })
                     .catch((err) => {
@@ -87,7 +88,7 @@ exports.lk = async (request, response) => {
                         title: "Основы SQL",
                         headPage: 'Образовательная система "Основы SQL"',
                         userName: verify[0].login,
-                        page: "lk",
+                        page: "lk/lk_stud",
                         viewHeader: true,
                         student: true,
                         student_info: student_info,
@@ -112,7 +113,7 @@ exports.lk = async (request, response) => {
                         title: "Основы SQL",
                         headPage: 'Образовательная система "Основы SQL"',
                         userName: verify[0].login,
-                        page: "lk",
+                        page: "lk/lk_lect",
                         viewHeader: true,
                         lecturer: true,
                         lect_info: lect_info,
@@ -137,7 +138,7 @@ exports.lk = async (request, response) => {
                         title: "Основы SQL",
                         headPage: 'Образовательная система "Основы SQL"',
                         userName: verify[0].login,
-                        page: "lk",
+                        page: "lk/lk_adm",
                         viewHeader: true,
                         admin: true,
                         admin_info: admin_info,

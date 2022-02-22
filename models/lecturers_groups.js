@@ -8,12 +8,12 @@ exports.lecturers_groups = (id) => {
     return connect.query("SELECT * from lecturers_groups where idlecturers_groups = " + id);
 }
 
-exports.addLecturers_groups = (login, shifr) => {
-    return connect.query("call add_lecturers_groups('"+login+"', "+shifr+")");
+exports.addLecturers_groups = (login, idgroups) => {
+    return connect.query("call add_lecturers_groups('"+login+"', "+idgroups+")");
 }
 
-exports.updateLecturers_groups = (id, login, shifr) => {
-    return connect.query("call update_lecturers_groups("+ id +", '"+ login +"', "+ shifr +")");
+exports.updateLecturers_groups = (id, login, idgroups) => {
+    return connect.query("call update_lecturers_groups("+ id +", '"+ login +"', "+ idgroups +")");
 }
 
 exports.delLecturers_groups = (id) => {

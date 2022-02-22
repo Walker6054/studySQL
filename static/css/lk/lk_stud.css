@@ -1,0 +1,8 @@
+.mainHeader {
+    text-align: center;
+}
+
+.colButton {
+    display: flex;
+    flex-direction: column;
+}
