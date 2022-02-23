@@ -53,8 +53,6 @@ exports.index = async (request, response) => {
                         unfinished_test_user.push(test_user[i]);
                     }
                 }
-                console.log(unfinished_test_user);
-                console.log(ends_tests);
                 
                 response.render(pathDir + "/views/tests/tests.hbs",
                     {
@@ -74,6 +72,7 @@ exports.index = async (request, response) => {
                     }
                 );
                 break;
+            
             case "lecturer":
                 await get_data.get_lecturer_tests(verify[0].login)
                     .then((res) => {
