@@ -1,13 +1,13 @@
 const jwt = require("jsonwebtoken");
 
-const users = require("../models/users");
-const students = require("../models/students");
-const admins = require("../models/admin");
-const lecturers = require("../models/lecturers");
+const users = require("../models/users/users");
+const students = require("../models/users/students");
+const admins = require("../models/users/admin");
+const lecturers = require("../models/users/lecturers");
 
-const tests = require("../models/tests");
-const questions = require("../models/questions");
-const groups_tests = require("../models/groups_tests");
+const tests = require("../models/tables/tests");
+const questions = require("../models/tables/questions");
+const groups_tests = require("../models/relations/groups_tests");
 const get_data = require("../models/get_data");
 
 const mailer = require("../mailer/mailer");

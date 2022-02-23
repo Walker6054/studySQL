@@ -1,4 +1,4 @@
-const connect = require("./.connectDB");
+const connect = require("../.connectDB");
 
 exports.allLecturers_groups = () => {
     return connect.query("SELECT * from lecturers_groups");

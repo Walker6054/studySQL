@@ -37,22 +37,22 @@ app.use('/static', express.static(path.join(__dirname, '/static')));
 app.use('/views', express.static(path.join(__dirname, '/views')));
 
 
-// устанавливаем настройки для файлов layout
-app.engine(
-    'hbs',
-    expressHbs.engine({
-        layoutsDir: 'views/layouts',
-        defaultLayout: 'layout',
-        extname: 'hbs',
-        partialsDir: 'views/components'
-    })
-)
+//устанавливаем настройки для файлов layout (шаблонизатор)
+const hbs = expressHbs.create({
+    layoutsDir: 'views/layouts',
+    defaultLayout: 'layout',
+    extname: 'hbs',
+    partialsDir: 'views/components'
+})
+app.engine('hbs', hbs.engine);
 app.set('view engine', 'hbs');
+
 
 
 
 //инициализация админ панели
 const adm = require("express-admin");
+const { tests_results } = require('./controllers/groupController');
 let config = {
     dpath: './config/',
     config: require("./config/config.json"),

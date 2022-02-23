@@ -1,6 +1,6 @@
 const path = require('path');
 const pathDir = path.dirname(__dirname);
-const groups = require("../models/groups");
+const groups = require("../models/tables/groups");
 
 exports.index = (request, response) => {
     response.redirect("/login");

@@ -2,9 +2,9 @@ const path = require('path');
 const pathDir = path.dirname(__dirname);
 const jwt = require("jsonwebtoken");
 
-const users = require("../models/users");
+const users = require("../models/users/users");
 const get_data = require("../models/get_data");
-const tests = require('../models/tests');
+const tests = require('../models/tables/tests');
 
 exports.index = async (request, response) => {
     let verify = await get_cookie_check_user(request.rawHeaders);

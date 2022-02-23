@@ -1,0 +1,9 @@
+.head_main {
+    text-align: center;
+}
+
+.colButton {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}

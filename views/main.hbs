@@ -22,9 +22,6 @@
         </div>
     {{/if}}
     {{#if student}}
-
-    {{/if}}
-    {{#if admin}}
         <div class="card border-info mb-3">
             <div class="card-header">
                 <h5 class="card-title">Тесты</h5>
@@ -32,6 +29,28 @@
             <div class="card-body">
                 <p class="card-text">
                     <a href = "/tests/">Перейти к списку тестов (+)</a>
+                </p>
+            </div>
+        </div>
+    {{/if}}
+    {{#if admin}}
+        <div class="card border-info mb-3">
+            <div class="card-header">
+                <h5 class="card-title">Преподаватели</h5>
+            </div>
+            <div class="card-body">
+                <p class="card-text">
+                    <a href = "/lerturers/">Перейти к списку преподавателей</a>
+                </p>
+            </div>
+        </div>
+        <div class="card border-info mb-3">
+            <div class="card-header">
+                <h5 class="card-title">Студенты</h5>
+            </div>
+            <div class="card-body">
+                <p class="card-text">
+                    <a href = "/students/">Перейти к списку студентов</a>
                 </p>
             </div>
         </div>
@@ -45,5 +64,15 @@
                 </p>
             </div>
         </div>
+        <div class="card border-info mb-3">
+            <div class="card-header">
+                <h5 class="card-title">Тесты</h5>
+            </div>
+            <div class="card-body">
+                <p class="card-text">
+                    <a href = "/tests/">Перейти к списку тестов (+)</a>
+                </p>
+            </div>
+        </div>     
     {{/if}}
 </div>

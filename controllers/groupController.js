@@ -2,17 +2,18 @@ const path = require('path');
 const pathDir = path.dirname(__dirname);
 const jwt = require("jsonwebtoken");
 
-const users = require("../models/users");
-const students = require("../models/students");
-const lecturers = require("../models/lecturers");
-const admin = require("../models/admin");
+const hbs_helpers = require("../hbs_helpers/helpers");
+
+const users = require("../models/users/users");
+const students = require("../models/users/students");
+const lecturers = require("../models/users/lecturers");
+const admin = require("../models/users/admin");
 const get_data = require("../models/get_data");
-const groups = require("../models/groups");
+const groups = require("../models/tables/groups");
 
 
 exports.index = async (request, response) => {
     let verify = await get_cookie_check_user(request.rawHeaders);
-    console.log(verify);
 
     //инициализация пути
     let breadcrumb = Array();
@@ -209,13 +210,26 @@ exports.tests_update = async (request, response) => {
 };
 
 exports.tests_results = async (request, response) => {
+    let id_group = request.url.split("=")[1];
     let verify = await get_cookie_check_user(request.rawHeaders);
 
     //инициализация пути
     let breadcrumb = Array();
     breadcrumb.push({ title: "Главная", href: "", active: false });
-    breadcrumb.push({ title: "Результаты групп по прохождению тестов", href: "/result_tests", active: true });
+    breadcrumb.push({ title: "Группы", href: "/groups", active: false });
+    breadcrumb.push({ title: "Результаты выполнения тестов", href: "/tests_results", active: true });
 
+    let group_tests;
+    let group_shifr;
+    await groups.groups(id_group)
+        .then((res) => {
+            group_shifr = "Тестирование группы: " + res[0][0].shifr;
+        })
+        .catch((err) => {
+            group_shifr = "Данной группы не существует, либо у вас отсутствует доступ к ней!";
+            console.log(err);
+        });
+    
     if (verify[0]) {
         switch (verify[1]) {
             case "student":
@@ -223,28 +237,77 @@ exports.tests_results = async (request, response) => {
                 break;
             
             case "lecturer":
-                response.render(pathDir + "/views/tests/result_tests.hbs",
+                await get_data.get_group_tests(verify[0].login, id_group)
+                    .then((res) => {
+                        group_tests = res[0][0];
+                        //console.log(res);
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    });
+                for (let i = 0; i < group_tests.length; i++) {
+                    await get_data.get_result_group(verify[0].login, id_group, group_tests[i].idtests)
+                        .then((res) => {
+                            group_tests[i].results = res[0][0];
+                            //console.log(res);
+                        })
+                        .catch((err) => {
+                            console.log(err);
+                        });
+                }
+                
+                response.render(pathDir + "/views/groups/tests_results.hbs",
                     {
                         title: "Основы SQL",
                         headPage: 'Образовательная система "Основы SQL"',
                         userName: verify[0].login,
-                        page: "tests/result_tests",
+                        page: "groups/tests_results",
                         viewHeader: true,
                         lecturer: true,
-                        breadcrumb: breadcrumb
+                        breadcrumb: breadcrumb,
+                        group: group_shifr,
+                        group_tests: group_tests,
+                        helpers: {
+                            success_of_test: hbs_helpers.success_of_test
+                        }
                     }
                 );
                 break;
+            
             case "admin":
-                response.render(pathDir + "/views/tests/result_tests.hbs",
+                await get_data.get_groups_tests(id_group)
+                    .then((res) => {
+                        group_tests = res[0][0];
+                        //console.log(res);
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    });
+                for (let i = 0; i < group_tests.length; i++) {
+                    await get_data.get_results_group_admin(id_group, group_tests[i].idtests)
+                        .then((res) => {
+                            group_tests[i].results = res[0][0];
+                            //console.log(res);
+                        })
+                        .catch((err) => {
+                            console.log(err);
+                        });
+                }
+
+                response.render(pathDir + "/views/groups/tests_results.hbs",
                     {
                         title: "Основы SQL",
                         headPage: 'Образовательная система "Основы SQL"',
                         userName: verify[0].login,
-                        page: "tests/result_tests",
+                        page: "groups/tests_results",
                         viewHeader: true,
                         admin: true,
-                        breadcrumb: breadcrumb
+                        breadcrumb: breadcrumb,
+                        group: group_shifr,
+                        group_tests: group_tests,
+                        helpers: {
+                            success_of_test: hbs_helpers.success_of_test
+                        }
                     }
                 );
                 break;

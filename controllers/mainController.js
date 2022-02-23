@@ -2,10 +2,10 @@ const path = require('path');
 const pathDir = path.dirname(__dirname);
 const jwt = require("jsonwebtoken");
 
-const users = require("../models/users");
-const students = require("../models/students");
-const lecturers = require("../models/lecturers");
-const admin = require("../models/admin");
+const users = require("../models/users/users");
+const students = require("../models/users/students");
+const lecturers = require("../models/users/lecturers");
+const admin = require("../models/users/admin");
 const get_data = require("../models/get_data");
 
 exports.login = async (request, response) => {

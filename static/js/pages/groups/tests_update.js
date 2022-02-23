@@ -27,24 +27,25 @@ if (button_show_modal_add_test.getAttribute("name") == "disabled") {
     }
 } else {
     button_add_test.addEventListener("click", validation);
-}
+    for (let i = 0; i < buttons_close_modal.length; i++){
+        buttons_close_modal[i].addEventListener("click", clear_modal);
+    }
+    let test_info_maxTry = row_test_info.getElementsByClassName("test_info_maxTry")[0];
+    let test_info_desc = row_test_info.getElementsByClassName("test_info_desc")[0];
+    let test_info_creator = row_test_info.getElementsByClassName("test_info_creator")[0];
+    function clear_modal() {
+        input_test.value = "Выбрать..";
+        row_test_info.setAttribute("hidden", "");
+        test_info_maxTry.innerHTML = "Максимальное число попыток: ";
+        test_info_desc.innerHTML = "Описание: ";
 
-for (let i = 0; i < buttons_close_modal.length; i++){
-    buttons_close_modal[i].addEventListener("click", clear_modal);
-}
-let test_info_maxTry = row_test_info.getElementsByClassName("test_info_maxTry")[0];
-let test_info_desc = row_test_info.getElementsByClassName("test_info_desc")[0];
-let test_info_creator = row_test_info.getElementsByClassName("test_info_creator")[0];
-function clear_modal() {
-    input_test.value = "Выбрать..";
-    row_test_info.setAttribute("hidden", "");
-    test_info_maxTry.innerHTML = "Максимальное число попыток: ";
-    test_info_desc.innerHTML = "Описание: ";
-
-    if (test_info_creator) {
-        test_info_creator.innerHTML = "Создано: ";
+        if (test_info_creator) {
+            test_info_creator.innerHTML = "Создано: ";
+        }
     }
 }
+
+
 
 
 if (input_test) {

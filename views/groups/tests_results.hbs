@@ -1,0 +1,139 @@
+<div class="container">
+    {{#if lecturer}}
+
+        <div class="row row_main">
+            <h5 class="head_main mb-2">{{group}}</h5>
+        </div>
+
+        {{#each group_tests}}
+            <div class="card border-secondary mb-3">
+                <div class="card-header">
+                    <h5 class="card-title">{{this.name}}</h5>
+                </div>
+                <div class="row card-body">
+                    <div class="col-8">
+                        <p class="card-text">
+                            Описание: {{this.desc}}
+                        </p>
+                        <p class="card-text">
+                            Максимальное число попыток: {{this.maxTry}}
+                        </p>  
+                    </div>
+                    <div class="col-4 colButton">
+                        <button class="btn btn-outline-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#results_{{this.idtests}}">
+                            Показать
+                        </button>
+                    </div>
+                </div>
+
+                {{#if this.results}}
+                    <div class="collapse" id="results_{{this.idtests}}">
+                        <div class="card-body">
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Фамилия</th>
+                                        <th scope="col">Имя</th>
+                                        <th scope="col">Отчество</th>
+                                        <th scope="col">Кол-во попыток</th>
+                                        <th scope="col">Средний балл</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {{#each this.results}}
+                                        <tr>
+                                            <td>{{this.f}}</td>
+                                            <td>{{this.i}}</td>
+                                            <td>{{this.o}}</td>
+                                            <td>{{this.all_count}}</td>
+                                            <td class="{{success_of_test this.avg}}">{{this.avg}}</td>
+                                        </tr>
+                                    {{/each}}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                {{else}}
+                    <div class="collapse" id="results_{{this.idtests}}">
+                        <div class="card-body">
+                            <p class="card-text">
+                                Данный тест на данный момент не пройден ни одним студентом из данной группы
+                            </p>
+                        </div>
+                    </div>
+                {{/if}}
+            </div>
+        {{/each}}
+    {{/if}}
+
+    {{#if admin}}
+
+        <div class="row row_main">
+            <h5 class="head_main mb-2">{{group}}</h5>
+        </div>
+
+        {{#each group_tests}}
+            <div class="card border-secondary mb-3">
+                <div class="card-header">
+                    <h5 class="card-title">{{this.name}}</h5>
+                </div>
+                <div class="row card-body">
+                    <div class="col-8">
+                        <p class="test_info_creator">
+                            Создано: {{this.login}} - {{this.f}} {{this.i}} {{this.o}}
+                        </p>
+                        <p class="card-text">
+                            Описание: {{this.desc}}
+                        </p>
+                        <p class="card-text">
+                            Максимальное число попыток: {{this.maxTry}}
+                        </p>  
+                    </div>
+                    <div class="col-4 colButton">
+                        <button class="btn btn-outline-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#results_{{this.idtests}}">
+                            Показать
+                        </button>
+                    </div>
+                </div>
+
+                {{#if this.results}}
+                    <div class="collapse" id="results_{{this.idtests}}">
+                        <div class="card-body">
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Фамилия</th>
+                                        <th scope="col">Имя</th>
+                                        <th scope="col">Отчество</th>
+                                        <th scope="col">Кол-во попыток</th>
+                                        <th scope="col">Средний балл</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {{#each this.results}}
+                                        <tr>
+                                            <td>{{this.f}}</td>
+                                            <td>{{this.i}}</td>
+                                            <td>{{this.o}}</td>
+                                            <td>{{this.all_count}}</td>
+                                            <td class="{{success_of_test this.avg}}">{{this.avg}}</td>
+                                        </tr>
+                                    {{/each}}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                {{else}}
+                    <div class="collapse" id="results_{{this.idtests}}">
+                        <div class="card-body">
+                            <p class="card-text">
+                                Данный тест на данный момент не пройден ни одним студентом из данной группы
+                            </p>
+                        </div>
+                    </div>
+                {{/if}}
+            </div>
+        {{/each}}
+    {{/if}}
+    
+</div>
