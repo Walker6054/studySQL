@@ -24,6 +24,14 @@ exports.lk_updateStudents = (id, password, email, f, i, o) => {
     return connect.query("call lk_update_students("+ id + ", '"+ password + "', '"+ email + "', '"+ f + "', '"+ i +"', '"+ o +"')");
 }
 
-exports.delStudents= (id) => {
+exports.delStudents = (id) => {
     return connect.query("call del_students("+ id +")");
+}
+
+exports.get_student_tests = (login) => {
+    return connect.query("call get_student_tests('"+ login +"')");
+}
+
+exports.get_result_student_test_with_answers = (login, idtest) => {
+    return connect.query("call get_result_student_test_with_answers('"+ login +"', " + idtest + ")");
 }

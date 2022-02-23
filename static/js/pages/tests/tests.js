@@ -2,9 +2,11 @@ let button_new_test = document.getElementById("button_new_test");
 let buttons_update_test = document.getElementsByClassName("button_update_test");
 let buttons_del_test = document.getElementsByClassName("button_del_test");
 
-button_new_test.addEventListener("click", () => {
-    window.location = window.location.origin + "/tests/new_test";
-})
+if (button_new_test) {
+    button_new_test.addEventListener("click", () => {
+        window.location = window.location.origin + "/tests/new_test";
+    })
+}
 
 if (buttons_update_test.length != 0) {
     for (let i = 0; i < buttons_update_test.length; i++) {

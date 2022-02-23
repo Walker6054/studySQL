@@ -27,3 +27,8 @@ exports.lk_updateLecturers = (id, password, email, f, i , o, institute) => {
 exports.delLecturers = (id) => {
     return connect.query("call del_lecturers("+ id +")");
 }
+
+exports.check_lecturer_test = (login, idtest) => {
+    return connect.query("select check_lecturer_test('" + login + "', " + idtest + ")");
+}
+
