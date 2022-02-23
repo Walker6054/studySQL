@@ -1,11 +1,15 @@
 const jwt = require("jsonwebtoken");
+
 const users = require("../models/users");
 const students = require("../models/students");
 const admins = require("../models/admin");
 const lecturers = require("../models/lecturers");
+
 const tests = require("../models/tests");
-const get_data = require("../models/get_data");
 const questions = require("../models/questions");
+const groups_tests = require("../models/groups_tests");
+const get_data = require("../models/get_data");
+
 const mailer = require("../mailer/mailer");
 
 //авторизация/регистрация/восстановление пароля + изменение данных в ЛК
@@ -485,24 +489,49 @@ exports.del_group_test = async (request, response) => {
     let data = request.body;
     console.log(data);
 
-    // let verify = await check_user(data.token);
-    // console.log(verify);
-    // if (verify) {
-    //     await tests.delTests(data.id)
-    //         .then((res) => {
-    //             if (res[0].affectedRows > 0) {
-    //                 response.status(200).send("Тест успешно удален!");
-    //             } else {
-    //                 response.status(801).send("Ошибка при удалении теста");
-    //             }
-    //         })
-    //         .catch((err) => {
-    //             console.log(err);
-    //             response.status(801).send("Ошибка при удалении теста");
-    //         });
-    // } else {
-    //     response.status(801).send("Ошибка в авторизации пользователя!");
-    // }
+    let verify = await check_user(data.token);
+
+    if (verify) {
+        await groups_tests.delGroups_tests(data.id)
+            .then((res) => {
+                console.log(res);
+                if (res[0].affectedRows > 0) {
+                    response.status(200).send("Тест успешно удален!");
+                } else {
+                    response.status(801).send("Ошибка при удалении теста");
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+                response.status(801).send("Ошибка при удалении теста");
+            });
+    } else {
+        response.status(801).send("Ошибка в авторизации пользователя!");
+    }
+}
+exports.new_group_test = async (request, response) => {
+    let data = request.body;
+    //console.log(data);
+
+    let verify = await check_user(data.token);
+
+    if (verify) {
+        await groups_tests.addGroups_tests(data.id_group, data.id_test)
+            .then((res) => {
+                //console.log(res);
+                if (res[0].affectedRows > 0) {
+                    response.status(200).send("Тест успешно прикреплен!");
+                } else {
+                    response.status(801).send("Ошибка при прикреплении теста");
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+                response.status(801).send("Ошибка при прикреплении теста");
+            });
+    } else {
+        response.status(801).send("Ошибка в авторизации пользователя!");
+    }
 }
 
 

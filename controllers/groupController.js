@@ -30,7 +30,7 @@ exports.index = async (request, response) => {
                 await get_data.get_lecturers_groups(verify[0].login)
                     .then((res) => {
                         groups_list = res[0][0];
-                        console.log(res);
+                        //console.log(res);
                     })
                     .catch((err) => {
                         console.log(err);
@@ -53,7 +53,7 @@ exports.index = async (request, response) => {
                 await groups.allGroups()
                     .then((res) => {
                         groups_list = res[0];
-                        console.log(res);
+                        //console.log(res);
                     })
                     .catch((err) => {
                         console.log(err);
@@ -89,8 +89,10 @@ exports.tests_update = async (request, response) => {
     breadcrumb.push({ title: "Группы", href: "/groups", active: false });
     breadcrumb.push({ title: "Прикрепленные тесты", href: "/tests_update", active: true });
 
-    let tests;
+    let all_tests;
+    let group_tests;
     let group_shifr;
+    let add_enable = true;
     await groups.groups(id_group)
         .then((res) => {
             group_shifr = res[0][0].shifr;
@@ -108,12 +110,33 @@ exports.tests_update = async (request, response) => {
             case "lecturer":
                 await get_data.get_group_tests(verify[0].login, id_group)
                     .then((res) => {
-                        tests = res[0][0];
-                        console.log(res);
+                        group_tests = res[0][0];
+                        //console.log(res);
                     })
                     .catch((err) => {
                         console.log(err);
+                    });
+                
+                await get_data.get_lecturer_tests(verify[0].login)
+                    .then((res) => {
+                        //console.log(res);
+                        all_tests = res[0][0];
                     })
+                    .catch((err) => {
+                        console.log(err);
+                    });
+                
+                //удаление повторов в массиве всех тестов (для ограничения добавления)
+                for (let i = 0; i < group_tests.length; i++) {
+                    let index_entry = all_tests.findIndex(el => el.idtests == group_tests[i].idtests);
+                    if (index_entry != -1) {
+                        all_tests.splice(index_entry, 1);
+                    }
+                }
+
+                if (all_tests.length == 0) {
+                    add_enable = false;
+                }
                 
                 response.render(pathDir + "/views/groups/tests_update.hbs",
                     {
@@ -124,20 +147,44 @@ exports.tests_update = async (request, response) => {
                         viewHeader: true,
                         lecturer: true,
                         breadcrumb: breadcrumb,
-                        tests: tests,
+                        group_tests: group_tests,
+                        all_tests: all_tests,
+                        add_enable: add_enable,
                         group: group_shifr
                     }
                 );
                 break;
+            
             case "admin":
                 await get_data.get_groups_tests(id_group)
                     .then((res) => {
-                        tests = res[0][0];
-                        console.log(res);
+                        group_tests = res[0][0];
+                        //console.log(res);
                     })
                     .catch((err) => {
                         console.log(err);
                     })
+                await get_data.get_tests()
+                    .then((res) => {
+                        //console.log(res);
+                        all_tests = res[0][0];
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    });
+                
+                //удаление повторов в массиве всех тестов (для ограничения добавления)
+                for (let i = 0; i < group_tests.length; i++) {
+                    let index_entry = all_tests.findIndex(el => el.idtests == group_tests[i].idtests);
+                    if (index_entry != -1) {
+                        all_tests.splice(index_entry, 1);
+                    }
+                }
+
+                if (all_tests.length == 0) {
+                    add_enable = false;
+                }
+
                 response.render(pathDir + "/views/groups/tests_update.hbs",
                     {
                         title: "Основы SQL",
@@ -147,7 +194,9 @@ exports.tests_update = async (request, response) => {
                         viewHeader: true,
                         admin: true,
                         breadcrumb: breadcrumb,
-                        tests: tests,
+                        group_tests: group_tests,
+                        all_tests: all_tests,
+                        add_enable: add_enable,
                         group: group_shifr
                     }
                 );

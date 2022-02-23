@@ -6,11 +6,15 @@
                 <h5 class="head_main">{{group}}</h5>
             </div>
             <div class="col-4 colButton">
-                <button class="btn btn-success" id="button_add">Добавить тест к группе</button>
+                {{#if add_enable}}
+                    <button class="btn btn-success" id="button_show_modal_add_test" data-bs-toggle="modal" data-bs-target="#modal_add_test">Добавить тест к группе</button>
+                {{else}}
+                    <button name="disabled" class="btn btn-success" id="button_show_modal_add_test">Добавить тест к группе</button>
+                {{/if}}
             </div>
         </div>
 
-        {{#each tests}}
+        {{#each group_tests}}
             <div class="card border-secondary mb-3">
                 <div class="row card-header">
                     <div class="col-10">
@@ -34,6 +38,43 @@
                 </div>
             </div>
         {{/each}}
+
+        {{#if add_enable}}
+            <div class="modal fade" id="modal_add_test" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modal_add_test_label">Прикрепление теста</h5>
+                            <button type="button" class="btn-close buttons_close_modal" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-floating">
+                                <select class="form-select" id="input_test">
+                                    <option selected>Выбрать..</option>
+                                    {{#each all_tests}}
+                                        <option value="{{this.idtests}}" name="{{this.desc}}|{{this.maxTry}}">{{this.name}}</option>
+                                    {{/each}}
+                                </select>
+                                <label for="input_test">Созданные тесты</label>
+                                <div class="invalid-feedback"> Обязательно к заполнению!</div>
+                            </div>
+                            <div hidden class="row mt-3" id="row_test_info">
+                                <p class="test_info_maxTry">
+                                    Максимальное число попыток: 
+                                </p>
+                                <p class="test_info_desc">
+                                    Описание: 
+                                </p>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary buttons_close_modal" data-bs-dismiss="modal">Закрыть</button>
+                            <button type="button" class="btn btn-success" id="button_add_test">Прикрепить</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {{/if}}
     {{/if}}
     
     {{#if admin}}
@@ -42,11 +83,15 @@
                 <h5 class="head_main">{{group}}</h5>
             </div>
             <div class="col-4 colButton">
-                <button class="btn btn-success" id="button_add">Добавить тест к группе</button>
+                {{#if add_enable}}
+                    <button class="btn btn-success" id="button_show_modal_add_test" data-bs-toggle="modal" data-bs-target="#modal_add_test">Добавить тест к группе</button>
+                {{else}}
+                    <button name="disabled" class="btn btn-success" id="button_show_modal_add_test">Добавить тест к группе</button>
+                {{/if}}
             </div>
         </div>
 
-        {{#each tests}}
+        {{#each group_tests}}
             <div class="card border-secondary mb-3">
                 <div class="row card-header">
                     <div class="col-10">
@@ -77,5 +122,46 @@
                 </div>
             </div>
         {{/each}}
+
+        {{#if add_enable}}
+            <div class="modal fade" id="modal_add_test" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modal_add_test_label">Прикрепление теста</h5>
+                            <button type="button" class="btn-close buttons_close_modal" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-floating">
+                                <select class="form-select" id="input_test">
+                                    <option selected>Выбрать..</option>
+                                    {{#each all_tests}}
+                                        <option value="{{this.idtests}}" name="{{this.desc}}|{{this.maxTry}}|{{this.login}} - {{this.f}} {{this.i}} {{this.o}}">{{this.name}}</option>
+                                    {{/each}}
+                                </select>
+                                <label for="input_test">Созданные тесты</label>
+                                <div class="invalid-feedback"> Обязательно к заполнению!</div>
+                            </div>
+                            <div hidden class="row mt-3" id="row_test_info">
+                                <p class="test_info_creator">
+                                    Создано: 
+                                </p>
+                                <p class="test_info_maxTry">
+                                    Максимальное число попыток: 
+                                </p>
+                                <p class="test_info_desc">
+                                    Описание: 
+                                </p>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary buttons_close_modal" data-bs-dismiss="modal">Закрыть</button>
+                            <button type="button" class="btn btn-success" id="button_add_test">Прикрепить</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {{/if}}
+
     {{/if}}
 </div>

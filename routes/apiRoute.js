@@ -18,6 +18,7 @@ apiRouter.post('/api-new_test', parser, apiController.new_test);
 apiRouter.post('/api-update_test', parser, apiController.update_test);
 
 //раздел группа-тест
-apiRouter.post('/del_group_test', parser, apiController.del_group_test);
+apiRouter.post('/api-del_group_test', parser, apiController.del_group_test);
+apiRouter.post('/api-new_group_test', parser, apiController.new_group_test);
 
 module.exports = apiRouter;
