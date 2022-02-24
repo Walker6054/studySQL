@@ -17,3 +17,31 @@ exports.check_result_of_test = (test, options) => {
     };
     return options.fn(config);
 }
+
+exports.type_question = (question, options) => {
+    let answers = new Array();
+    for (let j = 0; j < question.answers.length; j++) {
+        let type_button;
+        if (question.count_right_answers > 1) {
+            type_button = "checkbox";
+        } else {
+            type_button = "radio";
+        }
+        let step = {
+            id: j,
+            value: question.answers[j],
+            type: type_button,
+            id_question: question.id
+        };
+        answers.push(step);
+    }
+
+    let config = {
+        answers: answers
+    };
+    return options.fn(config);
+}
+
+exports.return_index = (index) => {
+    return ++index;
+}

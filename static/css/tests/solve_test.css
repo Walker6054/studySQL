@@ -1,0 +1,12 @@
+.row_button {
+    display: flex;
+    justify-content: space-between;
+}
+.col_button {
+    display: flex;
+    flex-direction: column;
+}
+.text-back {
+    text-align: center;
+    margin: 0;
+}

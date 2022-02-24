@@ -28,10 +28,17 @@ exports.delStudents = (id) => {
     return connect.query("call del_students("+ id +")");
 }
 
+//получение всех тестов студента (не)пройденных
 exports.get_student_tests = (login) => {
     return connect.query("call get_student_tests('"+ login +"')");
 }
 
+//получение определенного теста студента (необходимо для проверки на существование/прикрепленность)
+exports.get_student_test = (login, idtest) => {
+    return connect.query("call get_student_test('"+ login +"', " + idtest + ")");
+}
+
+//получение всех результатов тестов студента (не)пройденных до конца
 exports.get_result_student_test_with_answers = (login, idtest) => {
     return connect.query("call get_result_student_test_with_answers('"+ login +"', " + idtest + ")");
 }

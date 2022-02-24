@@ -314,6 +314,94 @@ exports.update_test = async (request, response) => {
     }
 };
 
+exports.solve_test = async (request, response) => {
+    let id_test = request.url.split("=")[1];
+    let verify = await get_cookie_check_user(request.rawHeaders);
+
+    //инициализация пути
+    let breadcrumb = Array();
+    breadcrumb.push({ title: "Главная", href: "", active: false });
+    breadcrumb.push({ title: "Тесты", href: "/tests", active: false });
+    breadcrumb.push({ title: "Прохождение теста", href: "/solve_test", active: true });
+
+    if (verify[0]) {
+        switch (verify[1]) {
+            case "student":
+                let test_user;
+                let questions;
+                let error;
+                await students.get_student_test(verify[0].login, id_test)
+                    .then((res) => {
+                        test_user = res[0][0];
+                        error = test_user.length;
+                    })
+                    .catch((err) => {
+                        error = err;
+                    });
+                
+                if ((error == 0) || (error.code)) {
+                    response.redirect("/tests");
+                } else {
+                    let questions_for_list = new Array();
+
+                    await get_data.get_questions_test(id_test)
+                        .then((res) => {
+                            questions = res[0][0];
+                        })
+                        .catch((err) => {
+                            console.log(err);
+                        });
+                    
+                    //преобразование вопросов для отрисовки
+                    for (let i = 0; i < questions.length; i++) {
+                        let interactive = false;
+                        if (questions[i].interactive) {
+                            interactive = true;
+                        }
+
+                        let temp = {
+                            id: questions[i].idquestions,
+                            formulation: questions[i].formulation,
+                            comment: questions[i].comment,
+                            interactive: interactive,
+                            answers: questions[i].answers,
+                            count_right_answers: questions[i].rightAnswer.length
+                        };
+                        questions_for_list.push(temp);
+                    }
+
+                    response.render(pathDir + "/views/tests/solve_test.hbs",
+                        {
+                            title: "Основы SQL",
+                            headPage: 'Образовательная система "Основы SQL"',
+                            userName: verify[0].login,
+                            page: "tests/solve_test",
+                            viewHeader: true,
+                            student: true,
+                            breadcrumb: breadcrumb,
+                            questions: questions_for_list,
+                            helpers: {
+                                type_question: hbs_helpers.type_question,
+                                return_index: hbs_helpers.return_index
+                            }
+                        }
+                    );
+                }
+                break;
+            
+            case "lecturer":
+                response.redirect("/tests");
+            
+            case "admin":
+                response.redirect("/tests");
+        }
+
+    } else {
+        response.redirect("/login");
+    }
+};
+
+
 
 async function get_cookie_check_user(req) {
     let cookiesString;

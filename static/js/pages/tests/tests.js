@@ -58,3 +58,12 @@ function getCookie(name) {
     ));
     return matches ? decodeURIComponent(matches[1]) : undefined;
 }
+
+let buttons_solve_test = document.getElementsByClassName("button_solve_test");
+if (buttons_solve_test.length != 0) {
+    for (let i = 0; i < buttons_solve_test.length; i++) {
+        buttons_solve_test[i].addEventListener("click", () => {
+            window.location = window.location.href + "solve_testID=" + buttons_solve_test[i].getAttribute("name");
+        })
+    }
+}
