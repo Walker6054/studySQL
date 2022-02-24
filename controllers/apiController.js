@@ -328,7 +328,7 @@ exports.del_test = async (request, response) => {
 
     let verify = await check_user(data.token);
     console.log(verify);
-    if (verify) {
+    if (verify[0]) {
         await tests.delTests(data.id)
             .then((res) => {
                 if (res[0].affectedRows > 0) {
@@ -350,7 +350,7 @@ exports.update_test = async (request, response) => {
     console.log(data);
 
     let verify = await check_user(data.token);
-    if (verify) {
+    if (verify[0]) {
         let flag_add_test;
         await tests.updateTests(Number(data.id), data.name, data.desc, data.maxTry)
             .then((res) => {
@@ -422,9 +422,9 @@ exports.new_test = async (request, response) => {
     console.log(data);
 
     let verify = await check_user(data.token);
-    if (verify) {
+    if (verify[0]) {
         let flag_add_test;
-        await tests.addTests(verify.login, data.name, data.desc, data.maxTry)
+        await tests.addTests(verify[0].login, data.name, data.desc, data.maxTry)
             .then((res) => {
                 flag_add_test = res[0].affectedRows;
             })
@@ -435,7 +435,7 @@ exports.new_test = async (request, response) => {
         
         if ((flag_add_test != 0) && (flag_add_test != false)) {
             let idtest;
-            await get_data.get_lecturer_tests(verify.login)
+            await get_data.get_lecturer_tests(verify[0].login)
                 .then((res) => {
                     idtest = get_max_idtests(res[0][0]);
                 })
@@ -491,7 +491,7 @@ exports.del_group_test = async (request, response) => {
 
     let verify = await check_user(data.token);
 
-    if (verify) {
+    if (verify[0]) {
         await groups_tests.delGroups_tests(data.id)
             .then((res) => {
                 console.log(res);
@@ -515,7 +515,7 @@ exports.new_group_test = async (request, response) => {
 
     let verify = await check_user(data.token);
 
-    if (verify) {
+    if (verify[0]) {
         await groups_tests.addGroups_tests(data.id_group, data.id_test)
             .then((res) => {
                 //console.log(res);

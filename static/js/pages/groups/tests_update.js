@@ -30,9 +30,6 @@ if (button_show_modal_add_test.getAttribute("name") == "disabled") {
     for (let i = 0; i < buttons_close_modal.length; i++){
         buttons_close_modal[i].addEventListener("click", clear_modal);
     }
-    let test_info_maxTry = row_test_info.getElementsByClassName("test_info_maxTry")[0];
-    let test_info_desc = row_test_info.getElementsByClassName("test_info_desc")[0];
-    let test_info_creator = row_test_info.getElementsByClassName("test_info_creator")[0];
     function clear_modal() {
         input_test.value = "Выбрать..";
         row_test_info.setAttribute("hidden", "");
@@ -47,6 +44,9 @@ if (button_show_modal_add_test.getAttribute("name") == "disabled") {
 
 
 
+let test_info_maxTry = row_test_info.getElementsByClassName("test_info_maxTry")[0];
+let test_info_desc = row_test_info.getElementsByClassName("test_info_desc")[0];
+let test_info_creator = row_test_info.getElementsByClassName("test_info_creator")[0];
 
 if (input_test) {
     input_test.addEventListener("change", list_info);
@@ -56,11 +56,11 @@ function list_info() {
         let option_selected = input_test.querySelector("option[value='" + input_test.value + "']").getAttribute("name").split("|");
         row_test_info.removeAttribute("hidden");
 
-        test_info_maxTry.innerHTML += option_selected[1];
-        test_info_desc.innerHTML += option_selected[0];
+        test_info_maxTry.innerHTML = "Максимальное число попыток: " + option_selected[1];
+        test_info_desc.innerHTML = "Описание: " + option_selected[0];
 
         if (test_info_creator) {
-            test_info_creator.innerHTML += option_selected[2];
+            test_info_creator.innerHTML =  "Создано: " + option_selected[2];
         }
     } else {
         row_test_info.setAttribute("hidden", "");

@@ -45,3 +45,38 @@ exports.type_question = (question, options) => {
 exports.return_index = (index) => {
     return ++index;
 }
+
+exports.create_drag_drop_block = (formulation, id, options) => {
+    let last = formulation[formulation.length - 1];
+    formulation.splice(formulation.length - 1, 1);
+
+    let temp = new Array();
+    for (let i = 0; i < formulation.length; i++) {
+        temp[i] = {
+            formulation: formulation[i],
+            id_question: id
+        }
+    }
+
+    let config = {
+        step: temp,
+        last: last
+    }
+    return options.fn(config);
+}
+
+exports.return_index_to_answers = (answers, id, options) => {
+
+    let temp = new Array();
+    for (let i = 0; i < answers.length; i++) {
+        temp[i] = {
+            answer: answers[i],
+            id_question: id
+        }
+    }
+
+    let config = {
+        step: temp
+    }
+    return options.fn(config);
+}

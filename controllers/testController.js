@@ -357,6 +357,7 @@ exports.solve_test = async (request, response) => {
                         let interactive = false;
                         if (questions[i].interactive) {
                             interactive = true;
+                            questions[i].formulation = questions[i].formulation.split(/\{\w+\}/);
                         }
 
                         let temp = {
@@ -370,6 +371,8 @@ exports.solve_test = async (request, response) => {
                         questions_for_list.push(temp);
                     }
 
+                    //console.log(questions_for_list);
+
                     response.render(pathDir + "/views/tests/solve_test.hbs",
                         {
                             title: "Основы SQL",
@@ -382,7 +385,9 @@ exports.solve_test = async (request, response) => {
                             questions: questions_for_list,
                             helpers: {
                                 type_question: hbs_helpers.type_question,
-                                return_index: hbs_helpers.return_index
+                                return_index: hbs_helpers.return_index,
+                                create_drag_drop_block: hbs_helpers.create_drag_drop_block,
+                                return_index_to_answers: hbs_helpers.return_index_to_answers
                             }
                         }
                     );
