@@ -13,15 +13,15 @@
                                 {{#create_drag_drop_block this.formulation this.id}}
                                     {{#each step}}
                                         <span class="text_formulation">{{this.formulation}}</span>
-                                        <div id="dz_{{id_question}}_{{@index}}" class="dropzone" ondragover="onDragOver(event);" ondrop="onDrop(event);"></div>
+                                        <div id="dz{{id_question}}_{{@index}}" class="dropzone" ></div>
                                     {{/each}}
                                     <span class="text_formulation">{{last}}</span>
                                 {{/create_drag_drop_block}}
                             </div>
-                            <div class="row_answers" id="{{this.id}}" name="" ondragover="onDragOver(event);" ondrop="onDrop(event);">
+                            <div class="row_answers" id="{{this.id}}" name="">
                                 {{#return_index_to_answers this.answers this.id}}
                                     {{#each step}}
-                                        <div class="drag_elem" id="de_{{id_question}}_{{@index}}" draggable="true" ondragstart="onDragStart(event);">{{answer}}</div>
+                                        <div class="drag_elem" id="de{{id_question}}_{{@index}}" draggable="true">{{answer}}</div>
                                     {{/each}}
                                 {{/return_index_to_answers}}
                             </div>
