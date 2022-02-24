@@ -7,6 +7,11 @@ let button_add_question = document.getElementById("button_add_question");
 let block_to_add = document.getElementById("add_question");
 let rowQuestions_pattern = document.getElementById("rowQuestions_pattern");
 
+//слушатель закрытия окна
+window.onbeforeunload = () => {
+    return "";
+};
+
 //добавление слушателей после загрузки
 let rowQuestions_first = document.getElementsByClassName("rowQuestions");
 for (let i = 0; i < rowQuestions_first.length; i++) {

@@ -116,3 +116,8 @@ function getCookie(name) {
     ));
     return matches ? decodeURIComponent(matches[1]) : undefined;
 }
+
+//слушатель закрытия окна
+window.onbeforeunload = () => {
+    return "";
+};

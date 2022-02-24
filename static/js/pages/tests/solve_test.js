@@ -46,14 +46,15 @@ function on_drop() {
     event.dataTransfer.clearData();   
 }
 
+//слушатель закрытия окна
+window.onbeforeunload = () => {
+    return "";
+};
 
 let button_back_tests = document.getElementById("button_back_tests");
 button_back_tests.addEventListener("click", back_to_tests);
 function back_to_tests() {
-    let exit = confirm("Выход может привести к потере введенных данных!");
-    if (exit) {
-        window.location = window.location.origin + "/tests";
-    }
+    window.location = window.location.origin + "/tests/";
 }
 
 let button_send_to_check = document.getElementById("button_send_to_check");
