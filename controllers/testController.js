@@ -173,6 +173,7 @@ exports.update_test = async (request, response) => {
 
     let test;
     let all_questions_res;
+    let all_questions = Array();
     switch (verify[1]) {
         case "student":
             return response.redirect("/tests");
@@ -207,7 +208,6 @@ exports.update_test = async (request, response) => {
             }
 
             //форматирование вопросов для отображения на странице
-            let all_questions = Array();
             for (let i = 0; i < all_questions_res.length; i++) {
                 let answers = all_questions_res[i].answers[0];
                 for (let j = 1; j < all_questions_res[i].answers.length; j++) {
@@ -269,7 +269,6 @@ exports.update_test = async (request, response) => {
             }
 
             //форматирование вопросов для отображения на странице
-            let all_questions = Array();
             for (let i = 0; i < all_questions_res.length; i++) {
                 let answers = all_questions_res[i].answers[0];
                 for (let j = 1; j < all_questions_res[i].answers.length; j++) {

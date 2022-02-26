@@ -43,10 +43,16 @@ if (button_show_modal_add_test.getAttribute("name") == "disabled") {
 }
 
 
+let modal = document.getElementById("modal_add_test");
+let test_info_maxTry;
+let test_info_desc;
+let test_info_creator;
+if (modal) {
+    test_info_maxTry = row_test_info.getElementsByClassName("test_info_maxTry")[0];
+    test_info_desc = row_test_info.getElementsByClassName("test_info_desc")[0];
+    test_info_creator = row_test_info.getElementsByClassName("test_info_creator")[0];
+}
 
-let test_info_maxTry = row_test_info.getElementsByClassName("test_info_maxTry")[0];
-let test_info_desc = row_test_info.getElementsByClassName("test_info_desc")[0];
-let test_info_creator = row_test_info.getElementsByClassName("test_info_creator")[0];
 
 if (input_test) {
     input_test.addEventListener("change", list_info);

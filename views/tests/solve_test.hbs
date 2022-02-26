@@ -5,7 +5,7 @@
         </div>
         <div class="mb-3">
             {{#each questions}}
-                <div name="{{this.id}}" class="card text-dark bg-success bg-gradient bg-opacity-10 mb-3">
+                <div name="{{this.id}}" class="card question text-dark bg-success bg-gradient bg-opacity-10 mb-3">
                     <div class="card-header">{{return_index @index}} Вопрос</div>
                     {{#if interactive}}
                         <div class="card-body">
@@ -18,6 +18,7 @@
                                     <span class="text_formulation">{{last}}</span>
                                 {{/create_drag_drop_block}}
                             </div>
+                            <div class="invalid-feedback mb-3">Обязательно к заполнению!</div>
                             <div class="row_answers" id="{{this.id}}" name="">
                                 {{#return_index_to_answers this.answers this.id}}
                                     {{#each step}}
@@ -33,14 +34,15 @@
                                 {{#type_question this}}
                                     {{#each answers}}
                                         <div class="form-check">
-                                            <input class="form-check-input" type="{{this.type}}" value="" id="input_{{this.id}}_{{this.id_question}}">
-                                            <label class="form-check-label" for="input_{{this.id}}_{{this.id_question}}">
+                                            <input class="form-check-input" type="{{this.type}}" value="" id="input{{this.id_question}}_{{this.id}}">
+                                            <label class="form-check-label" for="input{{this.id_question}}_{{this.id}}">
                                                 {{this.value}}
                                             </label>
                                         </div>
                                     {{/each}}
                                 {{/type_question}}
                             </div>
+                            <div class="invalid-feedback mb-3">Обязательно к заполнению!</div>
                         </div>
                     {{/if}}
                     <div class="card-footer">Комментарий: {{this.comment}}</div>
