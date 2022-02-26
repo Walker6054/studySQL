@@ -9,7 +9,7 @@
                     <div class="card-header">{{return_index @index}} Вопрос</div>
                     {{#if interactive}}
                         <div class="card-body">
-                            <div class="row_formulation" name="">
+                            <div class="row_formulation interactive">
                                 {{#create_drag_drop_block this.formulation this.id}}
                                     {{#each step}}
                                         <span class="text_formulation">{{this.formulation}}</span>
@@ -29,7 +29,7 @@
                     {{else}}
                         <div class="card-body">
                             <p class="card-text mb-3">{{this.formulation}}</p>
-                            <div class="">
+                            <div class="answers noninteractive">
                                 {{#type_question this}}
                                     {{#each answers}}
                                         <div class="form-check">

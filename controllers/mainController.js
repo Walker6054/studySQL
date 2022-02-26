@@ -12,9 +12,9 @@ exports.login = async (request, response) => {
     let verify = await get_cookie_check_user(request.rawHeaders);
 
     if (verify[0]) {
-        response.redirect("/");
+        return response.redirect("/");
     } else {
-        response.render(pathDir + "/views/login.hbs",
+        return response.render(pathDir + "/views/login.hbs",
             {
                 title: "Основы SQL",
                 page: "login/login",
@@ -27,40 +27,40 @@ exports.login = async (request, response) => {
 exports.index = async (request, response) => {
     let verify = await get_cookie_check_user(request.rawHeaders);
 
-    if (verify[0]) {
-        let flagUser = Array();
-        switch (verify[1]) {
-            case "student":
-                flagUser[0] = true;
-                break;
-            case "lecturer":
-                flagUser[1] = true;
-                break;
-            case "admin":
-                flagUser[2] = true;
-                break;
-        }
-
-        //инициализация пути
-        let breadcrumb = Array();
-        breadcrumb.push({ title: "Главная", href: "", active: true });
-
-        response.render(pathDir + "/views/main.hbs",
-            {
-                title: "Основы SQL",
-                headPage: 'Образовательная система "Основы SQL"',
-                userName: verify[0].login,
-                page: "main",
-                viewHeader: true,
-                student: flagUser[0],
-                lecturer: flagUser[1],
-                admin: flagUser[2],
-                breadcrumb: breadcrumb
-            }
-        );
-    } else {
-        response.redirect("/login");
+    if (!verify[0]) {
+        return response.redirect("/login");
     }
+
+    let flagUser = Array();
+    switch (verify[1]) {
+        case "student":
+            flagUser[0] = true;
+            break;
+        case "lecturer":
+            flagUser[1] = true;
+            break;
+        case "admin":
+            flagUser[2] = true;
+            break;
+    }
+
+    //инициализация пути
+    let breadcrumb = Array();
+    breadcrumb.push({ title: "Главная", href: "", active: true });
+
+    return response.render(pathDir + "/views/main.hbs",
+        {
+            title: "Основы SQL",
+            headPage: 'Образовательная система "Основы SQL"',
+            userName: verify[0].login,
+            page: "main",
+            viewHeader: true,
+            student: flagUser[0],
+            lecturer: flagUser[1],
+            admin: flagUser[2],
+            breadcrumb: breadcrumb
+        }
+    );
 };
 
 exports.lk = async (request, response) => {
@@ -71,86 +71,87 @@ exports.lk = async (request, response) => {
     breadcrumb.push({ title: "Главная", href: "", active: false });
     breadcrumb.push({ title: "ЛК", href: "/lk", active: true });
 
-    if (verify[0]) {
-        switch (verify[1]) {
-            case "student":
-                let student_info;
-                await students.students(verify[0].login)
-                    .then((res) => {
-                        console.log(res);
-                        student_info = res[0][0][0];
-                    })
-                    .catch((err) => {
-                        console.log(err);
-                    })
-                response.render(pathDir + "/views/lk.hbs",
-                    {
-                        title: "Основы SQL",
-                        headPage: 'Образовательная система "Основы SQL"',
-                        userName: verify[0].login,
-                        page: "lk/lk_stud",
-                        viewHeader: true,
-                        student: true,
-                        student_info: student_info,
-                        breadcrumb: breadcrumb,
-                        lk: "hidden",
-                        type: verify[1]
-                    }
-                );
-                break;
-            
-            case "lecturer":
-                let lect_info;
-                await lecturers.lecturers(verify[0].login)
-                    .then((res) => {
-                        lect_info = res[0][0][0];
-                    })
-                    .catch((err) => {
-                        console.log(err);
-                    })
-                response.render(pathDir + "/views/lk.hbs",
-                    {
-                        title: "Основы SQL",
-                        headPage: 'Образовательная система "Основы SQL"',
-                        userName: verify[0].login,
-                        page: "lk/lk_lect",
-                        viewHeader: true,
-                        lecturer: true,
-                        lect_info: lect_info,
-                        breadcrumb: breadcrumb,
-                        lk: "hidden",
-                        type: verify[1]
-                    }
-                );
-                break;
-            
-            case "admin":
-                let admin_info;
-                await admin.admins(verify[0].login)
-                    .then((res) => {
-                        admin_info = res[0][0][0];
-                    })
-                    .catch((err) => {
-                        console.log(err);
-                    })
-                response.render(pathDir + "/views/lk.hbs",
-                    {
-                        title: "Основы SQL",
-                        headPage: 'Образовательная система "Основы SQL"',
-                        userName: verify[0].login,
-                        page: "lk/lk_adm",
-                        viewHeader: true,
-                        admin: true,
-                        admin_info: admin_info,
-                        breadcrumb: breadcrumb,
-                        lk : "hidden",
-                        type: verify[1]
-                    }
-                );
-                break;
-        }      
-    } else {
-        response.redirect("/login");
+    if (!verify[0]) {
+        return response.redirect("/login");
+    }
+
+    switch (verify[1]) {
+        case "student":
+            let student_info;
+            await students.students(verify[0].login)
+                .then((res) => {
+                    console.log(res);
+                    student_info = res[0][0][0];
+                })
+                .catch((err) => {
+                    console.log(err);
+                })
+            return response.render(pathDir + "/views/lk.hbs",
+                {
+                    title: "Основы SQL",
+                    headPage: 'Образовательная система "Основы SQL"',
+                    userName: verify[0].login,
+                    page: "lk/lk_stud",
+                    viewHeader: true,
+                    student: true,
+                    student_info: student_info,
+                    breadcrumb: breadcrumb,
+                    lk: "hidden",
+                    type: verify[1]
+                }
+            );
+
+            break;
+        
+        case "lecturer":
+            let lect_info;
+            await lecturers.lecturers(verify[0].login)
+                .then((res) => {
+                    lect_info = res[0][0][0];
+                })
+                .catch((err) => {
+                    console.log(err);
+                })
+            return response.render(pathDir + "/views/lk.hbs",
+                {
+                    title: "Основы SQL",
+                    headPage: 'Образовательная система "Основы SQL"',
+                    userName: verify[0].login,
+                    page: "lk/lk_lect",
+                    viewHeader: true,
+                    lecturer: true,
+                    lect_info: lect_info,
+                    breadcrumb: breadcrumb,
+                    lk: "hidden",
+                    type: verify[1]
+                }
+            );
+            break;
+        
+        case "admin":
+            let admin_info;
+            await admin.admins(verify[0].login)
+                .then((res) => {
+                    admin_info = res[0][0][0];
+                })
+                .catch((err) => {
+                    console.log(err);
+                })
+            return response.render(pathDir + "/views/lk.hbs",
+                {
+                    title: "Основы SQL",
+                    headPage: 'Образовательная система "Основы SQL"',
+                    userName: verify[0].login,
+                    page: "lk/lk_adm",
+                    viewHeader: true,
+                    admin: true,
+                    admin_info: admin_info,
+                    breadcrumb: breadcrumb,
+                    lk : "hidden",
+                    type: verify[1]
+                }
+            );
+            break;
     }
 };
 

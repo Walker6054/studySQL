@@ -52,7 +52,6 @@ app.set('view engine', 'hbs');
 
 //инициализация админ панели
 const adm = require("express-admin");
-const { tests_results } = require('./controllers/groupController');
 let config = {
     dpath: './config/',
     config: require("./config/config.json"),

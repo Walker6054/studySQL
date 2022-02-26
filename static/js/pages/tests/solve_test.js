@@ -39,7 +39,6 @@ function on_drop() {
     let draggableElement = document.getElementById(id);
     let dropzone = event.target;
 
-    console.log(dropzone.getAttribute("class"));
     if ((!dropzone.firstChild) || (dropzone.getAttribute("class") == "row_answers")) {
         dropzone.appendChild(draggableElement);
     }
@@ -61,6 +60,19 @@ let button_send_to_check = document.getElementById("button_send_to_check");
 button_send_to_check.addEventListener("click", validation);
 
 function validation() {
+    let blocks = document.getElementsByClassName("card-body");
+
+    for (let i = 0; i < blocks.length; i++) {
+        let interactive = blocks[i].getElementsByClassName("interactive")[0];
+        let noninteractive = blocks[i].getElementsByClassName("noninteractive")[0];
+        if (interactive) {
+            
+        } else {
+            let check_inputs = noninteractive.getElementsByClassName("form-check-input");
+            console.log(check_inputs);
+        }
+    }
+    console.log(blocks);
 }
 function procces_send() {
 }
