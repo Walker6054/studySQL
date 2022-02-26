@@ -130,7 +130,7 @@ function procces_send(data) {
         if (check_solve_test_req.status == 200) {
             setTimeout(() => {
                 alert(check_solve_test_req.responseText);
-                window.location = window.location.origin + "/tests";
+                window.location = window.location.origin + "/tests/";
             }, 50);
         } else {
             alert(check_solve_test_req.responseText);

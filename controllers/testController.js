@@ -55,6 +55,8 @@ exports.index = async (request, response) => {
                 } else {
                     unfinished_test_user.push(test_user[i]);
                 }
+                console.log(ends_tests);
+                console.log(unfinished_test_user);
             }
             
             return response.render(pathDir + "/views/tests/tests.hbs",
@@ -137,7 +139,7 @@ exports.new_test = async (request, response) => {
 
     switch (verify[1]) {
         case "student":
-            return response.redirect("/tests");
+            return response.redirect("/tests/");
             break;
         case "lecturer":
             return response.render(pathDir + "/views/tests/new_test.hbs",
@@ -152,7 +154,7 @@ exports.new_test = async (request, response) => {
             );
             break;
         case "admin":
-            return response.redirect("/tests");
+            return response.redirect("/tests/");
             break;
     }
 };
@@ -176,7 +178,7 @@ exports.update_test = async (request, response) => {
     let all_questions = Array();
     switch (verify[1]) {
         case "student":
-            return response.redirect("/tests");
+            return response.redirect("/tests/");
             break;
         
         case "lecturer":
@@ -339,8 +341,8 @@ exports.solve_test = async (request, response) => {
                     error = err;
                 });
             
-            if ((error == 0) || (error.code)) {
-                return response.redirect("/tests");
+            if ((error == 0) || (error.code) || (test_user[0].all_count == test_user[0].maxTry)) {
+                return response.redirect("/tests/");
             }
 
             let questions_for_list = new Array();
@@ -392,10 +394,10 @@ exports.solve_test = async (request, response) => {
             break;
         
         case "lecturer":
-            return response.redirect("/tests");
+            return response.redirect("/tests/");
         
         case "admin":
-            return response.redirect("/tests");
+            return response.redirect("/tests/");
     }
 };
 

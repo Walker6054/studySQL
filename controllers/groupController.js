@@ -226,7 +226,7 @@ exports.tests_results = async (request, response) => {
 
     switch (verify[1]) {
         case "student":
-            return response.redirect("/tests");
+            return response.redirect("/tests/");
             break;
         
         case "lecturer":

@@ -8,6 +8,8 @@ const lecturers = require("../models/users/lecturers");
 const tests = require("../models/tables/tests");
 const questions = require("../models/tables/questions");
 const groups_tests = require("../models/relations/groups_tests");
+const marks_tests = require("../models/relations/marks_tests");
+const marks_questions = require("../models/relations/marks_questions");
 const get_data = require("../models/get_data");
 
 const mailer = require("../mailer/mailer");
@@ -470,6 +472,112 @@ exports.new_test = async (request, response) => {
 exports.check_solve_test = async (request, response) => {
     let data = request.body;
     console.log(data);
+
+    let verify = await check_user(data.token);
+    if (!verify[0]) {
+        return response.status(801).send("Ошибка в авторизации пользователя!");
+    }
+
+    let questions_test_from_db;
+    let error = false;
+    await get_data.get_questions_test(data.id_test)
+        .then((res) => {
+            questions_test_from_db = res[0][0];
+            console.log(questions_test_from_db);
+        })
+        .catch((err) => {
+            console.log(err);
+            error = true;
+        });
+    
+    if (error || (questions_test_from_db.length == 0)) {
+        return response.status(801).send("Ошибка при проверке теста");
+    }
+
+    //получение номера последней попытки студента по тесту
+    let last_try;
+    await students.return_try_count_test(verify[0].login, data.id_test)
+        .then((res) => {
+            if (Object.values(res[0][0])[0] == null) {
+                last_try = 0;
+            } else {
+                last_try = Object.values(res[0][0])[0];
+            }
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+    
+    //проверка вопросов
+    let mark_question = new Array();
+    let count_right_answers_test = 0;
+    let count_all_questions_test = questions_test_from_db.length;
+    try {
+        for (let i = 0; i < questions_test_from_db.length; i++) {
+            let answers = new Array();
+            let flag_right_answer = 0;
+
+            let flag = true;
+            if (questions_test_from_db[i].interactive) {
+                let temp_arr_splite = questions_test_from_db[i].formulation.split("{");
+                temp_arr_splite.splice(0, 1);
+                temp_arr_splite.forEach((el) => {
+                    answers.push(el.split("}")[0]);
+                });
+
+                for (let a = 0; a < answers.length; a++) {
+                    if (answers[a] != data.questions[i].answer[a]) {
+                        flag = false;
+                    }
+                }
+            } else {
+                for (let a = 0; a < questions_test_from_db[i].rightAnswer.length; a++) {
+                    if (questions_test_from_db[i].rightAnswer[a] != data.questions[i].answer[a]) {
+                        flag = false;
+                    }
+                }
+            }
+
+            if (flag) {
+                flag_right_answer = 1;
+                count_right_answers_test++;
+            }
+
+            mark_question.push({
+                login: verify[0].login,
+                idquestions: questions_test_from_db[i].idquestions,
+                tryCount: last_try + 1,
+                answer: JSON.stringify(answers),
+                right: flag_right_answer
+            });
+        }
+    } catch (e) {
+        return response.status(801).send("Ошибка при проверке теста");
+    }
+
+    //сохранение результатов теста
+    let flag_error_add_marks_test = "";
+    await marks_tests.addMarks_tests(verify[0].login, data.id_test, last_try + 1, Math.round(count_right_answers_test * 100 / count_all_questions_test))
+        .catch((err) => {
+            console.log(err);
+            flag_error_add_marks_test = "Ошибка при сохранении результатов теста";
+        });
+    
+    //сохранение результатов вопросов
+    let flag_error_add_marks_questions = "";
+    for (let i = 0; i < mark_question.length; i++) {
+        await marks_questions.addMarks_questions(verify[0].login, mark_question[i].idquestions, last_try+1, mark_question[i].answer, mark_question[i].right)
+        .catch((err) => {
+            console.log(err);
+            flag_error_add_marks_questions = "Ошибка при сохранении результатов вопросов";
+        });
+    }
+
+    if (flag_error_add_marks_test || flag_error_add_marks_questions) {
+        return response.status(801).send(flag_error_add_marks_test +"\n"+flag_error_add_marks_questions);
+    } else {
+        return response.status(200).send("Тест проверен, данные успешно сохранены!\nРезультаты можно увидеть на странице с тестами");
+    }
 }
 
 //раздел группа-тест

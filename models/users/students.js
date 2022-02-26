@@ -49,3 +49,8 @@ exports.get_student_test = (login, idtest) => {
 exports.get_result_student_test_with_answers = (login, idtest) => {
     return connect.query("call get_result_student_test_with_answers('"+ login +"', " + idtest + ")");
 }
+
+//получение номера последней попытки студента определенного теста
+exports.return_try_count_test = (login, idtest) => {
+    return connect.query("select return_try_count_test('"+ login +"', " + idtest + ")");
+}
