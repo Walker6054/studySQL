@@ -6,6 +6,7 @@ const admins = require("../models/users/admin");
 const lecturers = require("../models/users/lecturers");
 
 const tests = require("../models/tables/tests");
+const groups= require("../models/tables/groups");
 const questions = require("../models/tables/questions");
 const groups_tests = require("../models/relations/groups_tests");
 const marks_tests = require("../models/relations/marks_tests");
@@ -578,6 +579,79 @@ exports.check_solve_test = async (request, response) => {
     } else {
         return response.status(200).send("Тест проверен, данные успешно сохранены!\nРезультаты можно увидеть на странице с тестами");
     }
+}
+
+//раздел группа
+exports.new_group = async (request, response) => {
+    let data = request.body;
+    console.log(data);
+
+    let verify = await check_user(data.token);
+    if (!verify[0]) {
+        return response.status(801).send("Ошибка в авторизации пользователя!");
+    }
+
+    let flag_add_group;
+    await groups.addGroups(data.shifr)
+        .then((res) => {
+            flag_add_group = res[0].affectedRows;
+        })
+        .catch((err) => {
+            console.log(err);
+            flag_add_group = false;
+        });
+    
+    if ((flag_add_group == 0) || (flag_add_group == false)) {
+        return response.status(801).send("Ошибка при добавлении группы!");
+    }
+    return response.status(200).send("Группа успешно добавлена!");
+}
+exports.update_group = async (request, response) => {
+    let data = request.body;
+    console.log(data);
+
+    let verify = await check_user(data.token);
+    if (!verify[0]) {
+        return response.status(801).send("Ошибка в авторизации пользователя!");
+    }
+
+    let flag_update_group;
+    await groups.updateGroups(data.id, data.shifr)
+        .then((res) => {
+            flag_update_group = res[0].affectedRows;
+        })
+        .catch((err) => {
+            console.log(err);
+            flag_update_group = false;
+        });
+    
+    if ((flag_update_group == 0) || (flag_update_group == false)) {
+        return response.status(801).send("Ошибка при изменении группы!");
+    }
+    return response.status(200).send("Шифр группы успешно изменен!");
+}
+exports.del_group = async (request, response) => {
+    let data = request.body;
+    console.log(data);
+
+    let verify = await check_user(data.token);
+    
+    if (!verify[0]) {
+        return response.status(801).send("Ошибка в авторизации пользователя!");
+    }
+
+    await groups.delGroups(data.id)
+        .then((res) => {
+            if (res[0].affectedRows > 0) {
+                response.status(200).send("Группа успешно удалена!");
+            } else {
+                response.status(801).send("Ошибка при удалении группы");
+            }
+        })
+        .catch((err) => {
+            console.log(err);
+            response.status(801).send("Ошибка при удалении группы");
+        });
 }
 
 //раздел группа-тест

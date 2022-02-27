@@ -64,7 +64,7 @@ exports.index = async (request, response) => {
                     title: "Основы SQL",
                     headPage: 'Образовательная система "Основы SQL"',
                     userName: verify[0].login,
-                    page: "groups/groups",
+                    page: "groups/groups_admin",
                     viewHeader: true,
                     admin: true,
                     breadcrumb: breadcrumb,

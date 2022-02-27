@@ -20,20 +20,65 @@
     {{/if}}
     
     {{#if admin}}
+        <div class="row row_main mb-3">
+            <div class="col-8 colButton"></div>
+            <div class="col-4 colButton">
+                <button class="btn btn-success" id="button_show_modal_add_group" data-bs-toggle="modal" data-bs-target="#modal_add_group">Добавить новую группу</button>
+            </div>
+        </div>
+        <div class="modal fade" id="modal_add_group" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" hidden id="modal_add_group_label">Создание группы</h5>
+                        <h5 class="modal-title" hidden id="modal_update_group_label">Изменение шифра группы</h5>
+                        <button type="button" class="btn-close buttons_close_modal" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-floating">
+                            <input class="form-control" id="input_group" placeholder=" ">
+                            <label for="input_test">Шифр группы</label>
+                            <div class="invalid-feedback"></div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary buttons_close_modal" data-bs-dismiss="modal">Закрыть</button>
+                        <button type="button" hidden class="btn btn-success" id="button_add_group">Добавить</button>
+                        <button type="button" hidden class="btn btn-success" id="button_update_group">Изменить</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         {{#each groups}}
             <div class="card border-secondary mb-3">
                 <div class="card-header">
-                    <h5 class="card-title">{{this.shifr}}</h5>
+                    <div class="row">
+                        <div class="col">
+                            <h5 class="card-title">{{this.shifr}}</h5>
+                        </div>
+                        <div class="col-3 colButton">
+                            <button type="button" class="btn btn-warning buttons_update_group" name="{{this.idgroups}}|{{this.shifr}}" data-bs-toggle="modal" data-bs-target="#modal_add_group">Изменить</button>
+                        </div>
+                        <div class="col-3 colButton">
+                            <button type="button" class="btn btn-danger buttons_del_group" name="{{this.idgroups}}">Удалить</button>
+                        </div>
+                    </div>
+                    
                 </div>
                 <div class="card-body">
-                    <p class="card-text">
-                        <a class="btn btn-outline-success" href = "/groups/tests_update_id={{this.idgroups}}" role="button">
-                            Прикрепленные тесты
-                        </a>
-                        <a class="btn btn-outline-success" href = "/groups/tests_results_id={{this.idgroups}}" role="button">
-                            Результаты тестирования
-                        </a>
-                    </p>
+                    <div class="row">
+                        <div class="col colButton">
+                            <a class="btn btn-outline-success" href = "/groups/tests_update_id={{this.idgroups}}" role="button">
+                                Прикрепленные тесты
+                            </a>
+                        </div>
+                        <div class="col colButton">
+                            <a class="btn btn-outline-success" href = "/groups/tests_results_id={{this.idgroups}}" role="button">
+                                Результаты тестирования
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         {{/each}}

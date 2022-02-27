@@ -18,6 +18,11 @@ apiRouter.post('/api-new_test', parser, apiController.new_test);
 apiRouter.post('/api-update_test', parser, apiController.update_test);
 apiRouter.post('/api-check_solve_test', parser, apiController.check_solve_test);
 
+//раздел группа
+apiRouter.post('/api-del_group', parser, apiController.del_group);
+apiRouter.post('/api-new_group', parser, apiController.new_group);
+apiRouter.post('/api-update_group', parser, apiController.update_group);
+
 //раздел группа-тест
 apiRouter.post('/api-del_group_test', parser, apiController.del_group_test);
 apiRouter.post('/api-new_group_test', parser, apiController.new_group_test);
