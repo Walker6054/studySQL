@@ -15,7 +15,7 @@ const get_data = require("../models/get_data");
 
 const mailer = require("../mailer/mailer");
 
-//авторизация/регистрация/восстановление пароля + изменение данных в ЛК
+//авторизация/регистрация/восстановление пароля
 exports.reguser = async (request, response) => {
     let data = request.body;
     let sqlIn = sqlIniect(data);
@@ -129,16 +129,22 @@ exports.forgotpass = async (request, response) => {
         })
         .catch((err) => {
             console.log(err);
-        })
+        });
 
-    if (!((exists) || (((data.login == exists.login) || (data.login == exists.email)) && (data.pass == exists.password)))) {
-        return response.status(801).send("Пользователь с таким логином и паролем не существует! Проверьте правильность введенных данных!");
+    if (exists) {
+        if (data.login != exists.login && data.login != exists.email) {
+            return response.status(801).send("Пользователь с таким логином и паролем не существует!\nПроверьте правильность введенных данных!");
+        }
+    } else {
+        return response.status(801).send("Пользователь с таким логином и паролем не существует!\nПроверьте правильность введенных данных!");
     }
+    
 
     let token = jwt.sign({
         type: "Восстановление пароля",
         login: exists.login,
-        email: exists.email
+        email: exists.email,
+        date: Date.now()
     }, exists.idusers.toString());
 
     await mailer.sendMail(exists.email, exists.login, "forgot", '<a href="http://localhost:3000/registration/recoveryPass=' + token + '">')
@@ -176,14 +182,12 @@ exports.recoverypass = async (request, response) => {
 
     try {
         let checkUser = jwt.verify(data.token, exists.idusers.toString());
-        console.log(checkUser);
         if (!(exists && checkUser)) {
             return response.status(801).send("Попытка подмены токена!");
         }
 
         await users.updateUsers(exists.idusers, exists.login, data.pass, exists.email)
             .then((res) => {
-                console.log(res);
                 mailer.sendMail(exists.email, exists.login, "rec");
                 return response.status(200).send("Пароль успешно изменен!");
             })
@@ -197,6 +201,8 @@ exports.recoverypass = async (request, response) => {
         response.status(801).send("Попытка подмены токена!");
     }
 }
+
+//изменение данных в ЛК
 exports.update_user = async (request, response) => {
     let data = request.body;
     console.log(data);

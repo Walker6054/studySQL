@@ -1,6 +1,7 @@
 const path = require('path');
 const pathDir = path.dirname(__dirname);
 const groups = require("../models/tables/groups");
+const jwt = require("jsonwebtoken");
 
 exports.index = (request, response) => {
     response.redirect("/login");
@@ -46,11 +47,23 @@ exports.forgotPass = (request, response) => {
 }
 
 exports.recoveryPass = (request, response) => {
+    let token = request.url.split("=")[1];
+    let user = jwt.decode(token);
+
+    let text = "Восстановление пароля";
+    let not_wrong_time = true;
+    if (Date.now() - user.date > 86400000) {
+        text = "Истекло время ожидания ссылки";
+        not_wrong_time = false;
+    }
+
     response.render(pathDir + "/views/registration/recoveryPass.hbs",
         {
             title: "Восстановление пароля",
             page: "login/recoveryPass",
-            view: false
+            view: false,
+            text: text,
+            not_wrong_time: not_wrong_time
         }
     );
 }
