@@ -1,0 +1,14 @@
+.icon {
+    border-radius: 0.5vw;
+    min-width: 2vw;
+}
+
+.icon_add {
+    background-color: green;
+}
+.icon_close {
+    background-color: #d70303;
+}
+.icon_edit {
+    background-color: rgb(190, 190, 0);
+}

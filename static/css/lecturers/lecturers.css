@@ -1,0 +1,16 @@
+.actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.colButton {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.header_main {
+    text-align: center;
+    margin: 0;
+}

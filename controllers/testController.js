@@ -55,8 +55,6 @@ exports.index = async (request, response) => {
                 } else {
                     unfinished_test_user.push(test_user[i]);
                 }
-                console.log(ends_tests);
-                console.log(unfinished_test_user);
             }
             
             return response.render(pathDir + "/views/tests/tests.hbs",

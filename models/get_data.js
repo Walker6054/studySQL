@@ -36,6 +36,14 @@ exports.get_group_tests = (login, id) => {
 exports.get_groups_tests = (id) => {
     return connect.query("call get_groups_tests(" + id + ")");
 }
+  //получение списка всех студентов
+exports.all_get_students = () => {
+    return connect.query("call all_get_students()");
+}
+  //получение списка всех преподавателей
+exports.all_get_lecturers = () => {
+    return connect.query("call all_get_lecturers()");
+}
 
 //получение всех тестов и вопросов определенного теста
 exports.get_tests = () => {

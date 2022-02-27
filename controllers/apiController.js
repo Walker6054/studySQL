@@ -313,6 +313,56 @@ exports.update_user = async (request, response) => {
         }
 }
 
+//раздел студентов
+exports.del_student = async (request, response) => {
+    let data = request.body;
+    console.log(data);
+
+    let verify = await check_user(data.token);
+    
+    if (!verify[0]) {
+        return response.status(801).send("Ошибка в авторизации пользователя!");
+    }
+
+    await students.delStudents(data.id)
+        .then((res) => {
+            if (res[0].affectedRows > 0) {
+                response.status(200).send("Студент успешно удален!");
+            } else {
+                response.status(801).send("Ошибка при удалении студента");
+            }
+        })
+        .catch((err) => {
+            console.log(err);
+            response.status(801).send("Ошибка при удалении студента");
+        });
+}
+
+//раздел преподавателей
+exports.del_lecturer = async (request, response) => {
+    let data = request.body;
+    console.log(data);
+
+    let verify = await check_user(data.token);
+    
+    if (!verify[0]) {
+        return response.status(801).send("Ошибка в авторизации пользователя!");
+    }
+
+    await lecturers.delLecturers(data.id)
+        .then((res) => {
+            if (res[0].affectedRows > 0) {
+                response.status(200).send("Преподаватель успешно удален!");
+            } else {
+                response.status(801).send("Ошибка при удалении преподавателя");
+            }
+        })
+        .catch((err) => {
+            console.log(err);
+            response.status(801).send("Ошибка при удалении преподавателя");
+        });
+}
+
 //раздел тестов
 exports.del_test = async (request, response) => {
     let data = request.body;
@@ -484,7 +534,6 @@ exports.check_solve_test = async (request, response) => {
     await get_data.get_questions_test(data.id_test)
         .then((res) => {
             questions_test_from_db = res[0][0];
-            console.log(questions_test_from_db);
         })
         .catch((err) => {
             console.log(err);

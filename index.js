@@ -9,6 +9,8 @@ const apiRouter = require("./routes/apiRoute");
 const regRouter = require("./routes/regRoute");
 const testRouter = require("./routes/testRoute");
 const groupRouter = require("./routes/groupRoute");
+const studentRouter = require("./routes/studentRoute");
+const lecturerRouter = require("./routes/lecturerRoute");
 
 //шаблонизатор
 const expressHbs = require('express-handlebars');
@@ -19,6 +21,8 @@ app.use("/api", apiRouter);
 app.use("/registration", regRouter);
 app.use("/tests", testRouter);
 app.use("/groups", groupRouter);
+app.use("/students", studentRouter);
+app.use("/lecturers", lecturerRouter);
 
 
 //Обработка ошибок

@@ -1,0 +1,37 @@
+<div class="container">
+    <div class="row row_main mb-3">
+        <div class="col-8 colButton">
+            <h5 class="header_main">Список преподавателей</h5>
+        </div>
+        <div class="col-4 colButton">
+            <button class="btn btn-success" id="button_add_student">Добавить преподавателя</button>
+        </div>
+    </div>
+
+    <div class="">
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Логин</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">ФИО</th>
+                    <th scope="col">Институт</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each lecturers}}
+                    <tr>
+                        <th scope="row">{{this.login}}</th>
+                        <td>{{this.email}}</td>
+                        <td>{{this.f}} {{this.i}} {{this.o}}</td>
+                        <td>{{this.institute}}</td>
+                        <td class="actions">
+                            <img class="icon icon_edit" name="{{this.idlecturers}}" src="/static/image/icons/white/edit.svg" role="button">
+                            <img class="icon icon_close" name="{{this.idlecturers}}" src="/static/image/icons/white/close.svg" role="button">
+                        </td>
+                    </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+</div>
