@@ -1,0 +1,14 @@
+.colButton {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.header_main {
+    text-align: center;
+    margin: 0;
+}
+
+.needed {
+    color: red;
+}

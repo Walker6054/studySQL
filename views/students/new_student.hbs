@@ -1,0 +1,89 @@
+<div class="container">
+    <div class="row rowHeader">
+        <h2 class="mainHeader">Добавление студента</h2>
+    </div>
+    <form class="row rowForm needs-validation" novalidate>
+        <div class="row rowForm mb-3">
+            <div class="col-6 colForm">
+                <div class="form-floating">
+                    <input type="text" class="form-control" id="inputLogin" placeholder=" "/>
+                    <label for="inputLogin">Логин<span class="needed">*</span></label>
+                    <div class="invalid-feedback"> Обязательно к заполнению! </div>
+                </div>
+            </div>
+            <div class="col-6 colForm">
+                <div class="form-floating">
+                    <input type="text" class="form-control" id="inputF" placeholder=" " />
+                    <label for="inputF">Фамилия<span class="needed">*</span></label>
+                    <div class="invalid-feedback"> Обязательно к заполнению! </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row rowForm mb-3">
+            <div class="col-6 colForm">
+                <div class="form-floating">
+                    <input type="email" class="form-control" id="inputEmail" placeholder=" "/>
+                    <label for="inputEmail">Email<span class="needed">*</span></label>
+                    <div class="invalid-feedback"> Обязательно к заполнению! </div>
+                </div>
+            </div>
+            <div class="col-6 colForm">
+                <div class="form-floating">
+                    <input type="text" class="form-control" id="inputI" placeholder=" " />
+                    <label for="inputI">Имя<span class="needed">*</span></label>
+                    <div class="invalid-feedback"> Обязательно к заполнению! </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row rowForm mb-3">
+            <div class="col-6 colForm">
+                <div class="form-floating">
+                    <input type="password" class="form-control" id="inputPass" placeholder=" "> 
+                    <label for="inputPass">Пароль<span class="needed">*</span></label>
+                    <div class="invalid-feedback"> Обязательно к заполнению! </div>
+                </div>
+            </div>
+            <div class="col-6 colForm">
+                <div class="form-floating">
+                    <input type="text" class="form-control" id="inputO" placeholder=" " />
+                    <label for="inputO">Отчество</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row rowForm mb-3">
+            <div class="col-6 colForm">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="checkPass" />
+                    <label class="form-check-label" for="checkPass"> Показать пароль </label>
+                </div>
+            </div>
+            <div class="col-6 colForm"></div>
+        </div>
+
+        <div class="row rowForm mb-3">
+            <div class="col-6 colForm">
+                <div class="form-floating">
+                    <select class="form-select" id="inputGroup">
+                        <option selected>Выбрать..</option>
+                        {{#each groups}}
+                            <option value={{this.idgroups}}>{{this.shifr}}</option>
+                        {{/each}}
+                    </select>
+                    <label for="inputGroup">Группа<span class="needed">*</span></label>
+                    <div class="invalid-feedback"> Обязательно к заполнению!</div>
+                </div>
+            </div>
+            <div class="col-6 colForm">
+                <span class="needed">*</span> - поля обязательные к заполнению!
+            </div>
+        </div>
+        <div class="row rowForm mb-3">
+            <div class="col-6 colButton">
+                <button type="button" id="button_add" class="btn btn-outline-success">Добавить</button>
+            </div>
+        </div>
+    </form>
+</div>

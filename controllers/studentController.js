@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 
 const users = require('../models/users/users');
 const students = require('../models/users/students');
+const groups = require('../models/tables/groups');
 const get_data = require("../models/get_data");
 
 const hbs_helpers = require("../hbs_helpers/helpers");
@@ -60,7 +61,8 @@ exports.new_student = async (request, response) => {
     //инициализация пути
     let breadcrumb = Array();
     breadcrumb.push({ title: "Главная", href: "", active: false });
-    breadcrumb.push({ title: "Студенты", href: "/students", active: true });
+    breadcrumb.push({ title: "Студенты", href: "/students", active: false });
+    breadcrumb.push({ title: "Добавление нового студента", href: "/students/new_student", active: true });
 
     if (!verify[0]) {
         return response.redirect("/login");
@@ -76,14 +78,23 @@ exports.new_student = async (request, response) => {
             break;
         
         case "admin":
-            return response.render(pathDir + "/views/students/students.hbs",
+            let all_groups;
+            await groups.allGroups()
+                .then((res) => {
+                    all_groups = res[0];
+                })
+                .catch((err) => {
+                    console.log(err);
+                })
+            return response.render(pathDir + "/views/students/new_student.hbs",
                 {
                     title: "Основы SQL",
                     headPage: 'Образовательная система "Основы SQL"',
                     userName: verify[0].login,
-                    page: "students/students",
+                    page: "students/new_student",
                     viewHeader: true,
-                    breadcrumb: breadcrumb
+                    breadcrumb: breadcrumb,
+                    groups: all_groups
                 }
             );
             break;

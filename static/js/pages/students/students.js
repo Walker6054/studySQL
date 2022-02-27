@@ -1,3 +1,12 @@
+let buttons_update = document.getElementsByClassName("icon_edit");
+if (buttons_update.length != 0) {
+    for (let i = 0; i < buttons_update.length; i++) {
+        buttons_update[i].addEventListener("click", () => {
+            window.location = window.location.origin + "/students/update_student_id=" + event.target.getAttribute("name");
+        });
+    }
+}
+
 let buttons_del = document.getElementsByClassName("icon_close");
 if (buttons_del.length != 0) {
     for (let i = 0; i < buttons_del.length; i++) {

@@ -337,6 +337,31 @@ exports.del_student = async (request, response) => {
             response.status(801).send("Ошибка при удалении студента");
         });
 }
+exports.add_student = async (request, response) => {
+    let data = request.body;
+    console.log(data);
+
+    let verify = await check_user(data.token);
+    
+    if (!verify[0]) {
+        return response.status(801).send("Ошибка в авторизации пользователя!");
+    }
+
+    await students.addStudents(data.login, data.email, data.pass, data.group, data.f, data.i, data.o)
+        .then((res) => {
+            if (res[0].affectedRows > 0) {
+                response.status(200).send("Студент успешно удален!");
+            } else {
+                response.status(801).send("Ошибка при удалении студента");
+            }
+        })
+        .catch((err) => {
+            console.log(err);
+            response.status(801).send("Ошибка при удалении студента");
+        });
+    
+    //добавить рассылку с логином и паролем
+}
 
 //раздел преподавателей
 exports.del_lecturer = async (request, response) => {
@@ -361,6 +386,31 @@ exports.del_lecturer = async (request, response) => {
             console.log(err);
             response.status(801).send("Ошибка при удалении преподавателя");
         });
+}
+exports.add_lecturer = async (request, response) => {
+    let data = request.body;
+    console.log(data);
+
+    let verify = await check_user(data.token);
+    
+    if (!verify[0]) {
+        return response.status(801).send("Ошибка в авторизации пользователя!");
+    }
+
+    await lecturers.addLecturers(data.login, data.pass, data.email, data.f, data.i, data.o, data.inst)
+        .then((res) => {
+            if (res[0].affectedRows > 0) {
+                response.status(200).send("Преподаватель успешно удален!");
+            } else {
+                response.status(801).send("Ошибка при удалении преподавателя");
+            }
+        })
+        .catch((err) => {
+            console.log(err);
+            response.status(801).send("Ошибка при удалении преподавателя");
+        });
+    
+    //добавить рассылку с логином и паролем
 }
 
 //раздел тестов

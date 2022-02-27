@@ -14,9 +14,11 @@ apiRouter.post('/api-update_user', parser, apiController.update_user);
 
 //раздел студентов
 apiRouter.post('/api-del_student', parser, apiController.del_student);
+apiRouter.post('/api-add_student', parser, apiController.add_student);
 
 //раздел преподавателей
 apiRouter.post('/api-del_lecturer', parser, apiController.del_lecturer);
+apiRouter.post('/api-add_lecturer', parser, apiController.add_lecturer);
 
 //раздел тестов
 apiRouter.post('/api-del_test', parser, apiController.del_test);

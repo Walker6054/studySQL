@@ -60,7 +60,8 @@ exports.new_lecturer = async (request, response) => {
     //инициализация пути
     let breadcrumb = Array();
     breadcrumb.push({ title: "Главная", href: "", active: false });
-    breadcrumb.push({ title: "Студенты", href: "/students", active: true });
+    breadcrumb.push({ title: "Преподаватели", href: "/lecturers", active: false });
+    breadcrumb.push({ title: "Добавление нового преподаватели", href: "/lecturers/new_lecturer", active: true });
 
     if (!verify[0]) {
         return response.redirect("/login");
@@ -75,13 +76,13 @@ exports.new_lecturer = async (request, response) => {
             return response.redirect("/");
             break;
         
-        case "admin":
-            return response.render(pathDir + "/views/students/students.hbs",
+        case "admin":      
+            return response.render(pathDir + "/views/lecturers/new_lecturer.hbs",
                 {
                     title: "Основы SQL",
                     headPage: 'Образовательная система "Основы SQL"',
                     userName: verify[0].login,
-                    page: "students/students",
+                    page: "lecturers/new_lecturer",
                     viewHeader: true,
                     breadcrumb: breadcrumb
                 }
