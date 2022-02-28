@@ -103,11 +103,13 @@ exports.new_student = async (request, response) => {
 
 exports.update_student = async (request, response) => {
     let verify = await get_cookie_check_user(request.rawHeaders);
+    let id_student = request.url.split("=")[1];
 
     //инициализация пути
     let breadcrumb = Array();
     breadcrumb.push({ title: "Главная", href: "", active: false });
-    breadcrumb.push({ title: "Студенты", href: "/students", active: true });
+    breadcrumb.push({ title: "Студенты", href: "/students", active: false });
+    breadcrumb.push({ title: "Изменение данных студента", href: "/students/update_student", active: true });
 
     if (!verify[0]) {
         return response.redirect("/login");
@@ -123,14 +125,42 @@ exports.update_student = async (request, response) => {
             break;
         
         case "admin":
-            return response.render(pathDir + "/views/students/students.hbs",
+            let info_student;
+            let error = false;
+            await students.get_info_student(id_student)
+                .then((res) => {
+                    info_student = res[0][0][0];
+                })
+                .catch((err) => {
+                    error = true;
+                    console.log(err);
+                });
+            if (error || !info_student) {
+                return response.redirect("/students/");
+            }
+            
+            let all_groups;
+            await groups.allGroups()
+                .then((res) => {
+                    all_groups = res[0];
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+            
+            let index_group = all_groups.findIndex(item => item.idgroups == info_student.idgroups);
+            all_groups.splice(index_group, 1);
+            
+            return response.render(pathDir + "/views/students/update_student.hbs",
                 {
                     title: "Основы SQL",
                     headPage: 'Образовательная система "Основы SQL"',
                     userName: verify[0].login,
-                    page: "students/students",
+                    page: "students/update_student",
                     viewHeader: true,
-                    breadcrumb: breadcrumb
+                    breadcrumb: breadcrumb,
+                    student: info_student,
+                    groups: all_groups
                 }
             );
             break;

@@ -10,6 +10,11 @@ exports.students = (login) => {
     return connect.query("call get_students('"+ login + "')");
 }
 
+//информация о студенте по id
+exports.get_info_student = (id) => {
+    return connect.query("call get_info_student("+ id + ")");
+}
+
 //возвращение id студента
 exports.id_students = (login) => {
     return connect.query("call get_id_students('"+ login + "')");
@@ -21,8 +26,8 @@ exports.addStudents = (login, email, password, idgroups, f, i, o) => {
 }
 
 //процедура обновления студента
-exports.updateStudents = (id, login, password, email, idgroups, f, i, o) => {
-    return connect.query("call update_students("+ id + ", '"+ login + "', '"+ password + "', '"+ email + "', "+ idgroups + ", '"+ f + "', '"+ i +"', '"+ o +"')");
+exports.updateStudents = (id, login, email, idgroups, f, i, o) => {
+    return connect.query("call update_students("+ id + ", '"+ login + "', '"+ email + "', "+ idgroups + ", '"+ f + "', '"+ i +"', '"+ o +"')");
 }
 
 //процедура обновления ЛК студента

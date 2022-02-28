@@ -368,6 +368,29 @@ exports.add_student = async (request, response) => {
     
     //добавить рассылку с логином и паролем
 }
+exports.update_student = async (request, response) => {
+    let data = request.body;
+    console.log(data);
+
+    let verify = await check_user(data.token);
+    
+    if (!verify[0]) {
+        return response.status(801).send("Ошибка в авторизации пользователя!");
+    }
+
+    await students.updateStudents(data.id, data.login, data.email, data.group, data.f, data.i, data.o)
+        .then((res) => {
+            if (res[0].affectedRows > 0) {
+                response.status(200).send("Студент успешно изменен!");
+            } else {
+                response.status(801).send("Ошибка при изменении студента");
+            }
+        })
+        .catch((err) => {
+            console.log(err);
+            response.status(801).send("Ошибка при изменении студента");
+        });
+}
 
 //раздел преподавателей
 exports.del_lecturer = async (request, response) => {

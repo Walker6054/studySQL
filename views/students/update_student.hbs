@@ -1,0 +1,79 @@
+<div class="container">
+    <div class="row rowHeader">
+        <h2 class="mainHeader">Изменение информации студента</h2>
+    </div>
+    <form class="row rowForm needs-validation" novalidate>
+        <div class="row rowForm mb-3">
+            <div class="col-6 colForm">
+                <div class="form-floating">
+                    <input type="text" class="form-control" id="inputLogin" value="{{student.login}}" placeholder=" "/>
+                    <label for="inputLogin">Логин<span class="needed">*</span></label>
+                    <div class="invalid-feedback"> Обязательно к заполнению! </div>
+                </div>
+            </div>
+            <div class="col-6 colForm">
+                <div class="form-floating">
+                    <input type="text" class="form-control" id="inputF" value="{{student.f}}" placeholder=" " />
+                    <label for="inputF">Фамилия<span class="needed">*</span></label>
+                    <div class="invalid-feedback"> Обязательно к заполнению! </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row rowForm mb-3">
+            <div class="col-6 colForm">
+                <div class="form-floating">
+                    <input type="email" class="form-control" id="inputEmail" value="{{student.email}}" placeholder=" "/>
+                    <label for="inputEmail">Email<span class="needed">*</span></label>
+                    <div class="invalid-feedback"> Обязательно к заполнению! </div>
+                </div>
+            </div>
+            <div class="col-6 colForm">
+                <div class="form-floating">
+                    <input type="text" class="form-control" id="inputI" value="{{student.i}}" placeholder=" " />
+                    <label for="inputI">Имя<span class="needed">*</span></label>
+                    <div class="invalid-feedback"> Обязательно к заполнению! </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row rowForm mb-3">
+            <div class="col-6 colForm">
+                <div class="form-floating">
+                    <input type="text" disabled class="form-control" id="inputPass" value="{{student.password}}" placeholder=" "> 
+                    <label for="inputPass">Пароль</label>
+                    <div class="invalid-feedback"> Обязательно к заполнению! </div>
+                </div>
+            </div>
+            <div class="col-6 colForm">
+                <div class="form-floating">
+                    <input type="text" class="form-control" id="inputO" value="{{student.o}}" placeholder=" " />
+                    <label for="inputO">Отчество</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row rowForm mb-3">
+            <div class="col-6 colForm">
+                <div class="form-floating">
+                    <select class="form-select" id="inputGroup">
+                        <option selected value="{{student.idgroups}}">{{student.shifr}}</option>
+                        {{#each groups}}
+                            <option value={{this.idgroups}}>{{this.shifr}}</option>
+                        {{/each}}
+                    </select>
+                    <label for="inputGroup">Группа<span class="needed">*</span></label>
+                    <div class="invalid-feedback"> Обязательно к заполнению!</div>
+                </div>
+            </div>
+            <div class="col-6 colForm">
+                <span class="needed">*</span> - поля обязательные к заполнению!
+            </div>
+        </div>
+        <div class="row rowForm mb-3">
+            <div class="col-6 colButton">
+                <button type="button" id="button_update" class="btn btn-outline-success">Изменить</button>
+            </div>
+        </div>
+    </form>
+</div>
