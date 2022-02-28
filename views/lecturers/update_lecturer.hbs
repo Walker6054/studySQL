@@ -8,14 +8,14 @@
                 <div class="form-floating">
                     <input type="text" class="form-control" id="inputLogin" value="{{lecturer.login}}" placeholder=" "/>
                     <label for="inputLogin">Логин<span class="needed">*</span></label>
-                    <div class="invalid-feedback"> Обязательно к заполнению! </div>
+                    <div id="feedback_login" class="invalid-feedback"></div>
                 </div>
             </div>
             <div class="col-6 colForm">
                 <div class="form-floating">
                     <input type="text" class="form-control" id="inputF" value="{{lecturer.f}}" placeholder=" " />
                     <label for="inputF">Фамилия<span class="needed">*</span></label>
-                    <div class="invalid-feedback"> Обязательно к заполнению! </div>
+                    <div id="feedback_f" class="invalid-feedback"></div>
                 </div>
             </div>
         </div>
@@ -25,14 +25,14 @@
                 <div class="form-floating">
                     <input type="email" class="form-control" id="inputEmail" value="{{lecturer.email}}" placeholder=" "/>
                     <label for="inputEmail">Email<span class="needed">*</span></label>
-                    <div class="invalid-feedback"> Обязательно к заполнению! </div>
+                    <div id="feedback_email" class="invalid-feedback"></div>
                 </div>
             </div>
             <div class="col-6 colForm">
                 <div class="form-floating">
                     <input type="text" class="form-control" id="inputI" value="{{lecturer.i}}" placeholder=" " />
                     <label for="inputI">Имя<span class="needed">*</span></label>
-                    <div class="invalid-feedback"> Обязательно к заполнению! </div>
+                    <div id="feedback_i" class="invalid-feedback"></div>
                 </div>
             </div>
         </div>
@@ -48,6 +48,7 @@
                 <div class="form-floating">
                     <input type="text" class="form-control" id="inputO" value="{{lecturer.o}}" placeholder=" " />
                     <label for="inputO">Отчество</label>
+                    <div id="feedback_o" class="invalid-feedback"></div>
                 </div>
             </div>
         </div>
@@ -57,7 +58,7 @@
                 <div class="form-floating">
                     <input type="text" class="form-control" id="inputInst" value="{{lecturer.institute}}" placeholder=" " />
                     <label for="inputInst">Институт<span class="needed">*</span></label>
-                    <div class="invalid-feedback"> Обязательно к заполнению! </div>
+                    <div id="feedback_inst" class="invalid-feedback"></div>
                 </div>
             </div>
             <div class="col-6 colForm">

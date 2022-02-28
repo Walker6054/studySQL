@@ -8,7 +8,7 @@
                 <div class="form-floating">
                     <input type="text" class="form-control" id="inputLogin" placeholder=" "/>
                     <label for="inputLogin">Логин<span class="needed">*</span></label>
-                    <div class="invalid-feedback"> Обязательно к заполнению! </div>
+                    <div id="feedback_login" class="invalid-feedback"></div>
                 </div>
             </div>
             <div class="col-6 colForm">
@@ -20,7 +20,7 @@
                 <div class="form-floating">
                     <input type="email" class="form-control" id="inputEmail" placeholder=" "/>
                     <label for="inputEmail">Email<span class="needed">*</span></label>
-                    <div class="invalid-feedback"> Обязательно к заполнению! </div>
+                    <div id="feedback_email" class="invalid-feedback"></div>
                 </div>
             </div>
             <div class="col-6 colForm"></div>
@@ -30,12 +30,12 @@
                 <div class="form-floating">
                     <input type="password" class="form-control" id="inputPass" placeholder=" " />
                     <label for="inputPass">Пароль<span class="needed">*</span></label>
-                    <div class="invalid-feedback"> Обязательно к заполнению! </div>
+                    <div id="feedback_pass" class="invalid-feedback"></div>
                 </div>
             </div>
             <div class="col-6 colForm"></div>
         </div>
-        <div class="row rowForm">
+        <div class="row rowForm mb-3">
             <div class="col-6 colForm">
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" value="" id="checkPass" />
@@ -66,7 +66,7 @@
                 <div class="form-floating">
                     <input type="text" class="form-control" id="inputF" placeholder=" " />
                     <label for="inputF">Фамилия<span class="needed">*</span></label>
-                    <div class="invalid-feedback"> Обязательно к заполнению! </div>
+                    <div id="feedback_f" class="invalid-feedback"></div>
                 </div>
             </div>
             <div class="col-6 colForm"></div>
@@ -76,7 +76,7 @@
                 <div class="form-floating">
                     <input type="text" class="form-control" id="inputI" placeholder=" " />
                     <label for="inputI">Имя<span class="needed">*</span></label>
-                    <div class="invalid-feedback"> Обязательно к заполнению! </div>
+                    <div id="feedback_i" class="invalid-feedback"></div>
                 </div>
             </div>
             <div class="col-6 colForm"></div>
@@ -86,6 +86,7 @@
                 <div class="form-floating">
                     <input type="text" class="form-control" id="inputO" placeholder=" " />
                     <label for="inputO">Отчество</label>
+                    <div id="feedback_o" class="invalid-feedback"></div>
                 </div>
             </div>
             <div class="col-6 colForm"></div>

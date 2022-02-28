@@ -8,18 +8,30 @@ buttonLog.addEventListener("click", validation);
 function validation() {
     let flag = false;
 
-    if (inputLogin.value) {
-        inputLogin.setAttribute("class", "form-control is-valid");
-    } else {
+    let feedback_login = document.getElementById("feedback_login");
+    if (inputLogin.value == "") {
+        feedback_login.innerHTML = "Обязательно к заполнению!";
         inputLogin.setAttribute("class", "form-control is-invalid");
         flag = true;
-    }
-
-    if (inputLogPass.value) {
-        inputLogPass.setAttribute("class", "form-control is-valid");
+    } else if (inputLogin.value.length > 100) {
+        feedback_login.innerHTML = "Длина логина/email не более 100 символов!";
+        inputLogin.setAttribute("class", "form-control is-invalid");
+        flag = true;
     } else {
+        inputLogin.setAttribute("class", "form-control is-valid");
+    }
+    
+    let feedback_pass = document.getElementById("feedback_pass");
+    if (inputLogPass.value == "") {
+        feedback_pass.innerHTML = "Обязательно к заполнению!";
         inputLogPass.setAttribute("class", "form-control is-invalid");
         flag = true;
+    } else if (inputLogPass.value.length > 45) {
+        feedback_pass.innerHTML = "Длина пароля не более 45 символов!";
+        inputLogPass.setAttribute("class", "form-control is-invalid");
+        flag = true;
+    } else {
+        inputLogPass.setAttribute("class", "form-control is-valid");
     }
 
     if (!flag) {

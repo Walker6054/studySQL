@@ -27,43 +27,93 @@ function validation() {
     let flag = false;
     let user;
 
-    if (inputEmail.value) {
-        inputEmail.setAttribute("class", "form-control is-valid");
-    } else {
+    let feedback_email = document.getElementById("feedback_email");
+    if (inputEmail.value == "") {
+        feedback_email.innerHTML = "Обязательно к заполнению!";
         inputEmail.setAttribute("class", "form-control is-invalid");
         flag = true;
-    }
-
-    if (inputOldPass.value) {
-        inputOldPass.setAttribute("class", "form-control is-valid");
+    } else if (inputEmail.value.length > 100) {
+        feedback_email.innerHTML = "Длина email не более 100 символов!";
+        inputEmail.setAttribute("class", "form-control is-invalid");
+        flag = true;
     } else {
+        let reg_email = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+        if (!reg_email.test(inputEmail.value)) {
+            feedback_email.innerHTML = "Email должен соотвествовать форме ввода! _@_._";
+            inputEmail.setAttribute("class", "form-control is-invalid");
+            flag = true;
+        } else {
+            inputEmail.setAttribute("class", "form-control is-valid");
+        }
+    }
+    
+    let feedback_pass = document.getElementById("feedback_pass");
+    if (inputOldPass.value == "") {
+        feedback_pass.innerHTML = "Обязательно к заполнению!";
         inputOldPass.setAttribute("class", "form-control is-invalid");
         flag = true;
+    } else if (inputOldPass.value.length > 45) {
+        feedback_pass.innerHTML = "Длина пароля не более 45 символов!";
+        inputOldPass.setAttribute("class", "form-control is-invalid");
+        flag = true;
+    } else {
+        inputOldPass.setAttribute("class", "form-control is-valid");
     }
 
+    let feedback_new_pass = document.getElementById("feedback_new_pass");
     let new_pass = false;
-    if (inputNewPass.value) {
+    if (inputOldPass.value && inputNewPass.value == "") {
+        inputNewPass.setAttribute("class", "form-control");
+    } else if (inputOldPass.value && inputNewPass.value.length > 45) {
+        feedback_new_pass.innerHTML = "Длина пароля не более 45 символов!";
+        inputNewPass.setAttribute("class", "form-control is-invalid");
+        flag = true;
+    } else if (inputOldPass.value && (inputNewPass.value == inputOldPass.value)) {
+        feedback_new_pass.innerHTML = "Пароли не должны совпадать!";
+        inputNewPass.setAttribute("class", "form-control is-invalid");
+        flag = true;
+    } else if (inputNewPass.value == ""){
+        inputNewPass.setAttribute("class", "form-control");
+    } else {
         inputNewPass.setAttribute("class", "form-control is-valid");
         new_pass = inputNewPass.value;
     }
-    if (inputOldPass.value && (inputNewPass.value == inputOldPass.value)) {
-        inputNewPass.setAttribute("class", "form-control is-invalid");
-        flag = true;
-        new_pass = false;
-    }
 
-    if (inputF.value) {
-        inputF.setAttribute("class", "form-control is-valid");
-    } else {
+    let feedback_f = document.getElementById("feedback_f");
+    if (inputF.value == "") {
+        feedback_f.innerHTML = "Обязательно к заполнению!";
         inputF.setAttribute("class", "form-control is-invalid");
         flag = true;
+    } else if (inputF.value.length > 45) {
+        feedback_f.innerHTML = "Длина фамилии не более 45 символов!";
+        inputF.setAttribute("class", "form-control is-invalid");
+        flag = true;
+    } else {
+        inputF.setAttribute("class", "form-control is-valid");
     }
 
-    if (inputI.value) {
-        inputI.setAttribute("class", "form-control is-valid");
-    } else {
+    let feedback_i = document.getElementById("feedback_i");
+    if (inputI.value == "") {
+        feedback_i.innerHTML = "Обязательно к заполнению!";
         inputI.setAttribute("class", "form-control is-invalid");
         flag = true;
+    } else if (inputI.value.length > 45) {
+        feedback_i.innerHTML = "Длина имени не более 45 символов!";
+        inputI.setAttribute("class", "form-control is-invalid");
+        flag = true;
+    } else {
+        inputI.setAttribute("class", "form-control is-valid");
+    }
+
+    let feedback_o = document.getElementById("feedback_o");
+    if (inputO.value == "") {
+        inputO.setAttribute("class", "form-control");
+    } else if (inputO.value && inputO.value.length > 45) {
+        feedback_o.innerHTML = "Длина отчества не более 45 символов!";
+        inputO.setAttribute("class", "form-control is-invalid");
+        flag = true;
+    } else if (inputO.value != "") {
+        inputO.setAttribute("class", "form-control is-valid");
     }
 
     user = {

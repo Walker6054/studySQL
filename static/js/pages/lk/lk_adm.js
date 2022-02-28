@@ -4,7 +4,6 @@ let inputEmail = document.getElementById("inputEmail");
 let inputOldPass = document.getElementById("inputOldPass");
 let inputNewPass = document.getElementById("inputNewPass");
 
-
 let checkPass = document.getElementById("checkPass");
 checkPass.addEventListener("change", viewPass);
 function viewPass() {
@@ -23,29 +22,57 @@ function validation() {
     let flag = false;
     let user;
 
-    if (inputEmail.value) {
-        inputEmail.setAttribute("class", "form-control is-valid");
-    } else {
+    let feedback_email = document.getElementById("feedback_email");
+    if (inputEmail.value == "") {
+        feedback_email.innerHTML = "Обязательно к заполнению!";
         inputEmail.setAttribute("class", "form-control is-invalid");
         flag = true;
-    }
-
-    if (inputOldPass.value) {
-        inputOldPass.setAttribute("class", "form-control is-valid");
+    } else if (inputEmail.value.length > 100) {
+        feedback_email.innerHTML = "Длина email не более 100 символов!";
+        inputEmail.setAttribute("class", "form-control is-invalid");
+        flag = true;
     } else {
+        let reg_email = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+        if (!reg_email.test(inputEmail.value)) {
+            feedback_email.innerHTML = "Email должен соотвествовать форме ввода! _@_._";
+            inputEmail.setAttribute("class", "form-control is-invalid");
+            flag = true;
+        } else {
+            inputEmail.setAttribute("class", "form-control is-valid");
+        }
+    }
+    
+
+    let feedback_pass = document.getElementById("feedback_pass");
+    if (inputOldPass.value == "") {
+        feedback_pass.innerHTML = "Обязательно к заполнению!";
         inputOldPass.setAttribute("class", "form-control is-invalid");
         flag = true;
+    } else if (inputOldPass.value.length > 45) {
+        feedback_pass.innerHTML = "Длина пароля не более 45 символов!";
+        inputOldPass.setAttribute("class", "form-control is-invalid");
+        flag = true;
+    } else {
+        inputOldPass.setAttribute("class", "form-control is-valid");
     }
 
+    let feedback_new_pass = document.getElementById("feedback_new_pass");
     let new_pass = false;
-    if (inputNewPass.value) {
-        inputNewPass.setAttribute("class", "form-control is-valid");
-        new_pass = inputNewPass.value;
-    }
-    if (inputOldPass.value && (inputNewPass.value == inputOldPass.value)) {
+    if (inputOldPass.value && inputNewPass.value == "") {
+        inputNewPass.setAttribute("class", "form-control");
+    } else if (inputOldPass.value && inputNewPass.value.length > 45) {
+        feedback_new_pass.innerHTML = "Длина пароля не более 45 символов!";
         inputNewPass.setAttribute("class", "form-control is-invalid");
         flag = true;
-        new_pass = false;
+    } else if (inputOldPass.value && (inputNewPass.value == inputOldPass.value)) {
+        feedback_new_pass.innerHTML = "Пароли не должны совпадать!";
+        inputNewPass.setAttribute("class", "form-control is-invalid");
+        flag = true;
+    } else if (inputNewPass.value == ""){
+        inputNewPass.setAttribute("class", "form-control");
+    } else {
+        inputNewPass.setAttribute("class", "form-control is-valid");
+        new_pass = inputNewPass.value;
     }
 
     user = {

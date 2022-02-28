@@ -9,7 +9,7 @@
                     <div class="form-floating">
                         <input type="text" class="form-control" id="inputName" value="{{test.name}}" placeholder=" " />
                         <label for="inputName">Название<span class="needed">*</span></label>
-                        <div class="invalid-feedback">Обязательно к заполнению!</div>
+                        <div id="feedback_name" class="invalid-feedback"></div>
                     </div>
                 </div>
             </div>
@@ -19,7 +19,7 @@
                     <div class="form-floating">
                         <textarea class="form-control" placeholder=" " id="inputDesc">{{test.desc}}</textarea>
                         <label for="inputDesc">Описание<span class="needed">*</span></label>
-                        <div class="invalid-feedback">Обязательно к заполнению!</div>
+                        <div id="feedback_desc" class="invalid-feedback"></div>
                     </div>
                 </div>
             </div>
@@ -101,13 +101,13 @@
                             <div class="form-floating mb-3">
                                 <textarea class="form-control inputFormulation" placeholder=" ">{{this.formulation}}</textarea>
                                 <label for="">Формулировка вопроса<span class="needed">*</span></label>
-                                <div class="invalid-feedback">Обязательно к заполнению!</div>
+                                <div class="invalid-feedback feedback_formulation"></div>
                             </div>
 
                             <div class="form-floating mb-3">
                                 <textarea class="form-control inputComment" placeholder=" ">{{this.comment}}</textarea>
                                 <label for="">Комментарий к вопросу<span class="needed">*</span></label>
-                                <div class="invalid-feedback">Обязательно к заполнению!</div>
+                                <div class="invalid-feedback feedback_comment"></div>
                             </div>
 
                             <div class="form-floating mb-3">

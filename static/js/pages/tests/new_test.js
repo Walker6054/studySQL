@@ -64,17 +64,30 @@ button_new_test.addEventListener("click", validation)
 function validation() {
     let flag = false;
 
-    if (inputName.value) {
-        inputName.setAttribute("class", "form-control is-valid");
-    } else {
+    let feedback_name = document.getElementById("feedback_name");
+    if (inputName.value == "") {
+        feedback_name.innerHTML = "Обязательно к заполнению!";
         inputName.setAttribute("class", "form-control is-invalid");
         flag = true;
-    }
-    if (inputDesc.value) {
-        inputDesc.setAttribute("class", "form-control is-valid");
+    } else if (inputName.value.length > 45) {
+        feedback_name.innerHTML = "Длина названия не более 45 символов!";
+        inputName.setAttribute("class", "form-control is-invalid");
+        flag = true;
     } else {
+        inputName.setAttribute("class", "form-control is-valid");
+    }
+
+    let feedback_desc = document.getElementById("feedback_desc");
+    if (inputDesc.value == "") {
+        feedback_desc.innerHTML = "Обязательно к заполнению!";
         inputDesc.setAttribute("class", "form-control is-invalid");
         flag = true;
+    } else if (inputDesc.value.length > 1000) {
+        feedback_desc.innerHTML = "Длина описания не более 1000 символов!";
+        inputDesc.setAttribute("class", "form-control is-invalid");
+        flag = true;
+    } else {
+        inputDesc.setAttribute("class", "form-control is-valid");
     }
     
     let rowQuestions = document.getElementsByClassName("rowQuestions");
@@ -86,18 +99,30 @@ function validation() {
         let inputVariants = rowQuestions[i].getElementsByClassName("inputVariants")[0];
         let inputRA = rowQuestions[i].getElementsByClassName("inputRA")[0];
 
-        if (inputFormulation.value) {
-            inputFormulation.setAttribute("class", "form-control inputFormulation is-valid");
-        } else {
+        let feedback_formulation = document.getElementsByClassName("feedback_formulation")[0];
+        if (inputFormulation.value == "") {
+            feedback_formulation.innerHTML = "Обязательно к заполнению!";
             inputFormulation.setAttribute("class", "form-control inputFormulation is-invalid");
             flag = true;
-        }
-        
-        if (inputComment.value) {
-            inputComment.setAttribute("class", "form-control inputComment is-valid");
+        } else if (inputFormulation.value.length > 500) {
+            feedback_formulation.innerHTML = "Длина формулировки не более 500 символов!";
+            inputFormulation.setAttribute("class", "form-control inputFormulation is-invalid");
+            flag = true;
         } else {
+            inputFormulation.setAttribute("class", "form-control inputFormulation is-valid");
+        }
+
+        let feedback_comment = document.getElementsByClassName("feedback_comment")[0];
+        if (inputComment.value == "") {
+            feedback_comment.innerHTML = "Обязательно к заполнению!";
             inputComment.setAttribute("class", "form-control inputComment is-invalid");
             flag = true;
+        } else if (inputComment.value.length > 500) {
+            feedback_comment.innerHTML = "Длина комментария не более 500 символов!";
+            inputComment.setAttribute("class", "form-control inputComment is-invalid");
+            flag = true;
+        } else {
+            inputComment.setAttribute("class", "form-control inputComment is-valid");
         }
 
         if (inputVariants.value) {

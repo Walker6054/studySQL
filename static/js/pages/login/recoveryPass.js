@@ -19,18 +19,34 @@ buttonRecovery.addEventListener("click", validation);
 function validation() {
     let flag = false;
 
-    if (inputPass1.value) {
-        inputPass1.setAttribute("class", "form-control is-valid");
-    } else {
+    let feedback_pass1 = document.getElementById("feedback_pass1");
+    if (inputPass1.value == "") {
+        feedback_pass1.innerHTML = "Обязательно к заполнению!";
         inputPass1.setAttribute("class", "form-control is-invalid");
         flag = true;
+    } else if (inputPass1.value.length > 45) {
+        feedback_pass1.innerHTML = "Длина пароля не более 45 символов!";
+        inputPass1.setAttribute("class", "form-control is-invalid");
+        flag = true;
+    } else {
+        inputPass1.setAttribute("class", "form-control is-valid");
     }
 
-    if ((inputPass2.value)&&(inputPass1.value==inputPass2.value)) {
-        inputPass2.setAttribute("class", "form-control is-valid");
-    } else {
+    let feedback_pass2 = document.getElementById("feedback_pass2");
+    if (inputPass2.value == "") {
+        feedback_pass2.innerHTML = "Обязательно к заполнению!";
         inputPass2.setAttribute("class", "form-control is-invalid");
         flag = true;
+    } else if (inputPass2.value.length > 45) {
+        feedback_pass2.innerHTML = "Длина пароля не более 45 символов!";
+        inputPass2.setAttribute("class", "form-control is-invalid");
+        flag = true;
+    } else if (inputPass1.value != inputPass2.value) {
+        feedback_pass2.innerHTML = "Пароли не совпадают!";
+        inputPass2.setAttribute("class", "form-control is-invalid");
+        flag = true;
+    } else {
+        inputPass2.setAttribute("class", "form-control is-valid");
     }
 
     if (!flag) {

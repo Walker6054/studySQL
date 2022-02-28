@@ -6,11 +6,17 @@ buttonForgot.addEventListener("click", validation);
 function validation() {
     let flag = false;
 
-    if (inputLogin.value) {
-        inputLogin.setAttribute("class", "form-control is-valid");
-    } else {
+    let feedback_login = document.getElementById("feedback_login");
+    if (inputLogin.value == "") {
+        feedback_login.innerHTML = "Обязательно к заполнению!";
         inputLogin.setAttribute("class", "form-control is-invalid");
         flag = true;
+    } else if (inputLogin.value.length > 100) {
+        feedback_login.innerHTML = "Длина логина/email не более 100 символов!";
+        inputLogin.setAttribute("class", "form-control is-invalid");
+        flag = true;
+    } else {
+        inputLogin.setAttribute("class", "form-control is-valid");
     }
 
     if (!flag) {

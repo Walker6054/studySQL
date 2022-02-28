@@ -9,7 +9,7 @@
                     <div class="form-floating">
                         <input type="text" class="form-control" id="inputName" placeholder=" " />
                         <label for="inputName">Название<span class="needed">*</span></label>
-                        <div class="invalid-feedback">Обязательно к заполнению!</div>
+                        <div id="feedback_name" class="invalid-feedback"></div>
                     </div>
                 </div>
             </div>
@@ -19,7 +19,7 @@
                     <div class="form-floating">
                         <textarea class="form-control" placeholder=" " id="inputDesc"></textarea>
                         <label for="inputDesc">Описание<span class="needed">*</span></label>
-                        <div class="invalid-feedback">Обязательно к заполнению!</div>
+                        <div id="feedback_desc" class="invalid-feedback"></div>
                     </div>
                 </div>
             </div>
@@ -34,7 +34,7 @@
                             <option value="4">4</option>
                             <option value="5">5</option>
                         </select>
-                        <label for="inputMaxTry">Максимальное число попыток<span class="needed">*</span></label>
+                        <label for="inputMaxTry">Максимальное число попыток</label>
                     </div>
                 </div>
             </div>
@@ -99,13 +99,13 @@
                         <div class="form-floating mb-3">
                             <textarea class="form-control inputFormulation" placeholder=" "></textarea>
                             <label for="">Формулировка вопроса<span class="needed">*</span></label>
-                            <div class="invalid-feedback">Обязательно к заполнению!</div>
+                            <div class="invalid-feedback feedback_formulation"></div>
                         </div>
 
                         <div class="form-floating mb-3">
                             <textarea class="form-control inputComment" placeholder=" "></textarea>
                             <label for="">Комментарий к вопросу<span class="needed">*</span></label>
-                            <div class="invalid-feedback">Обязательно к заполнению!</div>
+                            <div class="invalid-feedback feedback_comment"></div>
                         </div>
 
                         <div class="form-floating mb-3">
