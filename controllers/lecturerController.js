@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 
 const users = require("../models/users/users");
 const lecturers = require('../models/users/lecturers');
+const groups = require('../models/tables/groups');
 const get_data = require("../models/get_data");
 
 const hbs_helpers = require("../hbs_helpers/helpers");
@@ -76,7 +77,7 @@ exports.new_lecturer = async (request, response) => {
             return response.redirect("/");
             break;
         
-        case "admin":      
+        case "admin":
             return response.render(pathDir + "/views/lecturers/new_lecturer.hbs",
                 {
                     title: "Основы SQL",
@@ -93,11 +94,13 @@ exports.new_lecturer = async (request, response) => {
 
 exports.update_lecturer = async (request, response) => {
     let verify = await get_cookie_check_user(request.rawHeaders);
+    let id_lecturer = request.url.split("=")[1];
 
     //инициализация пути
     let breadcrumb = Array();
     breadcrumb.push({ title: "Главная", href: "", active: false });
-    breadcrumb.push({ title: "Студенты", href: "/students", active: true });
+    breadcrumb.push({ title: "Преподаватели", href: "/lecturers", active: false });
+    breadcrumb.push({ title: "Изменение нового преподаватели", href: "/lecturers/update_lecturer", active: true });
 
     if (!verify[0]) {
         return response.redirect("/login");
@@ -113,14 +116,63 @@ exports.update_lecturer = async (request, response) => {
             break;
         
         case "admin":
-            return response.render(pathDir + "/views/students/students.hbs",
+            let info_lecturer;
+            let error = false;
+            await lecturers.get_info_lecturer(id_lecturer)
+                .then((res) => {
+                    info_lecturer = res[0][0][0];
+                })
+                .catch((err) => {
+                    error = true;
+                    console.log(err);
+                });
+            if (error || !info_lecturer) {
+                return response.redirect("/lecturers/");
+            }
+
+            let lecturer_groups;
+            await get_data.get_lecturers_groups(info_lecturer.login)
+                .then((res) => {
+                    lecturer_groups = res[0][0];
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+            
+            let all_groups;
+            await groups.allGroups()
+                .then((res) => {
+                    all_groups = res[0];
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+            
+            //удаление повторов в массиве всех тестов (для ограничения добавления)
+            let add_enable = true;
+            for (let i = 0; i < lecturer_groups.length; i++) {
+                let index_entry = all_groups.findIndex(el => el.idgroups == lecturer_groups[i].idgroups);
+                if (index_entry != -1) {
+                    all_groups.splice(index_entry, 1);
+                }
+            }
+
+            if (all_groups.length == 0) {
+                add_enable = false;
+            }
+
+            return response.render(pathDir + "/views/lecturers/update_lecturer.hbs",
                 {
                     title: "Основы SQL",
                     headPage: 'Образовательная система "Основы SQL"',
                     userName: verify[0].login,
-                    page: "students/students",
+                    page: "lecturers/update_lecturer",
                     viewHeader: true,
-                    breadcrumb: breadcrumb
+                    breadcrumb: breadcrumb,
+                    lecturer: info_lecturer,
+                    groups: lecturer_groups,
+                    all_groups: all_groups,
+                    add_enable: add_enable
                 }
             );
             break;

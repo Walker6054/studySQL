@@ -20,6 +20,9 @@ apiRouter.post('/api-update_student', parser, apiController.update_student);
 //раздел преподавателей
 apiRouter.post('/api-del_lecturer', parser, apiController.del_lecturer);
 apiRouter.post('/api-add_lecturer', parser, apiController.add_lecturer);
+apiRouter.post('/api-update_lecturer', parser, apiController.update_lecturer);
+apiRouter.post('/api-del_lecturer_group', parser, apiController.del_lecturer_group);
+apiRouter.post('/api-add_lecturer_group', parser, apiController.add_lecturer_group);
 
 //раздел тестов
 apiRouter.post('/api-del_test', parser, apiController.del_test);

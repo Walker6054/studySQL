@@ -1,0 +1,138 @@
+<div class="container">
+    <div class="row rowHeader">
+        <h2 class="mainHeader">Изменение информации преподавателя</h2>
+    </div>
+    <form class="row rowForm needs-validation border-bottom mb-3" novalidate>
+        <div class="row rowForm mb-3">
+            <div class="col-6 colForm">
+                <div class="form-floating">
+                    <input type="text" class="form-control" id="inputLogin" value="{{lecturer.login}}" placeholder=" "/>
+                    <label for="inputLogin">Логин<span class="needed">*</span></label>
+                    <div class="invalid-feedback"> Обязательно к заполнению! </div>
+                </div>
+            </div>
+            <div class="col-6 colForm">
+                <div class="form-floating">
+                    <input type="text" class="form-control" id="inputF" value="{{lecturer.f}}" placeholder=" " />
+                    <label for="inputF">Фамилия<span class="needed">*</span></label>
+                    <div class="invalid-feedback"> Обязательно к заполнению! </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row rowForm mb-3">
+            <div class="col-6 colForm">
+                <div class="form-floating">
+                    <input type="email" class="form-control" id="inputEmail" value="{{lecturer.email}}" placeholder=" "/>
+                    <label for="inputEmail">Email<span class="needed">*</span></label>
+                    <div class="invalid-feedback"> Обязательно к заполнению! </div>
+                </div>
+            </div>
+            <div class="col-6 colForm">
+                <div class="form-floating">
+                    <input type="text" class="form-control" id="inputI" value="{{lecturer.i}}" placeholder=" " />
+                    <label for="inputI">Имя<span class="needed">*</span></label>
+                    <div class="invalid-feedback"> Обязательно к заполнению! </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row rowForm mb-3">
+            <div class="col-6 colForm">
+                <div class="form-floating">
+                    <input type="text" disabled class="form-control" id="inputPass" value="{{lecturer.password}}" placeholder=" " />
+                    <label for="inputPass">Пароль</label>
+                </div>
+            </div>
+            <div class="col-6 colForm">
+                <div class="form-floating">
+                    <input type="text" class="form-control" id="inputO" value="{{lecturer.o}}" placeholder=" " />
+                    <label for="inputO">Отчество</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row rowForm mb-3">
+            <div class="col-6 colForm">
+                <div class="form-floating">
+                    <input type="text" class="form-control" id="inputInst" value="{{lecturer.institute}}" placeholder=" " />
+                    <label for="inputInst">Институт<span class="needed">*</span></label>
+                    <div class="invalid-feedback"> Обязательно к заполнению! </div>
+                </div>
+            </div>
+            <div class="col-6 colForm">
+                <span class="needed">*</span> - поля обязательные к заполнению!
+            </div>
+        </div>
+
+        <div class="row rowForm mb-3">
+            <div class="col-6 colButton">
+                <button type="button" id="button_update" class="btn btn-outline-success">Изменить</button>
+            </div>
+        </div>
+    </form>
+
+    <div class="row row_main mb-3">
+        <div class="col-8 colButton">
+            <h5 class="header_main">Прикрепленные группы</h5>
+        </div>
+        <div class="col-4 colButton">
+            {{#if add_enable}}
+                <button class="btn btn-outline-success" id="button_show_modal_add_group" data-bs-toggle="modal" data-bs-target="#modal_add_group">Добавить группу</button>
+            {{else}}
+                <button name="disabled" class="btn btn-outline-success" id="button_show_modal_add_group">Добавить группу</button>
+            {{/if}}
+        </div>
+    </div>
+
+    <div class="">
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">ID группы</th>
+                    <th scope="col">Шифр</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each groups}}
+                    <tr>
+                        <th scope="row">{{this.idgroups}}</th>
+                        <td>{{this.shifr}}</td>
+                        <td class="actions">
+                            <img class="icon icon_close" name="{{this.idlectures_groups}}" src="/static/image/icons/white/close.svg" role="button">
+                        </td>
+                    </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+
+    {{#if add_enable}}
+        <div class="modal fade" id="modal_add_group" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modal_add_group_label">Прикрепление группы</h5>
+                        <button type="button" class="btn-close buttons_close_modal" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-floating">
+                            <select class="form-select" id="input_group">
+                                <option selected>Выбрать..</option>
+                                {{#each all_groups}}
+                                    <option value="{{this.idgroups}}">{{this.shifr}}</option>
+                                {{/each}}
+                            </select>
+                            <label for="input_group">Доступные группы</label>
+                            <div class="invalid-feedback"> Обязательно к заполнению!</div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary buttons_close_modal" data-bs-dismiss="modal">Закрыть</button>
+                        <button type="button" class="btn btn-success" name="{{lecturer.login}}" id="button_add_group">Прикрепить</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {{/if}}
+</div>

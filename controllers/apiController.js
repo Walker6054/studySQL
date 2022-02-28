@@ -9,6 +9,7 @@ const tests = require("../models/tables/tests");
 const groups= require("../models/tables/groups");
 const questions = require("../models/tables/questions");
 const groups_tests = require("../models/relations/groups_tests");
+const lecturers_groups = require("../models/relations/lecturers_groups");
 const marks_tests = require("../models/relations/marks_tests");
 const marks_questions = require("../models/relations/marks_questions");
 const get_data = require("../models/get_data");
@@ -440,6 +441,75 @@ exports.add_lecturer = async (request, response) => {
         });
     
     //добавить рассылку с логином и паролем
+}
+exports.update_lecturer = async (request, response) => {
+    let data = request.body;
+    console.log(data);
+
+    let verify = await check_user(data.token);
+    
+    if (!verify[0]) {
+        return response.status(801).send("Ошибка в авторизации пользователя!");
+    }
+
+    await lecturers.updateLecturers(data.id, data.login, data.email, data.f, data.i, data.o, data.inst)
+        .then((res) => {
+            if (res[0].affectedRows > 0) {
+                response.status(200).send("Преподаватель успешно изменен!");
+            } else {
+                response.status(801).send("Ошибка при изменении преподавателя");
+            }
+        })
+        .catch((err) => {
+            console.log(err);
+            response.status(801).send("Ошибка при изменении преподавателя");
+        });
+}
+exports.del_lecturer_group = async (request, response) => {
+    let data = request.body;
+    console.log(data);
+
+    let verify = await check_user(data.token);
+    
+    if (!verify[0]) {
+        return response.status(801).send("Ошибка в авторизации пользователя!");
+    }
+
+    await lecturers_groups.delLecturers_groups(data.id)
+        .then((res) => {
+            if (res[0].affectedRows > 0) {
+                response.status(200).send("Группа успешно откреплена!");
+            } else {
+                response.status(801).send("Ошибка при откреплении группы");
+            }
+        })
+        .catch((err) => {
+            console.log(err);
+            response.status(801).send("Ошибка при откреплении группы");
+        });
+}
+exports.add_lecturer_group = async (request, response) => {
+    let data = request.body;
+    console.log(data);
+
+    let verify = await check_user(data.token);
+    
+    if (!verify[0]) {
+        return response.status(801).send("Ошибка в авторизации пользователя!");
+    }
+
+    await lecturers_groups.addLecturers_groups(data.login_lecturer, data.id_group)
+        .then((res) => {
+            if (res[0].affectedRows > 0) {
+                response.status(200).send("Группа успешно прикреплена!");
+            } else {
+                response.status(801).send("Ошибка при прикреплении группы");
+            }
+        })
+        .catch((err) => {
+            console.log(err);
+            response.status(801).send("Ошибка при прикреплении группы");
+        });
 }
 
 //раздел тестов

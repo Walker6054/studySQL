@@ -10,6 +10,11 @@ exports.lecturers = (login) => {
     return connect.query("call get_lecturers('"+ login + "')");
 }
 
+//информация о преподавателе по id
+exports.get_info_lecturer = (id) => {
+    return connect.query("call get_info_lecturer("+ id + ")");
+}
+
 //возвращение id преподавателя
 exports.id_lecturers = (login) => {
     return connect.query("call get_id_lecturers('"+ login + "')");
@@ -21,8 +26,8 @@ exports.addLecturers = (login, password, email, f, i , o, institute) => {
 }
 
 //процедура обновления преподавателя
-exports.updateLecturers = (id, login, password, email, f, i , o, institute) => {
-    return connect.query("call update_lecturers("+ id +", '" + login + "', '"+ password + "', '"+ email + "', '"+ f + "', '"+ i + "', '"+ o + "', '"+ institute +"')");
+exports.updateLecturers = (id, login, email, f, i , o, institute) => {
+    return connect.query("call update_lecturers("+ id +", '" + login + "', '"+ email + "', '"+ f + "', '"+ i + "', '"+ o + "', '"+ institute +"')");
 }
 
 //процедура обновления ЛК преподавателя
