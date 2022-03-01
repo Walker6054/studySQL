@@ -2,6 +2,24 @@ const express = require("express");
 const regController = require("../controllers/regController");
 const regRouter = express.Router();
 
+regRouter.use((req, res, next) => {
+    switch (req.url) {
+        case "/":
+            return next();
+        case "/student":
+            return next();
+        case "/lecturer":
+            return next();
+        case "/forgotPass":
+            return next();
+        default:
+            if (RegExp(/\/recoveryPass\=([A-Za-z0-9\.]+)/).test(req.url)) {
+                return next();
+            }
+            return res.status(404).send("Страница не найдена");
+    }
+});
+
 regRouter.get("/", regController.index);
 
 regRouter.get("/student", regController.regStudent);

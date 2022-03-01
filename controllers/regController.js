@@ -49,6 +49,10 @@ exports.forgotPass = (request, response) => {
 exports.recoveryPass = (request, response) => {
     let token = request.url.split("=")[1];
     let user = jwt.decode(token);
+    
+    if (!user) {
+        return response.status(404).send("Неверная ссылка");
+    }
 
     let text = "Восстановление пароля";
     let not_wrong_time = true;

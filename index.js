@@ -1,6 +1,6 @@
 const path = require('path');
 const express = require("express");
-//импортируем приложение
+//создаем прилодение
 const app = express();
 
 //маршруты
@@ -14,32 +14,37 @@ const lecturerRouter = require("./routes/lecturerRoute");
 
 //шаблонизатор
 const expressHbs = require('express-handlebars');
+
+//проверка на подключение к бд, перенаправление на страницу с ошибкой
+const connection = require("./models/.connectDB.js");
+app.use(async (req, res, next) => {
+    if (req.originalUrl.includes("static")) {
+        return next();
+    }
+
+    let error_to_connect_db = false;
+    await connection.connect()
+        .catch((err) => {
+            error_to_connect_db = true;
+        });
+    
+    if (error_to_connect_db) {
+        return res.status(404).send("База данных недоступна! Попробуйте позже");
+    }
+    next();
+});
  
 //инициализация начальных путей маршрутов для дальйнешей обработки
-app.use("/", mainRouter);
 app.use("/api", apiRouter);
 app.use("/registration", regRouter);
 app.use("/tests", testRouter);
 app.use("/groups", groupRouter);
 app.use("/students", studentRouter);
 app.use("/lecturers", lecturerRouter);
-
-
-//Обработка ошибок
-app.use((err, req, res, next) => {
-    console.log(err);
-    console.log(req);
-    console.log(res);
-    res.status(404).send("Произошла ошибка! Перезагрузике страницу");
-});
-
-//запуск приложения
-app.listen(3000);
+app.use("/", mainRouter);
 
 //использование директории на сервере
 app.use('/static', express.static(path.join(__dirname, '/static')));
-app.use('/views', express.static(path.join(__dirname, '/views')));
-
 
 //устанавливаем настройки для файлов layout (шаблонизатор)
 const hbs = expressHbs.create({
@@ -50,6 +55,14 @@ const hbs = expressHbs.create({
 })
 app.engine('hbs', hbs.engine);
 app.set('view engine', 'hbs');
+
+//запуск приложения
+app.listen(3000);
+
+
+
+
+
 
 
 

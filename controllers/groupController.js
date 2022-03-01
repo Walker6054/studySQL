@@ -93,11 +93,13 @@ exports.tests_update = async (request, response) => {
     let group_tests;
     let group_shifr;
     let add_enable = true;
+    let not_exist_group = false;
     await groups.groups(id_group)
         .then((res) => {
             group_shifr = res[0][0].shifr;
         })
         .catch((err) => {
+            not_exist_group = true;
             console.log(err);
         });
 
@@ -107,6 +109,10 @@ exports.tests_update = async (request, response) => {
             break;
         
         case "lecturer":
+            if (not_exist_group) {
+                return response.redirect("/groups/");
+            }
+            
             await get_data.get_group_tests(verify[0].login, id_group)
                 .then((res) => {
                     group_tests = res[0][0];
@@ -153,6 +159,10 @@ exports.tests_update = async (request, response) => {
             break;
         
         case "admin":
+            if (not_exist_group) {
+                return response.redirect("/groups/");
+            }
+
             await get_data.get_groups_tests(id_group)
                 .then((res) => {
                     group_tests = res[0][0];
@@ -215,12 +225,13 @@ exports.tests_results = async (request, response) => {
 
     let group_tests;
     let group_shifr;
+    let not_exist_group = false;
     await groups.groups(id_group)
         .then((res) => {
             group_shifr = "Тестирование группы: " + res[0][0].shifr;
         })
         .catch((err) => {
-            group_shifr = "Данной группы не существует, либо у вас отсутствует доступ к ней!";
+            not_exist_group = true;
             console.log(err);
         });
 
@@ -230,6 +241,10 @@ exports.tests_results = async (request, response) => {
             break;
         
         case "lecturer":
+            if (not_exist_group) {
+                return response.redirect("/groups/");
+            }
+
             await get_data.get_group_tests(verify[0].login, id_group)
                 .then((res) => {
                     group_tests = res[0][0];
@@ -266,6 +281,10 @@ exports.tests_results = async (request, response) => {
             break;
         
         case "admin":
+            if (not_exist_group) {
+                return response.redirect("/groups/");
+            }
+
             await get_data.get_groups_tests(id_group)
                 .then((res) => {
                     group_tests = res[0][0];
