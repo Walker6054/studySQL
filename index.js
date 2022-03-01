@@ -61,7 +61,7 @@ app.engine('hbs', hbs.engine);
 app.set('view engine', 'hbs');
 
 //запуск приложения
-let port = process.env.PORT || 800;
+let port = process.env.PORT || 80;
 app.listen(port);
 
 
