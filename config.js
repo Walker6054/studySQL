@@ -1,4 +1,4 @@
-let config;
+let config = new Array();
 config[0] = {
     database: process.env.DB_NAME,
     user: process.env.DB_USER,
