@@ -3,7 +3,7 @@ const config = require("../config/config.json");
 
 let connection = mysql.createPool(config.mysql).promise();
 
-connection.connect()
+connection.getConnection()
     .catch((err) => {
         console.error("Ошибка: " + err.message);
     });

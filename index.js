@@ -19,7 +19,7 @@ app.use(async (req, res, next) => {
         return next();
     }
     let error_to_connect_db = false;
-    await connection.connect()
+    await connection.getConnection()
         .catch((err) => {
             error_to_connect_db = true;
         });
