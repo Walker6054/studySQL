@@ -3,7 +3,8 @@
         "database": "heroku_a075b126627ff53",
         "user": "bfda18b90aebbf",
         "password": "0e41d40e",
-        "host": "eu-cdbr-west-02.cleardb.net"
+        "host": "eu-cdbr-west-02.cleardb.net",
+        "connectionLimit": 100
     },
     "app": {
         "layouts": true,
