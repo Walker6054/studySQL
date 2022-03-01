@@ -68,18 +68,18 @@ app.listen(3000);
 
 
 
-//инициализация админ панели
-const adm = require("express-admin");
-let config = {
-    dpath: './config/',
-    config: require("./config/config.json"),
-    settings: require("./config/settings.json"),
-    custom: require('./config/custom.json'),
-    users: require('./config/users.json')
-};
-adm.init(config, function (err, admin) {
-    if (err) return console.log(err);
-    const parser = express.json();
-    app.use('/admin', admin);
-    app.use(parser);
-});
+// //инициализация админ панели
+// const adm = require("express-admin");
+// let config = {
+//     dpath: './config/',
+//     config: require("./config/config.json"),
+//     settings: require("./config/settings.json"),
+//     custom: require('./config/custom.json'),
+//     users: require('./config/users.json')
+// };
+// adm.init(config, function (err, admin) {
+//     if (err) return console.log(err);
+//     const parser = express.json();
+//     app.use('/admin', admin);
+//     app.use(parser);
+// });

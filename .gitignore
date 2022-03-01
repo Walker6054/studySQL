@@ -1,5 +1,7 @@
 /node_modules
-/config
+/config/custom.json
+/config/users.json
+/config/settings.json
 /.vscode
 /static/html
 /.antlr
