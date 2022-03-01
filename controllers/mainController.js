@@ -7,6 +7,7 @@ const students = require("../models/users/students");
 const lecturers = require("../models/users/lecturers");
 const admin = require("../models/users/admin");
 const get_data = require("../models/get_data");
+const connect = require("../models/.connectDB");
 
 exports.login = async (request, response) => {
     let verify = await get_cookie_check_user(request.rawHeaders);
@@ -209,6 +210,7 @@ async function get_cookie_check_user(req) {
         await users.users(user.login)
             .then((res) => {
                 userDB = res[0][0][0];
+                connect.end();
             })
             .catch((err) => {
                 console.log(err);
@@ -232,6 +234,7 @@ async function get_cookie_check_user(req) {
                         user_checked[1] = "lecturer";
                         break;
                 }
+                connect.end();
             })
             .catch((err) => {
                 console.log(err);
