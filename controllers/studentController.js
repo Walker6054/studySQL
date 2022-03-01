@@ -205,7 +205,17 @@ async function get_cookie_check_user(req) {
         }
         await get_data.return_type_user(user.login)
             .then((res) => {
-                user_checked[1] = Object.values(res[0][0])[0];
+                switch (Object.keys(res[0][0][0])[0]) {
+                    case "idstudents":
+                        user_checked[1] = "student";
+                        break;
+                    case "idadmins":
+                        user_checked[1] = "admin";
+                        break;
+                    case "idlecturers":
+                        user_checked[1] = "lecturer";
+                        break;
+                }
             })
             .catch((err) => {
                 console.log(err);

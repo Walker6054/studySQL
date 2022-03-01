@@ -183,7 +183,7 @@ exports.update_test = async (request, response) => {
             let flag_lecturer_test;
             await lecturers.check_lecturer_test(verify[0].login, idtest)
                 .then((res) => {
-                    flag_lecturer_test = Object.values(res[0][0])[0];
+                    flag_lecturer_test = Object.values(res[0][0][0])[0];
                 })
                 .catch((err) => {
                     console.log(err);
@@ -431,11 +431,25 @@ async function get_cookie_check_user(req) {
             .catch((err) => {
                 console.log(err);
             })
-        user_checked[0] = jwt.verify(token, userDB.idusers.toString());
-
+        
+        try {
+            user_checked[0] = jwt.verify(token, userDB.idusers.toString());
+        } catch {
+            user_checked[0] = false;
+        }
         await get_data.return_type_user(user.login)
             .then((res) => {
-                user_checked[1] = Object.values(res[0][0])[0];
+                switch (Object.keys(res[0][0][0])[0]) {
+                    case "idstudents":
+                        user_checked[1] = "student";
+                        break;
+                    case "idadmins":
+                        user_checked[1] = "admin";
+                        break;
+                    case "idlecturers":
+                        user_checked[1] = "lecturer";
+                        break;
+                }
             })
             .catch((err) => {
                 console.log(err);

@@ -697,10 +697,10 @@ exports.check_solve_test = async (request, response) => {
     let last_try;
     await students.return_try_count_test(verify[0].login, data.id_test)
         .then((res) => {
-            if (Object.values(res[0][0])[0] == null) {
+            if (Object.values(res[0][0][0])[0] == null) {
                 last_try = 0;
             } else {
-                last_try = Object.values(res[0][0])[0];
+                last_try = Object.values(res[0][0][0])[0];
             }
         })
         .catch((err) => {
@@ -938,7 +938,7 @@ async function check_user(token) {
     let user_checked = Array();
     user_checked[0] = false;
 
-    if ((token != "") && (token != "false") && (token != undefined)) {
+    if ((token != "") && (token != "false")) {
         let user = jwt.decode(token);
         let userDB;
         await users.users(user.login)
@@ -956,7 +956,17 @@ async function check_user(token) {
         }
         await get_data.return_type_user(user.login)
             .then((res) => {
-                user_checked[1] = Object.values(res[0][0])[0];
+                switch (Object.keys(res[0][0][0])[0]) {
+                    case "idstudents":
+                        user_checked[1] = "student";
+                        break;
+                    case "idadmins":
+                        user_checked[1] = "admin";
+                        break;
+                    case "idlecturers":
+                        user_checked[1] = "lecturer";
+                        break;
+                }
             })
             .catch((err) => {
                 console.log(err);
