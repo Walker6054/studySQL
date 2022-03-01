@@ -1,21 +1,76 @@
 const connect = require("../.connectDB");
 
-exports.allGroups = () => {
-    return connect.query("SELECT * from `groups`");
+exports.allGroups = async () => {
+    let connection;
+	let query;
+	await connect.getConnection()
+		.then((that_connection) => {
+			connection = that_connection;
+			return that_connection.query("SELECT * from `groups`");
+		})
+		.then((res) => {
+			query = res;
+			connection.release();
+		});
+    return query;
 }
 
-exports.groups = (id) => {
-    return connect.query("SELECT * from `groups` where idgroups = " + id);
+exports.groups = async (id) => {
+    let connection;
+	let query;
+	await connect.getConnection()
+		.then((that_connection) => {
+			connection = that_connection;
+			return that_connection.query("SELECT * from `groups` where idgroups = " + id);
+		})
+		.then((res) => {
+			query = res;
+			connection.release();
+		});
+    return query;
 }
 
-exports.addGroups = (shifr) => {
-    return connect.query("call add_groups('"+shifr+"')");
+exports.addGroups = async (shifr) => {
+    let connection;
+	let query;
+	await connect.getConnection()
+		.then((that_connection) => {
+			connection = that_connection;
+			return that_connection.query("call add_groups('"+shifr+"')");
+		})
+		.then((res) => {
+			query = res;
+			connection.release();
+		});
+    return query;
 }
 
-exports.updateGroups = (id, shifr) => {
-    return connect.query("call update_groups("+ id +", '"+ shifr +"')");
+exports.updateGroups = async (id, shifr) => {
+    let connection;
+	let query;
+	await connect.getConnection()
+		.then((that_connection) => {
+			connection = that_connection;
+			return that_connection.query("call update_groups("+ id +", '"+ shifr +"')");
+		})
+		.then((res) => {
+			query = res;
+			connection.release();
+		});
+    return query;
 }
 
-exports.delGroups = (id) => {
-    return connect.query("call del_groups("+ id +")");
+exports.delGroups = async (id) => {
+    let connection;
+	let query;
+	await connect.getConnection()
+		.then((that_connection) => {
+			connection = that_connection;
+			return that_connection.query("call del_groups("+ id +")");
+		})
+		.then((res) => {
+			query = res;
+			connection.release();
+		});
+    return query;
 }

@@ -3,6 +3,9 @@ const testController = require("../controllers/testController");
 const testRouter = express.Router();
 
 testRouter.use((req, res, next) => {
+    if (req.url[req.url.length-1] == "/" && req.url.length != 1) {
+        req.url = req.url.substring(0, req.url.length - 1);
+    }
     switch (req.url) {
         case "/":
             return next();

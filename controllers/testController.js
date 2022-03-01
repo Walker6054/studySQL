@@ -197,6 +197,7 @@ exports.update_test = async (request, response) => {
                 })
             await get_data.get_questions_test(idtest)
                 .then((res) => {
+                    console.log(res);
                     all_questions_res = res[0][0];
                 })
                 .catch((err) => {
@@ -209,13 +210,16 @@ exports.update_test = async (request, response) => {
 
             //форматирование вопросов для отображения на странице
             for (let i = 0; i < all_questions_res.length; i++) {
-                let answers = all_questions_res[i].answers[0];
-                for (let j = 1; j < all_questions_res[i].answers.length; j++) {
-                    answers += "\n" + all_questions_res[i].answers[j];
+                let arr_answers = JSON.parse(all_questions_res[i].answers);
+                let answers = arr_answers[0];
+                for (let j = 1; j < arr_answers.length; j++) {
+                    answers += "\n" + arr_answers[j];
                 }
-                let ranswers = all_questions_res[i].rightAnswer[0];
-                for (let j = 1; j < all_questions_res[i].rightAnswer.length; j++) {
-                    ranswers += "\n" + all_questions_res[i].rightAnswer[j];
+
+                let arr_ranswers = JSON.parse(all_questions_res[i].rightAnswer);
+                let ranswers = arr_ranswers[0];
+                for (let j = 1; j < arr_ranswers.length; j++) {
+                    ranswers += "\n" + arr_ranswers[j];
                 }
                 let interactive = "";
                 let hidden = "";
@@ -270,14 +274,18 @@ exports.update_test = async (request, response) => {
 
             //форматирование вопросов для отображения на странице
             for (let i = 0; i < all_questions_res.length; i++) {
-                let answers = all_questions_res[i].answers[0];
-                for (let j = 1; j < all_questions_res[i].answers.length; j++) {
-                    answers += "\n" + all_questions_res[i].answers[j];
+                let arr_answers = JSON.parse(all_questions_res[i].answers);
+                let answers = arr_answers[0];
+                for (let j = 1; j < arr_answers.length; j++) {
+                    answers += "\n" + arr_answers[j];
                 }
-                let ranswers = all_questions_res[i].rightAnswer[0];
-                for (let j = 1; j < all_questions_res[i].rightAnswer.length; j++) {
-                    ranswers += "\n" + all_questions_res[i].rightAnswer[j];
+
+                let arr_ranswers = JSON.parse(all_questions_res[i].rightAnswer);
+                let ranswers = arr_ranswers[0];
+                for (let j = 1; j < arr_ranswers.length; j++) {
+                    ranswers += "\n" + arr_ranswers[j];
                 }
+                
                 let interactive = "";
                 let hidden = "";
                 if (all_questions_res[i].interactive == 1) {
@@ -365,8 +373,8 @@ exports.solve_test = async (request, response) => {
                     formulation: questions[i].formulation,
                     comment: questions[i].comment,
                     interactive: interactive,
-                    answers: questions[i].answers,
-                    count_right_answers: questions[i].rightAnswer.length
+                    answers: JSON.parse(questions[i].answers),
+                    count_right_answers: JSON.parse(questions[i].rightAnswer).length
                 };
                 questions_for_list.push(temp);
             }

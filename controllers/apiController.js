@@ -697,7 +697,7 @@ exports.check_solve_test = async (request, response) => {
     let last_try;
     await students.return_try_count_test(verify[0].login, data.id_test)
         .then((res) => {
-            if (Object.values(res[0][0][0])[0] == null) {
+            if (Object.values(res[0][0])[0] == null) {
                 last_try = 0;
             } else {
                 last_try = Object.values(res[0][0][0])[0];
@@ -723,15 +723,17 @@ exports.check_solve_test = async (request, response) => {
                 temp_arr_splite.forEach((el) => {
                     answers.push(el.split("}")[0]);
                 });
-
+                
+                let arr_answers = data.questions[i].answer;
                 for (let a = 0; a < answers.length; a++) {
-                    if (answers[a] != data.questions[i].answer[a]) {
+                    if (answers[a] != arr_answers[a]) {
                         flag = false;
                     }
                 }
             } else {
-                for (let a = 0; a < questions_test_from_db[i].rightAnswer.length; a++) {
-                    if (questions_test_from_db[i].rightAnswer[a] != data.questions[i].answer[a]) {
+                let arr_ranswers = JSON.parse(questions_test_from_db[i].rightAnswer);
+                for (let a = 0; a < arr_ranswers.length; a++) {
+                    if (arr_ranswers[a] != data.questions[i].answer[a]) {
                         flag = false;
                     }
                 }
