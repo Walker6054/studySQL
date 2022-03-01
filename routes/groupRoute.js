@@ -10,7 +10,7 @@ groupRouter.use((req, res, next) => {
             if (RegExp(/\/tests_update_id\=([0-9]+)/).test(req.url) || RegExp(/\/tests_results_id\=([0-9]+)/).test(req.url)) {
                 return next();
             }
-            return res.status(404).send("Страница не найдена");
+            return res.redirect("/404");
     }
 });
 

@@ -12,24 +12,22 @@ const groupRouter = require("./routes/groupRoute");
 const studentRouter = require("./routes/studentRoute");
 const lecturerRouter = require("./routes/lecturerRoute");
 
-//шаблонизатор
-const expressHbs = require('express-handlebars');
-
 //проверка на подключение к бд, перенаправление на страницу с ошибкой
-const connection = require("./models/.connectDB.js");
+let connection = require("./models/.connectDB.js");
 app.use(async (req, res, next) => {
     if (req.originalUrl.includes("static")) {
         return next();
     }
-
     let error_to_connect_db = false;
     await connection.connect()
         .catch((err) => {
             error_to_connect_db = true;
         });
-    
-    if (error_to_connect_db) {
-        return res.status(404).send("База данных недоступна! Попробуйте позже");
+    if (error_to_connect_db && req.url != "/error_db") {
+        return res.redirect("/error_db");
+    }
+    if (!error_to_connect_db && req.url == "/error_db") {
+        return res.redirect("/");
     }
     next();
 });
@@ -45,6 +43,9 @@ app.use("/", mainRouter);
 
 //использование директории на сервере
 app.use('/static', express.static(path.join(__dirname, '/static')));
+
+//шаблонизатор
+const expressHbs = require('express-handlebars');
 
 //устанавливаем настройки для файлов layout (шаблонизатор)
 const hbs = expressHbs.create({

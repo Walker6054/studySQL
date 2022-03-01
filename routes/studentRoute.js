@@ -12,7 +12,7 @@ studentRouter.use((req, res, next) => {
             if (RegExp(/\/update_student_id\=([0-9]+)/).test(req.url)) {
                 return next();
             }
-            return res.status(404).send("Страница не найдена");
+            return res.redirect("/404");
     }
 });
 

@@ -12,7 +12,7 @@ lecturerRouter.use((req, res, next) => {
             if (RegExp(/\/update_lecturer_id\=([0-9]+)/).test(req.url)) {
                 return next();
             }
-            return res.status(404).send("Страница не найдена");
+            return res.redirect("/404");
     }
 });
 

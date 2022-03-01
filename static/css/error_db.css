@@ -1,0 +1,17 @@
+.container {
+    min-height: 50vw;
+}
+
+.status {
+    text-align: center;
+    font-size: 15vw;
+    margin-bottom: 4vw;
+}
+
+.text {
+    text-align: center;
+    font-size: 5vw;
+}
+.sad {
+    width: 7vw;
+}

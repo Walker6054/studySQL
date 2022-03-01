@@ -155,6 +155,26 @@ exports.lk = async (request, response) => {
     }
 };
 
+exports.error_404 = (request, response) => {
+    return response.render(pathDir + "/views/404.hbs",
+        {
+            title: "Страница не найдена",
+            page: "404",
+            viewHeader: false
+        }
+    );
+};
+
+exports.error_db = (request, response) => {
+    return response.render(pathDir + "/views/error_db.hbs",
+        {
+            title: "База данных недоступна",
+            page: "error_db",
+            viewHeader: false
+        }
+    );
+};
+
 async function get_cookie_check_user(req) {
     let cookiesString;
     for (let i = 0; i < req.length; i++){
