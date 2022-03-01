@@ -1,7 +1,7 @@
 const mysql = require("mysql2");
-const config = require("../config/config.json");
+const config = require("../config");
 
-let connection = mysql.createPool(config.mysql).promise();
+let connection = mysql.createPool(config[0]).promise();
 
 connection.getConnection()
     .then((connection) => {
