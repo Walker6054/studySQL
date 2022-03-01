@@ -2,7 +2,7 @@ const connect = require("./.connectDB");
 
 //получение статуса пользователя
 exports.return_type_user = (login) => {
-    return connect.query("select return_type_user('" + login + "')");
+    return connect.query("call return_type_user('" + login + "')");
 }
 
 //результаты тестировани

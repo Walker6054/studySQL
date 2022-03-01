@@ -42,6 +42,6 @@ exports.delLecturers = (id) => {
 
 //функция проверки теста на принадлежность преподавателю
 exports.check_lecturer_test = (login, idtest) => {
-    return connect.query("select check_lecturer_test('" + login + "', " + idtest + ")");
+    return connect.query("call check_lecturer_test('" + login + "', " + idtest + ")");
 }
 
