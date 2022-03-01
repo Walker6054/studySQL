@@ -17,5 +17,5 @@ exports.updateMarks_questions = (id, login, idquestion, tryCount, answer, right)
 }
 
 exports.delMarks_questions = (id) => {
-    return connect.query("SELECT * from marks_questions");
+    return connect.query("call del_marks_questions("+ id + ")");
 }

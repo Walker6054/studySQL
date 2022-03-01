@@ -1,9 +1,9 @@
 {
     "mysql": {
-        "database": "studysql2",
-        "user": "root",
-        "password": "Walker.90",
-        "host": "localhost"
+        "database": "heroku_a075b126627ff53",
+        "user": "bfda18b90aebbf",
+        "password": "0e41d40e",
+        "host": "eu-cdbr-west-02.cleardb.net"
     },
     "app": {
         "layouts": true,
