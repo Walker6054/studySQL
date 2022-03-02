@@ -697,7 +697,7 @@ exports.check_solve_test = async (request, response) => {
     let last_try;
     await students.return_try_count_test(verify[0].login, data.id_test)
         .then((res) => {
-            if (Object.values(res[0][0])[0] == null) {
+            if (Object.values(res[0][0][0])[0] == null) {
                 last_try = 0;
             } else {
                 last_try = Object.values(res[0][0][0])[0];
