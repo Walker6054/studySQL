@@ -56,6 +56,10 @@ exports.index = async (request, response) => {
                     unfinished_test_user.push(test_user[i]);
                 }
             }
+            let ends_tests_exist = false;
+            if (ends_tests.length != 0) {
+                ends_tests_exist = true;
+            }
             
             return response.render(pathDir + "/views/tests/tests.hbs",
                 {
@@ -68,6 +72,7 @@ exports.index = async (request, response) => {
                     breadcrumb: breadcrumb,
                     tests: unfinished_test_user,
                     ends_tests: ends_tests,
+                    ends_tests_exist: ends_tests_exist,
                     helpers: {
                         check_result_of_test: hbs_helpers.check_result_of_test,
                         success_of_test: hbs_helpers.success_of_test

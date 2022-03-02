@@ -148,7 +148,7 @@ exports.forgotpass = async (request, response) => {
         date: Date.now()
     }, exists.idusers.toString());
 
-    await mailer.sendMail(exists.email, exists.login, "forgot", '<a href="http://localhost:3000/registration/recoveryPass=' + token + '">')
+    await mailer.sendMail(exists.email, exists.login, "forgot", '<a href="https://study-sql.herokuapp.com/registration/recoveryPass=' + token + '">')
         .then((res) => {
             switch (res) {
                 case true:

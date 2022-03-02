@@ -1,0 +1,23 @@
+html,
+body {
+    height: 100%;
+}
+.wrapper {
+    display: table;
+    height: 100%;
+}
+.content {
+    display: table-row;
+    height: 100%;
+}
+
+.text_author {
+    margin: 0;
+}
+
+.card-breadcrump {
+    padding: 0.5rem 0.5rem;
+}
+.breadcrumb {
+    margin: 0;
+}
