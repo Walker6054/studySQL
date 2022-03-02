@@ -1,16 +1,8 @@
 const nodemailer = require('nodemailer');
-const config = require("../config/mailer/config.json");
+const config = require("../config");
 const layouts = require("../mailer/mailLayout.json");
 
-let transporter = nodemailer.createTransport({
-    host: config.host,
-    port: config.port,
-    secure: config.secure,
-    auth: {
-        user: config.auth.user,
-        pass: config.auth.pass
-    },
-});
+let transporter = nodemailer.createTransport(config.config_mailer);
 
 exports.sendMail = async (email, login, mailLayout, other) => {
     let layout;
@@ -36,7 +28,7 @@ exports.sendMail = async (email, login, mailLayout, other) => {
             break;
     }
     await transporter.sendMail({
-        from: '"Study SQL" ' + config.mail,
+        from: '"Study SQL" ' + config.config_mailer.auth.user,
         to: email,
         subject: layout.subject,
         text: '',

@@ -59,7 +59,7 @@
                             </p>
                         </div>
                         {{#check_result_of_test this}}
-                            <div class="row card-footer">
+                            <div class="row card-footer row_card-footer">
                                 <div class="col colButton">
                                     <button type="button" class="btn btn-outline-primary button_solve_test" name="{{idtests}}">Пройти тест</button>
                                 </div>
@@ -101,77 +101,79 @@
             {{/each}}
         </div>
 
-        <div class="row mb-2 pt-3 border-top border-dark">
-            <div class="col colButton">
-                <button class="btn btn-dark" type="button" data-bs-toggle="collapse" data-bs-target="#block_ends_tests">
-                    Пройденные тесты
-                </button>
+        {{#if ends_tests_exist}}
+            <div class="row mb-2 pt-3 border-top border-dark">
+                <div class="col colButton">
+                    <button class="btn btn-outline-dark" type="button" data-bs-toggle="collapse" data-bs-target="#block_ends_tests">
+                        Пройденные тесты
+                    </button>
+                </div>
             </div>
-        </div>
-        
-        <div class="collapse row row-cols-2" id="block_ends_tests">
-            {{#each ends_tests}}
-                <div class="col">
-                    <div class="card border-secondary mb-3">
-                        <div class="card-header">
-                            <h5 class="card-title">{{this.name}}</h5>
-                        </div>
-                        <div class="card-body">
-                            <p class="card-text">
-                                Преподаватель: {{this.f}} {{this.i}} {{this.o}}
-                            </p>
-                            <p class="card-text">
-                                Попыток: {{this.all_count}}/{{this.maxTry}}
-                            </p>
-                            <p class="card-text">
-                                Средний процент выполнения: {{this.avg}}%
-                            </p>
-                            <p class="card-text">
-                                Наибольший процент выполнения: {{this.max}}%
-                            </p>
-                            <p class="card-text">
-                                Описание: {{this.desc}}
-                            </p>
-                        </div>
-                        {{#check_result_of_test this}}
-                            <div class="row card-footer">
+            
+            <div class="collapse row row-cols-2" id="block_ends_tests">
+                {{#each ends_tests}}
+                    <div class="col">
+                        <div class="card border-secondary mb-3">
+                            <div class="card-header">
+                                <h5 class="card-title">{{this.name}}</h5>
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text">
+                                    Преподаватель: {{this.f}} {{this.i}} {{this.o}}
+                                </p>
+                                <p class="card-text">
+                                    Попыток: {{this.all_count}}/{{this.maxTry}}
+                                </p>
+                                <p class="card-text">
+                                    Средний процент выполнения: {{this.avg}}%
+                                </p>
+                                <p class="card-text">
+                                    Наибольший процент выполнения: {{this.max}}%
+                                </p>
+                                <p class="card-text">
+                                    Описание: {{this.desc}}
+                                </p>
+                            </div>
+                            {{#check_result_of_test this}}
+                                <div class="row card-footer">
+                                    {{#if show_block}}
+                                        <div class="col colButton">
+                                            <button type="button" data-bs-toggle="collapse" data-bs-target="#results_test_{{idtests}}" class="btn btn-outline-success button_result_test">Посмотреть результаты</button>
+                                        </div>
+                                    {{/if}}
+                                </div>
                                 {{#if show_block}}
-                                    <div class="col colButton">
-                                        <button type="button" data-bs-toggle="collapse" data-bs-target="#results_test_{{idtests}}" class="btn btn-outline-success button_result_test">Посмотреть результаты</button>
+                                    <div class="collapse" id="results_test_{{idtests}}">
+                                        <div class="card card-body">
+                                            <table class="table mb-0 table-bordered table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">Попытка</th>
+                                                        <th scope="col">Правильных ответов</th>
+                                                        <th scope="col">Всего вопросов</th>
+                                                        <th scope="col">Процент выполнения</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {{#each answers}}
+                                                        <tr>
+                                                            <th scope="row">№{{this.tryCount}}</th>
+                                                            <td>{{this.count_right}}</td>
+                                                            <td>{{this.count_all}}</td>
+                                                            <td class="{{success_of_test this.percent}}">{{this.percent}}</td>
+                                                        </tr>
+                                                    {{/each}}
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 {{/if}}
-                            </div>
-                            {{#if show_block}}
-                                <div class="collapse" id="results_test_{{idtests}}">
-                                    <div class="card card-body">
-                                        <table class="table mb-0 table-bordered table-hover">
-                                            <thead>
-                                                <tr>
-                                                    <th scope="col">Попытка</th>
-                                                    <th scope="col">Правильных ответов</th>
-                                                    <th scope="col">Всего вопросов</th>
-                                                    <th scope="col">Процент выполнения</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                {{#each answers}}
-                                                    <tr>
-                                                        <th scope="row">№{{this.tryCount}}</th>
-                                                        <td>{{this.count_right}}</td>
-                                                        <td>{{this.count_all}}</td>
-                                                        <td class="{{success_of_test this.percent}}">{{this.percent}}</td>
-                                                    </tr>
-                                                {{/each}}
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            {{/if}}
-                        {{/check_result_of_test}}
+                            {{/check_result_of_test}}
+                        </div>
                     </div>
-                </div>
-            {{/each}}
-        </div>
+                {{/each}}
+            </div>
+        {{/if}}
     {{/if}}
 
     {{#if admin}}

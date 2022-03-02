@@ -1,21 +1,76 @@
 const connect = require("../.connectDB");
 
-exports.allQuestions = () => {
-    return connect.query("SELECT * from questions");
+exports.allQuestions = async () => {
+    let connection;
+	let query;
+	await connect.getConnection()
+		.then((that_connection) => {
+			connection = that_connection;
+			return that_connection.query("SELECT * from questions");
+		})
+		.then((res) => {
+			query = res;
+			connection.release();
+		});
+    return query;
 }
 
-exports.questions = (id) => {
-    return connect.query("SELECT * from questions where idquestions = " + id);
+exports.questions = async (id) => {
+    let connection;
+	let query;
+	await connect.getConnection()
+		.then((that_connection) => {
+			connection = that_connection;
+			return that_connection.query("SELECT * from questions where idquestions = " + id);
+		})
+		.then((res) => {
+			query = res;
+			connection.release();
+		});
+    return query;
 }
 
-exports.addQuestions = (idtests, formulation, answers, rightAnswer, comment, interactive) => {
-    return connect.query("call add_questions("+ idtests + ", '"+ formulation + "', '"+ answers + "', '"+ rightAnswer + "', '"+ comment + "', "+ interactive +")");
+exports.addQuestions = async (idtests, formulation, answers, rightAnswer, comment, interactive) => {
+    let connection;
+	let query;
+	await connect.getConnection()
+		.then((that_connection) => {
+			connection = that_connection;
+			return that_connection.query("call add_questions("+ idtests + ", '"+ formulation + "', '"+ answers + "', '"+ rightAnswer + "', '"+ comment + "', "+ interactive +")");
+		})
+		.then((res) => {
+			query = res;
+			connection.release();
+		});
+    return query;
 }
 
-exports.updateQuestions = (id, idtests, formulation, answers, rightAnswer, comment, interactive) => {
-    return connect.query("call update_questions("+ id + ", " + idtests + ", '"+ formulation + "', '"+ answers + "', '"+ rightAnswer + "', '"+ comment + "', "+ interactive +")");
+exports.updateQuestions = async (id, idtests, formulation, answers, rightAnswer, comment, interactive) => {
+    let connection;
+	let query;
+	await connect.getConnection()
+		.then((that_connection) => {
+			connection = that_connection;
+			return that_connection.query("call update_questions("+ id + ", " + idtests + ", '"+ formulation + "', '"+ answers + "', '"+ rightAnswer + "', '"+ comment + "', "+ interactive +")");
+		})
+		.then((res) => {
+			query = res;
+			connection.release();
+		});
+    return query;
 }
 
-exports.delQuestions = (id) => {
-    return connect.query("call del_questions("+ id +")");
+exports.delQuestions = async (id) => {
+    let connection;
+	let query;
+	await connect.getConnection()
+		.then((that_connection) => {
+			connection = that_connection;
+			return that_connection.query("call del_questions("+ id +")");
+		})
+		.then((res) => {
+			query = res;
+			connection.release();
+		});
+    return query;
 }

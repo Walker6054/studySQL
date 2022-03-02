@@ -80,7 +80,6 @@ exports.lk = async (request, response) => {
             let student_info;
             await students.students(verify[0].login)
                 .then((res) => {
-                    console.log(res);
                     student_info = res[0][0][0];
                 })
                 .catch((err) => {
@@ -177,13 +176,21 @@ exports.error_db = (request, response) => {
 
 async function get_cookie_check_user(req) {
     let cookiesString;
+    
     for (let i = 0; i < req.length; i++){
         if (req[i] == "Cookie") {
             cookiesString = req[i + 1];
             break;
         }
     }
-    let cookies = cookiesString.split("; ");
+
+    let cookies;
+    try {
+        cookies = cookiesString.split("; ");
+    } catch (e) {
+        cookies = "";
+    }
+    
     let token = "";
     for (let i = 0; i < cookies.length; i++){
         if (cookies[i].split("=")[0] == "C0o1o2k3i4e5L6o7g8i9n10U11s12e13r14") {

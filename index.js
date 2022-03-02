@@ -19,7 +19,10 @@ app.use(async (req, res, next) => {
         return next();
     }
     let error_to_connect_db = false;
-    await connection.connect()
+    await connection.getConnection()
+        .then((connection) => {
+            connection.release();
+        })
         .catch((err) => {
             error_to_connect_db = true;
         });
@@ -58,7 +61,8 @@ app.engine('hbs', hbs.engine);
 app.set('view engine', 'hbs');
 
 //запуск приложения
-app.listen(3000);
+let port = process.env.PORT || 80;
+app.listen(port);
 
 
 

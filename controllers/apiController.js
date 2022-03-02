@@ -148,7 +148,7 @@ exports.forgotpass = async (request, response) => {
         date: Date.now()
     }, exists.idusers.toString());
 
-    await mailer.sendMail(exists.email, exists.login, "forgot", '<a href="http://localhost:3000/registration/recoveryPass=' + token + '">')
+    await mailer.sendMail(exists.email, exists.login, "forgot", '<a href="https://study-sql.herokuapp.com/registration/recoveryPass=' + token + '">')
         .then((res) => {
             switch (res) {
                 case true:
@@ -723,15 +723,17 @@ exports.check_solve_test = async (request, response) => {
                 temp_arr_splite.forEach((el) => {
                     answers.push(el.split("}")[0]);
                 });
-
+                
+                let arr_answers = data.questions[i].answer;
                 for (let a = 0; a < answers.length; a++) {
-                    if (answers[a] != data.questions[i].answer[a]) {
+                    if (answers[a] != arr_answers[a]) {
                         flag = false;
                     }
                 }
             } else {
-                for (let a = 0; a < questions_test_from_db[i].rightAnswer.length; a++) {
-                    if (questions_test_from_db[i].rightAnswer[a] != data.questions[i].answer[a]) {
+                let arr_ranswers = JSON.parse(questions_test_from_db[i].rightAnswer);
+                for (let a = 0; a < arr_ranswers.length; a++) {
+                    if (arr_ranswers[a] != data.questions[i].answer[a]) {
                         flag = false;
                     }
                 }

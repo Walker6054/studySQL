@@ -1,9 +1,12 @@
 const mysql = require("mysql2");
-const config = require("../config/config.json");
+const config = require("../config");
 
-let connection = mysql.createConnection(config.mysql).promise();
+let connection = mysql.createPool(config.config_db_hosting).promise();
 
-connection.connect()
+connection.getConnection()
+    .then((connection) => {
+        connection.release();
+    })
     .catch((err) => {
         console.error("Ошибка: " + err.message);
     });

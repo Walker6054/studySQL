@@ -13,3 +13,8 @@
 .main_header {
     text-align: center;
 }
+
+.row_card-footer {
+    margin-left: 0;
+    margin-right: 0;
+}

@@ -12,6 +12,9 @@
     },
     "author": "Walker6054",
     "license": "ISC",
+    "engines": {
+        "node": "16.9.1"
+    },
     "dependencies": {
         "antlr4": "^4.9.3",
         "express": "^4.17.2",

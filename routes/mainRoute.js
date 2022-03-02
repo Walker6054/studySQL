@@ -6,6 +6,9 @@ mainRouter.use((req, res, next) => {
     if (req.originalUrl.includes("static")) {
         return next();
     }
+    if (req.url[req.url.length-1] == "/" && req.url.length != 1) {
+        req.url = req.url.substring(0, req.url.length - 1);
+    }
     switch (req.url) {
         case "/":
             return next();

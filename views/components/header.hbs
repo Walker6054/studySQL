@@ -1,33 +1,34 @@
 <header>
     {{#if viewHeader}}
-    <nav class="navbar navbar-light bg-light">
-        <div class="container">
-            <a class="navbar-brand" href="#" onclick="window.location=window.location.origin">{{headPage}}</a>
-
-            <div class="rowUser">
-                <div class="dropdown">
-                    <button class="btn btn-outline-secondary dropdown-toggle btnUser" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown">{{userName}}</button>
-                    <ul class="dropdown-menu dropdown-menu-secondary">
-                        <li {{lk}}><a class="dropdown-item" href="/lk">Личный кабинет</a></li>
-                        <li {{lk}}>
-                            <hr class="dropdown-divider" />
-                        </li>
-                        <li><button id="buttonLogOut" class="dropdown-item">Выйти</button></li>
-                    </ul>
-                </div>
-            </div>      
-        </div>
+    <nav class="container mb-3 shadow p-3 rounded navbar navbar-light bg-light">
+        <a class="navbar-brand" href="#" onclick="window.location=window.location.origin">{{headPage}}</a>
+        <div class="rowUser">
+            <div class="dropdown">
+                <button class="btn btn-outline-secondary dropdown-toggle btnUser" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown">{{userName}}</button>
+                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-secondary">
+                    <li {{lk}}><a class="dropdown-item" href="/lk">Личный кабинет</a></li>
+                    <li {{lk}}>
+                        <hr class="dropdown-divider" />
+                    </li>
+                    <li><button id="buttonLogOut" class="dropdown-item">Выйти</button></li>
+                </ul>
+            </div>
+        </div>      
     </nav>
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            {{#each breadcrumb}}
-                {{#if this.active}}
-                    <li class="breadcrumb-item active">{{this.title}}</li>
-                {{else}}
-                    <li class="breadcrumb-item"><a href="{{this.href}}/">{{this.title}}</a></li>
-                {{/if}}
-            {{/each}}
-        </ol>
+    <nav class="container mb-3" aria-label="breadcrumb">
+        <div class="card">
+            <div class="card-body card-breadcrump">
+                <ol class="breadcrumb">
+                    {{#each breadcrumb}}
+                        {{#if this.active}}
+                            <li class="breadcrumb-item active">{{this.title}}</li>
+                        {{else}}
+                            <li class="breadcrumb-item"><a href="{{this.href}}/">{{this.title}}</a></li>
+                        {{/if}}
+                    {{/each}}
+                </ol>
+            </div>
+        </div>
     </nav>
     {{/if}}
 </header>

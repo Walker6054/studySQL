@@ -56,6 +56,10 @@ exports.index = async (request, response) => {
                     unfinished_test_user.push(test_user[i]);
                 }
             }
+            let ends_tests_exist = false;
+            if (ends_tests.length != 0) {
+                ends_tests_exist = true;
+            }
             
             return response.render(pathDir + "/views/tests/tests.hbs",
                 {
@@ -68,6 +72,7 @@ exports.index = async (request, response) => {
                     breadcrumb: breadcrumb,
                     tests: unfinished_test_user,
                     ends_tests: ends_tests,
+                    ends_tests_exist: ends_tests_exist,
                     helpers: {
                         check_result_of_test: hbs_helpers.check_result_of_test,
                         success_of_test: hbs_helpers.success_of_test
@@ -197,6 +202,7 @@ exports.update_test = async (request, response) => {
                 })
             await get_data.get_questions_test(idtest)
                 .then((res) => {
+                    console.log(res);
                     all_questions_res = res[0][0];
                 })
                 .catch((err) => {
@@ -209,13 +215,16 @@ exports.update_test = async (request, response) => {
 
             //форматирование вопросов для отображения на странице
             for (let i = 0; i < all_questions_res.length; i++) {
-                let answers = all_questions_res[i].answers[0];
-                for (let j = 1; j < all_questions_res[i].answers.length; j++) {
-                    answers += "\n" + all_questions_res[i].answers[j];
+                let arr_answers = JSON.parse(all_questions_res[i].answers);
+                let answers = arr_answers[0];
+                for (let j = 1; j < arr_answers.length; j++) {
+                    answers += "\n" + arr_answers[j];
                 }
-                let ranswers = all_questions_res[i].rightAnswer[0];
-                for (let j = 1; j < all_questions_res[i].rightAnswer.length; j++) {
-                    ranswers += "\n" + all_questions_res[i].rightAnswer[j];
+
+                let arr_ranswers = JSON.parse(all_questions_res[i].rightAnswer);
+                let ranswers = arr_ranswers[0];
+                for (let j = 1; j < arr_ranswers.length; j++) {
+                    ranswers += "\n" + arr_ranswers[j];
                 }
                 let interactive = "";
                 let hidden = "";
@@ -270,14 +279,18 @@ exports.update_test = async (request, response) => {
 
             //форматирование вопросов для отображения на странице
             for (let i = 0; i < all_questions_res.length; i++) {
-                let answers = all_questions_res[i].answers[0];
-                for (let j = 1; j < all_questions_res[i].answers.length; j++) {
-                    answers += "\n" + all_questions_res[i].answers[j];
+                let arr_answers = JSON.parse(all_questions_res[i].answers);
+                let answers = arr_answers[0];
+                for (let j = 1; j < arr_answers.length; j++) {
+                    answers += "\n" + arr_answers[j];
                 }
-                let ranswers = all_questions_res[i].rightAnswer[0];
-                for (let j = 1; j < all_questions_res[i].rightAnswer.length; j++) {
-                    ranswers += "\n" + all_questions_res[i].rightAnswer[j];
+
+                let arr_ranswers = JSON.parse(all_questions_res[i].rightAnswer);
+                let ranswers = arr_ranswers[0];
+                for (let j = 1; j < arr_ranswers.length; j++) {
+                    ranswers += "\n" + arr_ranswers[j];
                 }
+                
                 let interactive = "";
                 let hidden = "";
                 if (all_questions_res[i].interactive == 1) {
@@ -365,8 +378,8 @@ exports.solve_test = async (request, response) => {
                     formulation: questions[i].formulation,
                     comment: questions[i].comment,
                     interactive: interactive,
-                    answers: questions[i].answers,
-                    count_right_answers: questions[i].rightAnswer.length
+                    answers: JSON.parse(questions[i].answers),
+                    count_right_answers: JSON.parse(questions[i].rightAnswer).length
                 };
                 questions_for_list.push(temp);
             }
@@ -403,13 +416,21 @@ exports.solve_test = async (request, response) => {
 
 async function get_cookie_check_user(req) {
     let cookiesString;
+    
     for (let i = 0; i < req.length; i++){
         if (req[i] == "Cookie") {
             cookiesString = req[i + 1];
             break;
         }
     }
-    let cookies = cookiesString.split("; ");
+
+    let cookies;
+    try {
+        cookies = cookiesString.split("; ");
+    } catch (e) {
+        cookies = "";
+    }
+    
     let token = "";
     for (let i = 0; i < cookies.length; i++){
         if (cookies[i].split("=")[0] == "C0o1o2k3i4e5L6o7g8i9n10U11s12e13r14") {
