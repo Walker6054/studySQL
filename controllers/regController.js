@@ -51,7 +51,7 @@ exports.recoveryPass = (request, response) => {
     let user = jwt.decode(token);
     
     if (!user) {
-        return response.status(404).send("Неверная ссылка");
+        return response.redirect("/404");
     }
 
     let text = "Восстановление пароля";

@@ -1,44 +1,31 @@
-<div class="mainBlock">
-    <div class="row rowHeader">
-        <h2 class="mainHeader">{{text}}</h2>
-    </div>
+<div class="container">
+    <nav class="container shadow p-3 rounded navbar navbar-light bg-light">
+        <h2 class="navbar-brand">
+            Образовательная система основы SQL
+        </h2>
+        <h2 class="navbar-brand">
+            {{text}}
+        </h2>
+    </nav>
     {{#if not_wrong_time}}
-        <div class="row rowForm">
+        <div class="row row_main">
             <div class="row rowForm mb-3">
-                <div class="col-6 colForm">
-                    <div class="form-floating">
+                <div class="col-12 col-md-7 colButton border border-secondary border-2 rounded p-3">
+                    <div class="form-floating mb-3">
                         <input type="password" class="form-control" id="inputPass1" placeholder=" " />
                         <label for="inputPass1">Новый пароль</label>
                         <div id="feedback_pass1" class="invalid-feedback"></div>
-                    </div>
-                </div>
-                <div class="col-6 colForm"></div>
-            </div>
-
-            <div class="row rowForm mb-3">
-                <div class="col-6 colForm">
-                    <div class="form-floating">
+                    </div>      
+                    <div class="form-floating mb-3">
                         <input type="password" class="form-control" id="inputPass2" placeholder=" " />
                         <label for="inputPass2">Повторите пароль</label>
                         <div id="feedback_pass2" class="invalid-feedback"></div>
-                    </div>
-                </div>
-                <div class="col-6 colForm"></div>
-            </div>
-
-            <div class="row rowForm mb-3">
-                <div class="col-6 colForm">
-                    <div class="form-check">
+                    </div>  
+                    <div class="form-check mb-3">
                         <input class="form-check-input" type="checkbox" value="" id="checkPass" />
                         <label class="form-check-label" for="checkPass"> Показать пароль </label>
-                    </div>
-                </div>
-                <div class="col-6 colForm"></div>
-            </div>
-
-            <div class="row rowForm mb-3">
-                <div class="col-6 colForm">
-                    <button type="button" id="buttonRecovery" class="btn btn-outline-success">Восстановить</button>
+                    </div>       
+                    <button type="button" id="buttonRecovery" class="btn btn-outline-success">Восстановить</button> 
                 </div>
             </div>
         </div>

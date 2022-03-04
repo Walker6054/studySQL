@@ -1,3 +1,48 @@
 .needed {
     color: red;
 }
+
+.navbar-brand {
+    margin: 0;
+}
+.navbar {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 5%;
+}
+
+.row_main {
+    margin-left: 0;
+    margin-right: 0;
+    display: flex;
+    justify-content: center;
+}
+.card_main {
+    width: 65%;
+    padding: 0;
+}
+
+.rowForm {
+    display: flex;
+    margin-left: 0;
+    margin-right: 0;
+    justify-content: center;
+}
+.colForm {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: stretch;
+}
+.colButton {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.info_group {
+    text-align: justify;
+}
+.info {
+    text-align: center;
+}

@@ -1,23 +1,22 @@
-<div class="mainBlock">
-    <div class="row rowHeader">
-        <h2 class="mainHeader">Восстановление пароля</h2>
-    </div>
-    <div class="row rowForm">
+<div class="container">
+    <nav class="container shadow p-3 rounded navbar navbar-light bg-light">
+        <h2 class="navbar-brand">
+            Образовательная система основы SQL
+        </h2>
+        <h2 class="navbar-brand">
+            Восстановление пароля
+        </h2>
+    </nav>
+    <div class="row row_main">
         <div class="row rowForm mb-3">
-            <div class="col-6 colForm">
-                <div class="form-floating">
+            <div class="col-12 col-md-7 colButton border border-secondary border-2 rounded p-3">
+                <div class="form-floating mb-3">
                     <input type="email" class="form-control" id="inputLogin" placeholder=" " />
                     <label for="inputLogin">Email/Логин</label>
                     <div id="feedback_login" class="invalid-feedback"></div>
                 </div>
-            </div>
-            <div class="col-6 colForm"></div>
-        </div>
-        <div class="row rowForm mb-3">
-            <div class="col-6 colForm">
-                <button type="button" data-bs-dismiss="modal" id="buttonForgot" class="btn btn-outline-success">Восстановить</button>
+                <button type="button" id="buttonForgot" class="btn btn-outline-success">Восстановить</button>
             </div>
         </div>
     </div>
-    <div class="row rowReg"></div>
 </div>

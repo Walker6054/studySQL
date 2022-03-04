@@ -1,4 +1,4 @@
-<div>
+<div class="container">
     <nav class="container shadow p-3 rounded navbar navbar-light bg-light">
         <h2 class="navbar-brand">
             Образовательная система основы SQL
@@ -8,6 +8,32 @@
         <div class="card card_main border-secondary mb-3">
             <div class="card-body text-secondary">
                 <div class="row rowForm mb-3">
+                    <div class="col-12 col-md-8 colButton">
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control" id="inputLogin" placeholder=" " />
+                            <label for="inputLogin">Email/Логин</label>
+                            <div id="feedback_login" class="invalid-feedback"></div>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="password" class="form-control" id="inputPassword" placeholder=" " />
+                            <label for="inputPassword">Пароль</label>
+                            <div id="feedback_pass" class="invalid-feedback"></div>
+                        </div>
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" value="" id="checkRemember" />
+                            <label class="form-check-label" for="checkRemember"> Запомнить меня </label>
+                        </div>
+
+                        <button type="button" data-bs-dismiss="modal" id="buttonLogIn" class="btn btn-outline-success mb-3">Войти</button>
+                    </div>
+                    <div class="col">
+                        <div class="row">
+                            <a href="/registration/forgotPass">Забыли пароль?</a>
+                        </div>
+                    </div>
+                </div>
+
+                {{!-- <div class="row rowForm mb-3">
                     <div class="col-8 colForm">
                         <div class="form-floating">
                             <input type="email" class="form-control" id="inputLogin" placeholder=" " />
@@ -40,7 +66,7 @@
                     <div class="col-8 colButton">
                         <button type="button" data-bs-dismiss="modal" id="buttonLogIn" class="btn btn-outline-success">Войти</button>
                     </div>
-                </div>
+                </div> --}}
             </div>
             <div class="card-footer border-secondary">
                 <div class="row rowReg">
@@ -56,5 +82,4 @@
             </div>
         </div>
     </div>
-    
 </div>

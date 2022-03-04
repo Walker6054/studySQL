@@ -39,10 +39,3 @@
     justify-content: center;
     flex-direction: column;
 }
-
-.info_group {
-    text-align: justify;
-}
-.info {
-    text-align: center;
-}

@@ -1,93 +1,59 @@
-<div class="mainBlock">
-    <div class="row rowHeader">
-        <h2 class="mainHeader">Регистрация - Преподаватель</h2>
-    </div>
-    <form class="row rowForm needs-validation" novalidate>
+<div class="container">
+    <nav class="container shadow p-3 rounded navbar navbar-light bg-light">
+        <h2 class="navbar-brand">
+            Образовательная система основы SQL
+        </h2>
+        <h2 class="navbar-brand">
+            Регистрация - преподаватель
+        </h2>
+    </nav>
+    <div class="row row_main">
         <div class="row rowForm mb-3">
-            <div class="col-6 colForm">
-                <div class="form-floating">
+            <div class="col-12 col-md-7 colButton border border-primary border-2 rounded p-3">
+                <div class="row mb-3">
+                    <span class="info"><span class="needed">*</span> - поля обязательные к заполнению!</span>
+                </div>
+                <div class="form-floating mb-3">
                     <input type="text" class="form-control" id="inputLogin" placeholder=" "/>
                     <label for="inputLogin">Логин<span class="needed">*</span></label>
                     <div id="feedback_login" class="invalid-feedback"></div>
                 </div>
-            </div>
-            <div class="col-6 colForm">
-                <span class="needed">*</span> - поля обязательные к заполнению!
-            </div>
-        </div>
-        <div class="row rowForm mb-3">
-            <div class="col-6 colForm">
-                <div class="form-floating">
+                <div class="form-floating mb-3">
                     <input type="email" class="form-control" id="inputEmail" placeholder=" "/>
                     <label for="inputEmail">Email<span class="needed">*</span></label>
                     <div id="feedback_email" class="invalid-feedback"></div>
                 </div>
-            </div>
-            <div class="col-6 colForm"></div>
-        </div>
-        <div class="row rowForm mb-3">
-            <div class="col-6 colForm">
-                <div class="form-floating">
+                <div class="form-floating mb-3">
                     <input type="password" class="form-control" id="inputPass" placeholder=" " />
                     <label for="inputPass">Пароль<span class="needed">*</span></label>
                     <div id="feedback_pass" class="invalid-feedback"></div>
                 </div>
-            </div>
-            <div class="col-6 colForm"></div>
-        </div>
-        <div class="row rowForm mb-3">
-            <div class="col-6 colForm">
-                <div class="form-check">
+                <div class="form-check mb-3">
                     <input class="form-check-input" type="checkbox" value="" id="checkPass" />
                     <label class="form-check-label" for="checkPass"> Показать пароль </label>
                 </div>
-            </div>
-            <div class="col-6 colForm"></div>
-        </div>
-        <div class="row rowForm mb-3">
-            <div class="col-6 colForm">
-                <div class="form-floating">
+                <div class="form-floating mb-3">
                     <input type="text" class="form-control" id="inputInst" placeholder=" " />
                     <label for="inputInst">Институт<span class="needed">*</span></label>
                     <div id="feedback_inst" class="invalid-feedback"></div>
                 </div>
-            </div>
-            <div class="col-6 colForm"></div>
-        </div>
-        <div class="row rowForm mb-3">
-            <div class="col-6 colForm">
-                <div class="form-floating">
+                <div class="form-floating mb-3">
                     <input type="text" class="form-control" id="inputF" placeholder=" " />
                     <label for="inputF">Фамилия<span class="needed">*</span></label>
                     <div id="feedback_f" class="invalid-feedback"></div>
                 </div>
-            </div>
-            <div class="col-6 colForm"></div>
-        </div>
-        <div class="row rowForm mb-3">
-            <div class="col-6 colForm">
-                <div class="form-floating">
+                <div class="form-floating mb-3">
                     <input type="text" class="form-control" id="inputI" placeholder=" " />
                     <label for="inputI">Имя<span class="needed">*</span></label>
                     <div id="feedback_i" class="invalid-feedback"></div>
                 </div>
-            </div>
-            <div class="col-6 colForm"></div>
-        </div>
-        <div class="row rowForm mb-3">
-            <div class="col-6 colForm">
-                <div class="form-floating">
+                <div class="form-floating mb-3">
                     <input type="text" class="form-control" id="inputO" placeholder=" " />
                     <label for="inputO">Отчество</label>
                     <div id="feedback_o" class="invalid-feedback"></div>
                 </div>
-            </div>
-            <div class="col-6 colForm"></div>
-        </div>
-        <div class="row rowForm mb-3">
-            <div class="col-6 colForm">
                 <button type="button" id="buttonReg" class="btn btn-outline-success">Зарегистрироваться</button>
             </div>
         </div>
-    </form>
+    </div>
 </div>

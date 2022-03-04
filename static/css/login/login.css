@@ -38,3 +38,9 @@
 a {
     text-align: center;
 }
+
+@media (max-width: 767px) {
+    .card_main {
+        width: 100%;
+    }
+}
