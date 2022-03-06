@@ -217,6 +217,11 @@ for (let i = 0; i < buttons_del.length; i++){
     buttons_del[i].addEventListener("click", processDel);
 }
 function processDel() {
+    let confirm_del = confirm("Подтвердите удаление");
+    if (!confirm_del) {
+        return false;
+    }
+    
     let token = getCookie("CookieUser");
     let lecturer_group = {
         id: event.target.getAttribute("name"),

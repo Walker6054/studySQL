@@ -23,6 +23,11 @@ if (buttons_del_test.length != 0) {
     }
 }
 function del_test() {
+    let confirm_del = confirm("Подтвердите удаление");
+    if (!confirm_del) {
+        return false;
+    }
+    
     let token = getCookie("CookieUser");
     let query = {
         token: token,

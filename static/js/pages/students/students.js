@@ -15,6 +15,11 @@ if (buttons_del.length != 0) {
 }
 
 function processDel() {
+    let confirm_del = confirm("Подтвердите удаление");
+    if (!confirm_del) {
+        return false;
+    }
+    
     let token = getCookie("CookieUser");
     let student = {
         id: event.target.getAttribute("name"),
