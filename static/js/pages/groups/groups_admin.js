@@ -83,7 +83,7 @@ function validation() {
 }
 
 function processAdd(group) {
-    let token = getCookie("C0o1o2k3i4e5L6o7g8i9n10U11s12e13r14");
+    let token = getCookie("CookieUser");
     group.token = token;
 
     let add_group_req = new XMLHttpRequest();
@@ -107,7 +107,7 @@ function processAdd(group) {
 }
 
 function processUpdate(group) {
-    let token = getCookie("C0o1o2k3i4e5L6o7g8i9n10U11s12e13r14");
+    let token = getCookie("CookieUser");
 
     group.token = token;
 
@@ -136,7 +136,12 @@ for (let i = 0; i < buttons_del_group.length; i++){
     buttons_del_group[i].addEventListener("click", processDel);
 }
 function processDel() {
-    let token = getCookie("C0o1o2k3i4e5L6o7g8i9n10U11s12e13r14");
+    let confirm_del = confirm("Подтвердите удаление");
+    if (!confirm_del) {
+        return false;
+    }
+    
+    let token = getCookie("CookieUser");
     let group = {
         id: event.target.getAttribute("name"),
         token: token

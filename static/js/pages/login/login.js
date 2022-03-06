@@ -65,9 +65,9 @@ function processLog(user) {
             let token = LogReq.responseText;
             
             if (inputCheckRememb.checked) {
-                document.cookie = "C0o1o2k3i4e5L6o7g8i9n10U11s12e13r14 = " + token + "; Path=/; Expires=Mon, 01 Jan 2024 00:00:00 GMT";
+                document.cookie = "CookieUser = " + token + "; Path=/; Expires=Mon, 01 Jan 2024 00:00:00 GMT";
             } else {
-                document.cookie = "C0o1o2k3i4e5L6o7g8i9n10U11s12e13r14 = " + token + "; Path=/; Expires=Session";
+                document.cookie = "CookieUser = " + token + "; Path=/; Expires=Session";
             }
 
             setTimeout(() => {

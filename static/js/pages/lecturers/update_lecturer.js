@@ -110,7 +110,7 @@ function validation() {
 }
 
 function processUpdate(lecturer) {
-    let token = getCookie("C0o1o2k3i4e5L6o7g8i9n10U11s12e13r14");
+    let token = getCookie("CookieUser");
     lecturer.token = token;
 
     let update_lecturer_req = new XMLHttpRequest();
@@ -190,7 +190,7 @@ function validation_groups() {
 }
 
 function processAdd(group) {
-    let token = getCookie("C0o1o2k3i4e5L6o7g8i9n10U11s12e13r14");
+    let token = getCookie("CookieUser");
     group.token = token;
 
     let add_lecturer_group_req = new XMLHttpRequest();
@@ -217,7 +217,7 @@ for (let i = 0; i < buttons_del.length; i++){
     buttons_del[i].addEventListener("click", processDel);
 }
 function processDel() {
-    let token = getCookie("C0o1o2k3i4e5L6o7g8i9n10U11s12e13r14");
+    let token = getCookie("CookieUser");
     let lecturer_group = {
         id: event.target.getAttribute("name"),
         token: token

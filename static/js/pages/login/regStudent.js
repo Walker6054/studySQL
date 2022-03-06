@@ -146,7 +146,7 @@ function processReg(user) {
         switch (RegReq.status) {
             case 200:
                 let token = RegReq.responseText;
-                document.cookie = "C0o1o2k3i4e5L6o7g8i9n10U11s12e13r14 = "+ token +"; Path=/; Expires=Session";
+                document.cookie = "CookieUser = "+ token +"; Path=/; Expires=Session";
                 alert("Пользователь успешно зарегистрирован!");
                 window.location = window.location.origin;
                 break;

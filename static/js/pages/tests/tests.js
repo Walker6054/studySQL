@@ -23,7 +23,7 @@ if (buttons_del_test.length != 0) {
     }
 }
 function del_test() {
-    let token = getCookie("C0o1o2k3i4e5L6o7g8i9n10U11s12e13r14");
+    let token = getCookie("CookieUser");
     let query = {
         token: token,
         id: event.target.getAttribute("name")

@@ -15,7 +15,7 @@ if (buttons_del.length != 0) {
 }
 
 function processDel() {
-    let token = getCookie("C0o1o2k3i4e5L6o7g8i9n10U11s12e13r14");
+    let token = getCookie("CookieUser");
     let lecturer = {
         id: event.target.getAttribute("name"),
         token: token

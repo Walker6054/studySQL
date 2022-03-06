@@ -173,7 +173,7 @@ function validation() {
 }
 
 function processUpdate(test) {
-    let token = getCookie("C0o1o2k3i4e5L6o7g8i9n10U11s12e13r14");
+    let token = getCookie("CookieUser");
     test.token = token;
 
     let update_test_req = new XMLHttpRequest();

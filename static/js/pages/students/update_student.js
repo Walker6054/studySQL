@@ -97,7 +97,7 @@ function validation() {
 }
 
 function processUpdate(student) {
-    let token = getCookie("C0o1o2k3i4e5L6o7g8i9n10U11s12e13r14");
+    let token = getCookie("CookieUser");
     student.token = token;
 
     let update_student_req = new XMLHttpRequest();
