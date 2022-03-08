@@ -37,3 +37,12 @@
 .info {
     text-align: center;
 }
+
+.navbar-brand {
+    margin: 0;
+}
+.navbar {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 5%;
+}

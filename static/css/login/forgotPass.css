@@ -30,3 +30,12 @@
     justify-content: center;
     flex-direction: column;
 }
+
+.navbar-brand {
+    margin: 0;
+}
+.navbar {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 5%;
+}

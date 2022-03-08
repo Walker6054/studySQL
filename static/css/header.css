@@ -8,25 +8,3 @@
 .breadcrumb {
     margin: 0;
 }
-
-.navbar-brand {
-    margin: 0;
-    font-size: 2.5vw;
-}
-.navbar {
-    display: flex;
-    margin-bottom: 7vh;
-    justify-content: space-between;
-}
-
-@media (max-width: 767px) {
-    .navbar-brand {
-        font-size: 3.4vw;
-    }
-}
-
-@media (max-width: 500px) {
-    .navbar-brand {
-        font-size: 4.5vw;
-    }
-}
