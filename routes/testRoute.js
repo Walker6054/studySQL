@@ -12,7 +12,7 @@ testRouter.use((req, res, next) => {
         case "/new_test":
             return next();
         default:
-            if (RegExp(/\/update_testID\=([0-9]+)/).test(req.url) || RegExp(/\/solve_testID\=([0-9]+)/).test(req.url)) {
+            if (RegExp(/\/update_test\?id\=([0-9]+)/).test(req.url) || RegExp(/\/solve_test\?id\=([0-9]+)/).test(req.url)) {
                 return next();
             }
             return res.redirect("/404");
@@ -23,8 +23,8 @@ testRouter.get("/", testController.index);
 
 testRouter.get("/new_test", testController.new_test);
 
-testRouter.get("/update_testID(=)?*", testController.update_test);
+testRouter.get("/update_test", testController.update_test);
 
-testRouter.get("/solve_testID(=)?*", testController.solve_test);
+testRouter.get("/solve_test", testController.solve_test);
 
 module.exports = testRouter;

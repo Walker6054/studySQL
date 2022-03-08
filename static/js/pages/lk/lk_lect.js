@@ -151,7 +151,7 @@ function processUpdate(user) {
     user.token = token;
 
     let update_user_req = new XMLHttpRequest();
-    update_user_req.open("post", "/api/api-update_user", true);
+    update_user_req.open("put", "/api/api-update_user", true);
     update_user_req.setRequestHeader(
         'Content-Type',
         'application/json'

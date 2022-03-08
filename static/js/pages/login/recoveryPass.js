@@ -59,7 +59,7 @@ function validation() {
 }
 
 function processRecovery(user) {
-    let token = window.location.pathname.split("=")[1];
+    let token = window.location.search.split("=")[1];
     console.log(token);
     
     if (token) {

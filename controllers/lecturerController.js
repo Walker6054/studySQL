@@ -94,7 +94,7 @@ exports.new_lecturer = async (request, response) => {
 
 exports.update_lecturer = async (request, response) => {
     let verify = await get_cookie_check_user(request.rawHeaders);
-    let id_lecturer = request.url.split("=")[1];
+    let id_lecturer = request.query.id;
 
     //инициализация пути
     let breadcrumb = Array();

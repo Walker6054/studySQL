@@ -10,7 +10,7 @@ groupRouter.use((req, res, next) => {
         case "/":
             return next();
         default:
-            if (RegExp(/\/tests_update_id\=([0-9]+)/).test(req.url) || RegExp(/\/tests_results_id\=([0-9]+)/).test(req.url)) {
+            if (RegExp(/\/tests_update\?id\=([0-9]+)/).test(req.url) || RegExp(/\/tests_results\?id\=([0-9]+)/).test(req.url)) {
                 return next();
             }
             return res.redirect("/404");
@@ -19,9 +19,9 @@ groupRouter.use((req, res, next) => {
 
 groupRouter.get("/", groupController.index);
 
-groupRouter.get("/tests_update_id=*", groupController.tests_update);
+groupRouter.get("/tests_update", groupController.tests_update);
 
-groupRouter.get("/tests_results_id=*", groupController.tests_results);
+groupRouter.get("/tests_results", groupController.tests_results);
 
 module.exports = groupRouter;
 

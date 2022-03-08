@@ -112,7 +112,7 @@ function processUpdate(group) {
     group.token = token;
 
     let update_group_req = new XMLHttpRequest();
-        update_group_req.open("post", "/api/api-update_group", true);    
+        update_group_req.open("put", "/api/api-update_group", true);    
         update_group_req.setRequestHeader(
             'Content-Type',
             'application/json'
@@ -148,7 +148,7 @@ function processDel() {
     }
 
     let del_group_req = new XMLHttpRequest();
-        del_group_req.open("post", "/api/api-del_group", true);    
+        del_group_req.open("delete", "/api/api-del_group", true);    
         del_group_req.setRequestHeader(
             'Content-Type',
             'application/json'

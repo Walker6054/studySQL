@@ -61,6 +61,7 @@ exports.index = async (request, response) => {
                 ends_tests_exist = true;
             }
             
+            
             return response.render(pathDir + "/views/tests/tests.hbs",
                 {
                     title: "Основы SQL",
@@ -163,7 +164,7 @@ exports.new_test = async (request, response) => {
 };
 
 exports.update_test = async (request, response) => {
-    let idtest = request.url.split("=")[1];
+    let idtest = request.query.id;
     let verify = await get_cookie_check_user(request.rawHeaders);
 
     //инициализация пути
@@ -325,7 +326,7 @@ exports.update_test = async (request, response) => {
 };
 
 exports.solve_test = async (request, response) => {
-    let id_test = request.url.split("=")[1];
+    let id_test = request.query.id;
     let verify = await get_cookie_check_user(request.rawHeaders);
 
     //инициализация пути

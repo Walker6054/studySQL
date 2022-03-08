@@ -143,7 +143,7 @@ function processAdd(student) {
         if (add_student_req.status == 200) {
             setTimeout(() => {
                 alert(add_student_req.responseText);
-                window.location.reload();
+                window.location = window.location.origin + "/students/";
             }, 50);
         } else {
             alert(add_student_req.responseText);

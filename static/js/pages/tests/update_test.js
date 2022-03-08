@@ -161,7 +161,7 @@ function validation() {
 
     if (!flag) {
         let test = {
-            id: window.location.pathname.split("=")[1],
+            id: window.location.search.split("=")[1],
             name: inputName.value,
             desc: inputDesc.value,
             maxTry: inputMaxTry.value,
@@ -177,7 +177,7 @@ function processUpdate(test) {
     test.token = token;
 
     let update_test_req = new XMLHttpRequest();
-        update_test_req.open("post", "/api/api-update_test", true);    
+        update_test_req.open("put", "/api/api-update_test", true);    
         update_test_req.setRequestHeader(
             'Content-Type',
             'application/json'

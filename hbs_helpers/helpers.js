@@ -10,6 +10,12 @@ exports.check_result_of_test = (test, options) => {
         show_block = true;
     }
 
+    for (let i = 0; i < test.answers.length; i++) {
+        if (!test.answers[i].count_right) {
+            test.answers[i].count_right = 0;
+        }
+    }
+
     let config = {
         show_block: show_block,
         idtests: test.idtests,
