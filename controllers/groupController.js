@@ -76,7 +76,7 @@ exports.index = async (request, response) => {
 };
 
 exports.tests_update = async (request, response) => {
-    let id_group = request.url.split("=")[1];
+    let id_group = request.query.id;
     let verify = await get_cookie_check_user(request.rawHeaders);
 
     //инициализация пути
@@ -210,7 +210,7 @@ exports.tests_update = async (request, response) => {
 };
 
 exports.tests_results = async (request, response) => {
-    let id_group = request.url.split("=")[1];
+    let id_group = request.query.id;
     let verify = await get_cookie_check_user(request.rawHeaders);
 
     //инициализация пути

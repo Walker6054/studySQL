@@ -47,7 +47,7 @@ exports.forgotPass = (request, response) => {
 }
 
 exports.recoveryPass = (request, response) => {
-    let token = request.url.split("=")[1];
+    let token = request.query.id;
     let user = jwt.decode(token);
     
     if (!user) {

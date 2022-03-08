@@ -14,7 +14,7 @@ if (buttons_update_test.length != 0) {
     }
 }
 function update_test() {
-    window.location = window.location.origin + "/tests/update_testID="+ event.target.getAttribute("name");
+    window.location = window.location.origin + "/tests/update_test?id="+ event.target.getAttribute("name");
 }
 
 if (buttons_del_test.length != 0) {
@@ -35,7 +35,7 @@ function del_test() {
     }
      //инициализируем запрос на сервер
     let del_test_req = new XMLHttpRequest();
-        del_test_req.open("post", "/api/api-del_test", true);   
+        del_test_req.open("delete", "/api/api-del_test", true);   
         del_test_req.setRequestHeader(
             'Content-Type',
             'application/json'
@@ -57,18 +57,20 @@ function del_test() {
 }
 
 
+let buttons_solve_test = document.getElementsByClassName("button_solve_test");
+if (buttons_solve_test.length != 0) {
+    for (let i = 0; i < buttons_solve_test.length; i++) {
+        buttons_solve_test[i].addEventListener("click", () => {
+            window.location = window.location.href + "solve_test?id=" + buttons_solve_test[i].getAttribute("name");
+        })
+    }
+}
+
+
+
 function getCookie(name) {
     let matches = document.cookie.match(new RegExp(
         "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
     ));
     return matches ? decodeURIComponent(matches[1]) : undefined;
-}
-
-let buttons_solve_test = document.getElementsByClassName("button_solve_test");
-if (buttons_solve_test.length != 0) {
-    for (let i = 0; i < buttons_solve_test.length; i++) {
-        buttons_solve_test[i].addEventListener("click", () => {
-            window.location = window.location.href + "solve_testID=" + buttons_solve_test[i].getAttribute("name");
-        })
-    }
 }

@@ -1,6 +1,6 @@
 <div class="container">
     {{#if lecturer}}
-        <div class="row row-cols-2">
+        <div class="row row-cols-1 row-cols-md-2">
             {{#each tests}}
                 <div class="col">
                     <div class="card border-info mb-3">
@@ -34,7 +34,7 @@
         <div class="row">
             <p class="main_header">Тесты доступные для прохождения</p>
         </div>
-        <div class="row row-cols-2 mb-3">
+        <div class="row row-cols-1 row-cols-md-2 mb-3">
             {{#each tests}}
                 <div class="col">
                     <div class="card border-info mb-3">
@@ -110,7 +110,7 @@
                 </div>
             </div>
             
-            <div class="collapse row row-cols-2" id="block_ends_tests">
+            <div class="collapse row-cols-1 row-cols-md-2" id="block_ends_tests">
                 {{#each ends_tests}}
                     <div class="col">
                         <div class="card border-secondary mb-3">
@@ -177,7 +177,7 @@
     {{/if}}
 
     {{#if admin}}
-        <div class="row row-cols-2">
+        <div class="row row-cols-1 row-cols-md-2">
             {{#each tests}}
                 <div class="col">
                     <div class="card border-info mb-3">

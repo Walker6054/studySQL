@@ -12,7 +12,7 @@ studentRouter.use((req, res, next) => {
         case "/new_student":
             return next();
         default:
-            if (RegExp(/\/update_student_id\=([0-9]+)/).test(req.url)) {
+            if (RegExp(/\/update_student\?id\=([0-9]+)/).test(req.url)) {
                 return next();
             }
             return res.redirect("/404");
@@ -23,6 +23,6 @@ studentRouter.get("/", studentController.index);
 
 studentRouter.get("/new_student", studentController.new_student);
 
-studentRouter.get("/update_student_id=*", studentController.update_student);
+studentRouter.get("/update_student", studentController.update_student);
 
 module.exports = studentRouter;

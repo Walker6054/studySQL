@@ -109,7 +109,7 @@ function validation() {
         procces_send({
             questions: questions,
             token: "",
-            id_test: window.location.pathname.split("=")[1]
+            id_test: window.location.search.split("=")[1]
         });
     }
 }

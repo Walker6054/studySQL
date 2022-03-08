@@ -96,7 +96,7 @@ function validation() {
 
     if (!flag) {
         let lecturer = {
-            id: window.location.pathname.split("=")[1],
+            id: window.location.search.split("=")[1],
             login: inputLogin.value,
             email: inputEmail.value,
             inst: inputInst.value,
@@ -114,7 +114,7 @@ function processUpdate(lecturer) {
     lecturer.token = token;
 
     let update_lecturer_req = new XMLHttpRequest();
-        update_lecturer_req.open("post", "/api/api-update_lecturer", true);    
+        update_lecturer_req.open("put", "/api/api-update_lecturer", true);    
         update_lecturer_req.setRequestHeader(
             'Content-Type',
             'application/json'
@@ -229,7 +229,7 @@ function processDel() {
     }
 
     let del_group_lecturer_req = new XMLHttpRequest();
-        del_group_lecturer_req.open("post", "/api/api-del_lecturer_group", true);    
+        del_group_lecturer_req.open("delete", "/api/api-del_lecturer_group", true);    
         del_group_lecturer_req.setRequestHeader(
             'Content-Type',
             'application/json'

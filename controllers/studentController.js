@@ -103,7 +103,7 @@ exports.new_student = async (request, response) => {
 
 exports.update_student = async (request, response) => {
     let verify = await get_cookie_check_user(request.rawHeaders);
-    let id_student = request.url.split("=")[1];
+    let id_student = request.query.id;
 
     //инициализация пути
     let breadcrumb = Array();

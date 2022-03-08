@@ -83,7 +83,7 @@ function validation() {
 
     if (!flag) {
         let student = {
-            id: window.location.pathname.split("=")[1],
+            id: window.location.search.split("=")[1],
             login: inputLogin.value,
             email: inputEmail.value,
             group: inputGroup.value,
@@ -101,7 +101,7 @@ function processUpdate(student) {
     student.token = token;
 
     let update_student_req = new XMLHttpRequest();
-        update_student_req.open("post", "/api/api-update_student", true);    
+        update_student_req.open("put", "/api/api-update_student", true);    
         update_student_req.setRequestHeader(
             'Content-Type',
             'application/json'

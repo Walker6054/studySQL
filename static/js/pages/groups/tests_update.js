@@ -1,4 +1,4 @@
-let id_group = window.location.pathname.split("=")[1];
+let id_group = window.location.search.split("=")[1];
 
 let buttons_del = document.getElementsByClassName("button_del");
 let button_add_test = document.getElementById("button_add_test");
@@ -138,7 +138,7 @@ function processDel() {
     }
 
     let del_test_req = new XMLHttpRequest();
-        del_test_req.open("post", "/api/api-del_group_test", true);    
+        del_test_req.open("delete", "/api/api-del_group_test", true);    
         del_test_req.setRequestHeader(
             'Content-Type',
             'application/json'
