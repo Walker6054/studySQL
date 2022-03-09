@@ -1,5 +1,5 @@
 const nodemailer = require('nodemailer');
-const config = require("../config");
+const config = require("../config/config");
 const layouts = require("../mailer/mailLayout.json");
 
 let transporter = nodemailer.createTransport(config.config_mailer);

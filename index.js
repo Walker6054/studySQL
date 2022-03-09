@@ -11,6 +11,7 @@ const testRouter = require("./routes/testRoute");
 const groupRouter = require("./routes/groupRoute");
 const studentRouter = require("./routes/studentRoute");
 const lecturerRouter = require("./routes/lecturerRoute");
+const antlrRouter = require("./routes/antlrRoute");
 
 //проверка на подключение к бд, перенаправление на страницу с ошибкой
 let connection = require("./models/.connectDB.js");
@@ -42,6 +43,7 @@ app.use("/tests", testRouter);
 app.use("/groups", groupRouter);
 app.use("/students", studentRouter);
 app.use("/lecturers", lecturerRouter);
+app.use("/grammar", antlrRouter);
 app.use("/", mainRouter);
 
 //использование директории на сервере
@@ -63,11 +65,6 @@ app.set('view engine', 'hbs');
 //запуск приложения
 let port = process.env.PORT || 80;
 app.listen(port);
-
-
-
-
-
 
 
 

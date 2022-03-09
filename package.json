@@ -30,5 +30,11 @@
     "bugs": {
         "url": "https://github.com/Walker6054/studySQL/issues"
     },
-    "homepage": "https://github.com/Walker6054/studySQL#readme"
+    "homepage": "https://github.com/Walker6054/studySQL#readme",
+    "grammar_sql": {
+        "author": "Presto",
+        "author_github": "https://github.com/prestodb",
+        "grammar_repository": "https://github.com/prestodb/presto",
+        "license": "https://github.com/prestodb/presto/blob/master/LICENSE"
+    }
 }
