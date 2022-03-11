@@ -2,3 +2,13 @@
     display: flex;
     flex-direction: column;
 }
+
+#input_query {
+    height: 25vw;
+    font-size: 2.5vw;
+}
+
+#print_result {
+    min-height: 15vh;
+    font-size: 2vw;
+}

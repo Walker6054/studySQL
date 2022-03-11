@@ -1,7 +1,19 @@
 let button_check_query = document.getElementById("button_check_query");
 let input_query = document.getElementById("input_query");
+let print_result = document.getElementById("print_result");
 
 button_check_query.addEventListener("click", validation);
+
+document.addEventListener("keyup", () => {
+    if (event.key == "Enter" && event.target != input_query && event.target != print_result) {
+        button_check_query.click();
+    }
+});
+
+print_result.addEventListener("change", () => {
+    let rows = print_result.value.split("\n").length - 1;
+    print_result.style.height = (rows*3.5) + "vh";
+});
 
 function validation() {
 
@@ -33,8 +45,8 @@ function process_check(query) {
     check_query_req.onload = () => {
         if (check_query_req.status == 200) {
             setTimeout(() => {
-                alert(check_query_req.responseText);
-                //window.location.reload();
+                print_result.value = check_query_req.responseText;
+                //alert(check_query_req.responseText);
             }, 50);
         } else {
             alert(check_query_req.responseText);

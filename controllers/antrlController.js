@@ -54,35 +54,29 @@ exports.check_input_string = async (request, response) => {
     }
 
     let input_stream = new antlr.InputStream(data.input);
-    let lexer = new Lexer();
-    lexer.removeErrorListeners();
-    lexer.addErrorListener({
-        syntaxError: (recognizer, offendingSymbol, line, column, msg, err) => {
-            console.error(`line ${line}, col ${column}: ${msg.split("expecting")[0]}`);
-        }
-    });
-    lexer.inputStream = input_stream;
+    let lexer = new Lexer(input_stream);
     let tokens = new antlr.CommonTokenStream(lexer);
 
     let parser = new Parser(tokens);
+    let result_pars;
     parser.buildParseTrees = true;
     parser.removeErrorListeners();
     parser.addErrorListener({
         syntaxError: (recognizer, offendingSymbol, line, column, msg, err) => {
-            console.error(`line ${line}, col ${column}: ${msg.split("expecting")[0]}`);
+            result_pars = `Ошибка: line ${line}, col ${column}: ${msg.split("expecting")[0]}`;
+            //console.error(`line ${line}, col ${column}: ${msg}`);
         }
     });
 
     try {
         let result = parser.singleStatement();
-        console.log(result);
+        if (!result_pars) {
+            result_pars = "Синтаксический анализ проведен без ошибок\nНачальный токен: "+ result.start.text + "\nКонечный токен: "+ result.stop.text;
+        }
+        return response.status(200).send(result_pars);
     } catch (error) {
-        console.error(error);
+        return response.status(800).send("Ошибка при проверке входной строки, повторите попытку позже!");
     }
-    
-    
-
-    response.status(200).send("ОК");
 }
 
 
