@@ -101,7 +101,7 @@ function processUpdate(student) {
     student.token = token;
 
     let update_student_req = new XMLHttpRequest();
-        update_student_req.open("put", "/api/api-update_student", true);    
+        update_student_req.open("put", "/api/student", true);    
         update_student_req.setRequestHeader(
             'Content-Type',
             'application/json'

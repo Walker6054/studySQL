@@ -27,7 +27,7 @@ function processDel() {
     }
 
     let del_student_req = new XMLHttpRequest();
-        del_student_req.open("delete", "/api/api-del_student", true);    
+        del_student_req.open("delete", "/api/student", true);    
         del_student_req.setRequestHeader(
             'Content-Type',
             'application/json'

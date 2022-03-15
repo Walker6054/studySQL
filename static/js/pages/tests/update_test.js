@@ -177,7 +177,7 @@ function processUpdate(test) {
     test.token = token;
 
     let update_test_req = new XMLHttpRequest();
-        update_test_req.open("put", "/api/api-update_test", true);    
+        update_test_req.open("put", "/api/test", true);    
         update_test_req.setRequestHeader(
             'Content-Type',
             'application/json'

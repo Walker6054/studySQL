@@ -114,7 +114,7 @@ function processUpdate(lecturer) {
     lecturer.token = token;
 
     let update_lecturer_req = new XMLHttpRequest();
-        update_lecturer_req.open("put", "/api/api-update_lecturer", true);    
+        update_lecturer_req.open("put", "/api/lecturer", true);    
         update_lecturer_req.setRequestHeader(
             'Content-Type',
             'application/json'
@@ -194,7 +194,7 @@ function processAdd(group) {
     group.token = token;
 
     let add_lecturer_group_req = new XMLHttpRequest();
-        add_lecturer_group_req.open("post", "/api/api-add_lecturer_group", true);    
+        add_lecturer_group_req.open("post", "/api/lecturer_group", true);    
         add_lecturer_group_req.setRequestHeader(
             'Content-Type',
             'application/json'
@@ -229,7 +229,7 @@ function processDel() {
     }
 
     let del_group_lecturer_req = new XMLHttpRequest();
-        del_group_lecturer_req.open("delete", "/api/api-del_lecturer_group", true);    
+        del_group_lecturer_req.open("delete", "/api/lecturer_group", true);    
         del_group_lecturer_req.setRequestHeader(
             'Content-Type',
             'application/json'

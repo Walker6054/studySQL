@@ -166,7 +166,7 @@ function processAdd(test) {
     test.token = token;
 
     let add_test_req = new XMLHttpRequest();
-        add_test_req.open("post", "/api/api-new_test", true);    
+        add_test_req.open("post", "/api/test", true);    
         add_test_req.setRequestHeader(
             'Content-Type',
             'application/json'

@@ -108,7 +108,7 @@ function processAdd(test) {
     test.token = token;
 
     let add_test_req = new XMLHttpRequest();
-        add_test_req.open("post", "/api/api-new_group_test", true);    
+        add_test_req.open("post", "/api/group_test", true);    
         add_test_req.setRequestHeader(
             'Content-Type',
             'application/json'
@@ -138,7 +138,7 @@ function processDel() {
     }
 
     let del_test_req = new XMLHttpRequest();
-        del_test_req.open("delete", "/api/api-del_group_test", true);    
+        del_test_req.open("delete", "/api/group_test", true);    
         del_test_req.setRequestHeader(
             'Content-Type',
             'application/json'

@@ -132,7 +132,7 @@ function processAdd(student) {
     student.token = token;
 
     let add_student_req = new XMLHttpRequest();
-        add_student_req.open("post", "/api/api-add_student", true);    
+        add_student_req.open("post", "/api/student", true);    
         add_student_req.setRequestHeader(
             'Content-Type',
             'application/json'

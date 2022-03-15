@@ -138,7 +138,7 @@ function processAdd(lecturer) {
     lecturer.token = token;
 
     let add_lecturer_req = new XMLHttpRequest();
-        add_lecturer_req.open("post", "/api/api-add_lecturer", true);    
+        add_lecturer_req.open("post", "/api/lecturer", true);    
         add_lecturer_req.setRequestHeader(
             'Content-Type',
             'application/json'

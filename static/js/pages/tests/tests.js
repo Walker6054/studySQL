@@ -35,7 +35,7 @@ function del_test() {
     }
      //инициализируем запрос на сервер
     let del_test_req = new XMLHttpRequest();
-        del_test_req.open("delete", "/api/api-del_test", true);   
+        del_test_req.open("delete", "/api/test", true);   
         del_test_req.setRequestHeader(
             'Content-Type',
             'application/json'

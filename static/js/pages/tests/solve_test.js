@@ -119,7 +119,7 @@ function procces_send(data) {
     data.token = token;
 
     let check_solve_test_req = new XMLHttpRequest();
-        check_solve_test_req.open("post", "/api/api-check_solve_test", true);    
+        check_solve_test_req.open("post", "/api/solve_test", true);    
         check_solve_test_req.setRequestHeader(
             'Content-Type',
             'application/json'
