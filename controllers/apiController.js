@@ -134,10 +134,10 @@ exports.forgotpass = async (request, response) => {
 
     if (exists) {
         if (data.login != exists.login && data.login != exists.email) {
-            return response.status(801).send("Пользователь с таким логином и паролем не существует!\nПроверьте правильность введенных данных!");
+            return response.status(801).send("Пользователь с таким логином или email не существует!\nПроверьте правильность введенных данных!");
         }
     } else {
-        return response.status(801).send("Пользователь с таким логином и паролем не существует!\nПроверьте правильность введенных данных!");
+        return response.status(801).send("Пользователь с таким логином или email не существует!\nПроверьте правильность введенных данных!");
     }
     
 
@@ -357,14 +357,14 @@ exports.add_student = async (request, response) => {
     await students.addStudents(data.login, data.email, data.pass, data.group, data.f, data.i, data.o)
         .then((res) => {
             if (res[0].affectedRows > 0) {
-                response.status(200).send("Студент успешно удален!");
+                response.status(200).send("Студент успешно добавлен!");
             } else {
-                response.status(801).send("Ошибка при удалении студента");
+                response.status(801).send("Ошибка при добавлении студента");
             }
         })
         .catch((err) => {
             console.log(err);
-            response.status(801).send("Ошибка при удалении студента");
+            response.status(801).send("Ошибка при добавлении студента");
         });
     
     //добавить рассылку с логином и паролем
@@ -430,14 +430,14 @@ exports.add_lecturer = async (request, response) => {
     await lecturers.addLecturers(data.login, data.pass, data.email, data.f, data.i, data.o, data.inst)
         .then((res) => {
             if (res[0].affectedRows > 0) {
-                response.status(200).send("Преподаватель успешно удален!");
+                response.status(200).send("Преподаватель успешно добавлен!");
             } else {
-                response.status(801).send("Ошибка при удалении преподавателя");
+                response.status(801).send("Ошибка при добавлении преподавателя");
             }
         })
         .catch((err) => {
             console.log(err);
-            response.status(801).send("Ошибка при удалении преподавателя");
+            response.status(801).send("Ошибка при добавлении преподавателя");
         });
     
     //добавить рассылку с логином и паролем
@@ -604,7 +604,7 @@ exports.update_test = async (request, response) => {
     if (proc_is_ok) {
         return response.status(200).send("Тест успешно изменен!");
     } else {
-        return response.status(801).send("Ошибка при добавлении одного из вопросов!");
+        return response.status(801).send("Ошибка при изменении одного из вопросов!");
     }
 }
 exports.new_test = async (request, response) => {

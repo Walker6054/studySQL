@@ -22,4 +22,3 @@ antlrRoute.get("/", antlrController.index);
 antlrRoute.post("/", parser, antlrController.check_input_string);
 
 module.exports = antlrRoute;
-

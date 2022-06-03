@@ -12,6 +12,9 @@ studentRouter.use((req, res, next) => {
         case "/new_student":
             return next();
         default:
+            if (RegExp(/\/\?id\=([0-9]+)/).test(req.url)) {
+                return next();
+            }
             if (RegExp(/\/update_student\?id\=([0-9]+)/).test(req.url)) {
                 return next();
             }

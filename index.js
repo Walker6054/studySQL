@@ -1,6 +1,6 @@
 const path = require('path');
 const express = require("express");
-//создаем прилодение
+//создаем приложение
 const app = express();
 
 //маршруты
@@ -35,7 +35,7 @@ app.use(async (req, res, next) => {
     }
     next();
 });
- 
+
 //инициализация начальных путей маршрутов для дальйнешей обработки
 app.use("/api", apiRouter);
 app.use("/registration", regRouter);

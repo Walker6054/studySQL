@@ -31,6 +31,18 @@ exports.index = async (request, response) => {
             break;
         
         case "admin":
+            // if (request.query.id) {
+            //     console.log(request);
+            // }
+            // let groups_list;
+            // await groups.allGroups()
+            //     .then((res) => {
+            //         groups_list = res[0];
+            //     })
+            //     .catch((err) => {
+            //         console.log(err);
+            //     });
+            
             let all_students;
             await get_data.all_get_students()
                 .then((res) => {

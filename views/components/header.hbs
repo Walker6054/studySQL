@@ -1,8 +1,10 @@
 <header>
     {{#if viewHeader}}
     <nav class="container mb-3 shadow p-3 rounded navbar navbar-light bg-light">
-        <a class="navbar-brand" href="#" onclick="window.location=window.location.origin">{{headPage}}</a>
-        <div class="rowUser">
+        <div class="col">
+            <a class="navbar-brand" href="#" onclick="window.location=window.location.origin">{{headPage}}</a>
+        </div>
+        <div class="col rowUser">
             <div class="dropdown">
                 <button class="btn btn-outline-secondary dropdown-toggle btnUser" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown">{{userName}}</button>
                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-secondary">
