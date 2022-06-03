@@ -35,32 +35,37 @@ exports.index = async (request, response) => {
                 .catch((err) => {
                     console.log(err);
                 });
-            for (let i = 0; i < test_user.length; i++) {
-                if (test_user[i].all_count == "") {
-                    test_user[i].all_count = 0;
-                    test_user[i].avg = 0;
-                } else {
-                    let answers_test;
-                    await students.get_result_student_test_with_answers(verify[0].login, test_user[i].idtests)
-                        .then((res) => {
-                            answers_test = res[0][0];
-                        })
-                        .catch((err) => {
-                            console.log(err);
-                        });
-                    test_user[i].answers = answers_test;
-                }
-                if (test_user[i].all_count == test_user[i].maxTry) {
-                    ends_tests.push(test_user[i]);
-                } else {
-                    unfinished_test_user.push(test_user[i]);
-                }
-            }
+            let exists_tests = true;
             let ends_tests_exist = false;
-            if (ends_tests.length != 0) {
-                ends_tests_exist = true;
+            try {
+                for (let i = 0; i < test_user.length; i++) {
+                    if (test_user[i].all_count == "") {
+                        test_user[i].all_count = 0;
+                        test_user[i].avg = 0;
+                    } else {
+                        let answers_test;
+                        await students.get_result_student_test_with_answers(verify[0].login, test_user[i].idtests)
+                            .then((res) => {
+                                answers_test = res[0][0];
+                            })
+                            .catch((err) => {
+                                console.log(err);
+                            });
+                        test_user[i].answers = answers_test;
+                    }
+                    if (test_user[i].all_count == test_user[i].maxTry) {
+                        ends_tests.push(test_user[i]);
+                    } else {
+                        unfinished_test_user.push(test_user[i]);
+                    }
+                }
+                exists_tests = "Тесты доступные для прохождения";
+                if (ends_tests.length != 0) {
+                    ends_tests_exist = true;
+                }
+            } catch (error) {
+                exists_tests = "Нет тестов доступных для прохождения";
             }
-            
             
             return response.render(pathDir + "/views/tests/tests.hbs",
                 {
@@ -71,6 +76,7 @@ exports.index = async (request, response) => {
                     viewHeader: true,
                     student: true,
                     breadcrumb: breadcrumb,
+                    exists_tests: exists_tests,
                     tests: unfinished_test_user,
                     ends_tests: ends_tests,
                     ends_tests_exist: ends_tests_exist,
