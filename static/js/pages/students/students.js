@@ -14,6 +14,16 @@ if (buttons_del.length != 0) {
     }
 }
 
+let list_group = document.getElementById("group");
+list_group.addEventListener("change", () => {
+    let value = event.target.value;
+    if (value == "all") {
+        window.location = window.location.origin + "/students/";
+    } else {
+        window.location = window.location.origin + "/students/?id=" + value;
+    }
+});
+
 function processDel() {
     let confirm_del = confirm("Подтвердите удаление");
     if (!confirm_del) {

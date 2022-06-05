@@ -74,3 +74,19 @@ exports.delGroups = async (id) => {
 		});
     return query;
 }
+
+//список всех студентов из конкретной группы
+exports.get_students_group = async (id) => {
+    let connection;
+	let query;
+	await connect.getConnection()
+		.then((that_connection) => {
+			connection = that_connection;
+			return that_connection.query("call get_students_group("+ id + ")");
+		})
+		.then((res) => {
+			query = res;
+			connection.release();
+		});
+    return query;
+}

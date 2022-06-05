@@ -31,26 +31,50 @@ exports.index = async (request, response) => {
             break;
         
         case "admin":
-            // if (request.query.id) {
-            //     console.log(request);
-            // }
-            // let groups_list;
-            // await groups.allGroups()
-            //     .then((res) => {
-            //         groups_list = res[0];
-            //     })
-            //     .catch((err) => {
-            //         console.log(err);
-            //     });
-            
-            let all_students;
-            await get_data.all_get_students()
+            let group_list;
+            let students;
+            let flag;
+            let group;
+
+            await groups.allGroups()
                 .then((res) => {
-                    all_students = res[0][0];
+                    group_list = res[0];
                 })
                 .catch((err) => {
                     console.log(err);
                 });
+            
+            if (request.query.id) {
+                flag = false;
+                await groups.get_students_group(request.query.id)
+                    .then((res) => {
+                        students = res[0][0];
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    });
+                if (students.length == 0) {
+                    return response.redirect("/students/");
+                }
+
+                let index;
+                for (let i = 0; i < group_list.length; i++) {
+                    if (group_list[i].idgroups == request.query.id) {
+                        index = i;
+                        group = group_list[i].shifr;
+                    }
+                }
+                group_list.splice(index, 1);
+            } else {
+                flag = true;
+                await get_data.all_get_students()
+                    .then((res) => {
+                        students = res[0][0];
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    });
+            }
             
             return response.render(pathDir + "/views/students/students.hbs",
                 {
@@ -60,7 +84,10 @@ exports.index = async (request, response) => {
                     page: "students/students",
                     viewHeader: true,
                     breadcrumb: breadcrumb,
-                    students: all_students
+                    students: students,
+                    groups: group_list,
+                    group: group,
+                    flag: flag
                 }
             );
             break;

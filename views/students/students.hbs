@@ -1,7 +1,23 @@
 <div class="container">
     <div class="row row_main mb-3">
-        <div class="col-8 colButton">
+        <div class="col-4 colButton">
             <h5 class="header_main">Список студентов</h5>
+        </div>
+        <div class="col-4 colButton">
+            <div class="form-floating">
+                <select class="form-select" id="group"/>
+                    {{#if group}}
+                        <option value="all">Все группы</option>
+                        <option value="" selected>{{group}}</option>
+                    {{else}}
+                        <option value="all" selected>Все группы</option>
+                    {{/if}}
+                    {{#each groups}}
+                        <option value="{{this.idgroups}}">{{this.shifr}}</option>
+                    {{/each}}
+                </select>
+                <label for="group">Группа</label>
+            </div>
         </div>
         <div class="col-4 colButton">
             <a class="btn btn-success" href="/students/new_student/" id="button_add_student" role="button">Добавить студента</a>
@@ -15,22 +31,39 @@
                     <th scope="col">Логин</th>
                     <th scope="col">Email</th>
                     <th scope="col">ФИО</th>
-                    <th scope="col">Группа</th>
+                    {{#if flag}}
+                        <th scope="col">Группа</th>
+                    {{/if}}
                 </tr>
             </thead>
             <tbody>
-                {{#each students}}
-                    <tr>
-                        <th scope="row">{{this.login}}</th>
-                        <td>{{this.email}}</td>
-                        <td>{{this.f}} {{this.i}} {{this.o}}</td>
-                        <td>{{this.shifr}}</td>
-                        <td class="actions">
-                            <img class="icon icon_edit" name="{{this.idstudents}}" src="/static/image/icons/white/edit.svg" role="button">
-                            <img class="icon icon_close" name="{{this.idstudents}}" src="/static/image/icons/white/close.svg" role="button">
-                        </td>
-                    </tr>
-                {{/each}}
+                {{#if flag}}
+                    {{#each students}}
+                        <tr>
+                            <th scope="row">{{this.login}}</th>
+                            <td>{{this.email}}</td>
+                            <td>{{this.f}} {{this.i}} {{this.o}}</td>
+                            <td>{{this.shifr}}</td>
+                            <td class="actions">
+                                <img class="icon icon_edit" name="{{this.idstudents}}" src="/static/image/icons/white/edit.svg" role="button">
+                                <img class="icon icon_close" name="{{this.idstudents}}" src="/static/image/icons/white/close.svg" role="button">
+                            </td>
+                        </tr>
+                    {{/each}}
+                {{else}}
+                    {{#each students}}
+                        <tr>
+                            <th scope="row">{{this.login}}</th>
+                            <td>{{this.email}}</td>
+                            <td>{{this.f}} {{this.i}} {{this.o}}</td>
+                            <td class="actions">
+                                <img class="icon icon_edit" name="{{this.idstudents}}" src="/static/image/icons/white/edit.svg" role="button">
+                                <img class="icon icon_close" name="{{this.idstudents}}" src="/static/image/icons/white/close.svg" role="button">
+                            </td>
+                        </tr>
+                    {{/each}}
+                {{/if}}
+                
             </tbody>
         </table>
     </div>

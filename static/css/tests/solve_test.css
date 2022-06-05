@@ -1,3 +1,8 @@
+.main_header {
+    font-size: 1.5vw;
+    font-weight: 500;
+}
+
 .row_button {
     display: flex;
     justify-content: space-between;

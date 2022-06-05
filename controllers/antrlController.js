@@ -63,7 +63,7 @@ exports.check_input_string = async (request, response) => {
     parser.removeErrorListeners();
     parser.addErrorListener({
         syntaxError: (recognizer, offendingSymbol, line, column, msg, err) => {
-            result_pars = `Ошибка: line ${line}, col ${column}: ${msg.split("expecting")[0]}`;
+            result_pars = `Ошибка: line ${line}, col ${column}: ${msg}`;
             //console.error(`line ${line}, col ${column}: ${msg}`);
         }
     });

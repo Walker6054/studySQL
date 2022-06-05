@@ -74,3 +74,18 @@ exports.delTests = async (id) => {
 		});
     return query;
 }
+
+exports.get_test_info = async (id) => {
+    let connection;
+	let query;
+	await connect.getConnection()
+		.then((that_connection) => {
+			connection = that_connection;
+			return that_connection.query("call get_test_info("+ id +")");
+		})
+		.then((res) => {
+			query = res;
+			connection.release();
+		});
+    return query;
+}

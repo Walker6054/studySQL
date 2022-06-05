@@ -348,6 +348,7 @@ exports.solve_test = async (request, response) => {
     switch (verify[1]) {
         case "student":
             let test_user;
+            let test_info;
             let questions;
             let error;
             await students.get_student_test(verify[0].login, id_test)
@@ -363,6 +364,14 @@ exports.solve_test = async (request, response) => {
                 return response.redirect("/tests/");
             }
 
+            await tests.get_test_info(id_test)
+                .then((res) => {
+                    test_info = res[0][0][0];
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+            
             let questions_for_list = new Array();
             await get_data.get_questions_test(id_test)
                 .then((res) => {
@@ -400,6 +409,7 @@ exports.solve_test = async (request, response) => {
                     viewHeader: true,
                     student: true,
                     breadcrumb: breadcrumb,
+                    test: test_info,
                     questions: questions_for_list,
                     helpers: {
                         type_question: hbs_helpers.type_question,
