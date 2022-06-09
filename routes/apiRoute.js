@@ -36,6 +36,8 @@ apiRouter.delete('/group', parser, apiController.del_group);
 apiRouter.post('/group', parser, apiController.new_group);
 apiRouter.put('/group', parser, apiController.update_group);
 
+apiRouter.get('/group_result', apiController.get_result_excel);
+
 //раздел группа-тест
 apiRouter.delete('/group_test', parser, apiController.del_group_test);
 apiRouter.post('/group_test', parser, apiController.new_group_test);

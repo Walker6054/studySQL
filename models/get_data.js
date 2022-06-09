@@ -62,6 +62,21 @@ exports.get_result_student_test = async (login, id) => {
 		});
     return query;
 }
+  //для excel
+exports.get_results_group_for_excel = async (idgroup, idtest) => {
+	let connection;
+	let query;
+	await connect.getConnection()
+		.then((that_connection) => {
+			connection = that_connection;
+			return that_connection.query("call get_results_group_for_excel(" + idgroup + ", "+ idtest +")");
+		})
+		.then((res) => {
+			query = res;
+			connection.release();
+		});
+    return query;
+}
 
 //запросы для преподавателя
 exports.get_lecturer_tests = async (login) => {

@@ -25,7 +25,8 @@
         "jsonwebtoken": "^8.5.1",
         "mysql2": "^2.3.3",
         "nodemailer": "^6.7.2",
-        "vue": "^3.2.31"
+        "vue": "^3.2.31",
+        "xlsx": "^0.18.5"
     },
     "bugs": {
         "url": "https://github.com/Walker6054/studySQL/issues"

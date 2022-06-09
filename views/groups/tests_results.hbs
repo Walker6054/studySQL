@@ -2,13 +2,20 @@
     {{#if lecturer}}
 
         <div class="row row_main">
-            <h5 class="head_main mb-2">{{group}}</h5>
+            <h5 class="head_main mb-2" id="group_shifr">{{group}}</h5>
         </div>
 
         {{#each group_tests}}
             <div class="card border-secondary mb-3">
-                <div class="card-header">
-                    <h5 class="card-title">{{this.name}}</h5>
+                <div class="row card-header">
+                    <div class="col-8">
+                        <h5 class="card-title">{{this.name}}</h5>
+                    </div>
+                    {{#if this.results}}
+                        <div class="col-4 colButton">
+                            <button class="btn btn-outline-success button_get_result" name="{{this.idtests}}">Выгрузить результаты</button>
+                        </div>
+                    {{/if}}
                 </div>
                 <div class="row card-body">
                     <div class="col-8">
@@ -69,15 +76,21 @@
     {{/if}}
 
     {{#if admin}}
-
         <div class="row row_main">
-            <h5 class="head_main mb-2">{{group}}</h5>
+            <h5 class="head_main mb-2" id="group_shifr">{{group}}</h5>
         </div>
 
         {{#each group_tests}}
             <div class="card border-secondary mb-3">
-                <div class="card-header">
-                    <h5 class="card-title">{{this.name}}</h5>
+                <div class="row card-header">
+                    <div class="col-8">
+                        <h5 class="card-title">{{this.name}}</h5>
+                    </div>
+                    {{#if this.results}}
+                        <div class="col-4 colButton">
+                            <button class="btn btn-outline-success button_get_result" name="{{this.idtests}}">Выгрузить результаты</button>
+                        </div>
+                    {{/if}}
                 </div>
                 <div class="row card-body">
                     <div class="col-8">

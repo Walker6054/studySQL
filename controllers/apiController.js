@@ -1,3 +1,5 @@
+const path = require('path');
+const pathDir = path.dirname(__dirname);
 const jwt = require("jsonwebtoken");
 
 const users = require("../models/users/users");
@@ -15,6 +17,8 @@ const marks_questions = require("../models/relations/marks_questions");
 const get_data = require("../models/get_data");
 
 const mailer = require("../mailer/mailer");
+const xlsx = require('xlsx');
+const fs = require('fs');
 
 //авторизация/регистрация/восстановление пароля
 exports.reguser = async (request, response) => {
@@ -854,6 +858,57 @@ exports.del_group = async (request, response) => {
         });
 }
 
+let pattern = xlsx.readFile("./temp/temp.xlsx");
+exports.get_result_excel = async (request, response) => {
+    let data = request.query;
+    console.log(data);
+
+    let verify = await check_user(data.token);
+    
+    if (!verify[0]) {
+        return response.status(801).send("Ошибка в авторизации пользователя!");
+    }
+
+    let group_shifr;
+    await groups.groups(data.id_group)
+        .then((res) => {
+            group_shifr = res[0][0].shifr;
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+    
+    let test_results;
+    await get_data.get_results_group_for_excel(data.id_group, data.id)
+        .then((res) => {
+            test_results = res[0][0];
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+
+    xlsx.writeFile(pattern, `./temp/${verify[0].login}.xlsx`);
+    let file = xlsx.readFile(`./temp/${verify[0].login}.xlsx`);
+
+    let sheet = xlsx.utils.json_to_sheet(test_results);
+    xlsx.utils.book_append_sheet(file, sheet, group_shifr);
+    await xlsx.writeFile(file, `./temp/${verify[0].login}.xlsx`);
+    
+    response.download(pathDir + `/temp/${verify[0].login}.xlsx`, `Результаты ${group_shifr}.xlsx`,
+        (err) => {
+            if (err) {
+                console.log(err);
+            } else {
+                fs.unlink(`./temp/${verify[0].login}.xlsx`, (err) => {
+                    if (err) {
+                        console.log(err);
+                    }
+                });
+            }
+        }
+    );
+}
+
 //раздел группа-тест
 exports.del_group_test = async (request, response) => {
     let data = request.body;
@@ -976,4 +1031,3 @@ async function check_user(token) {
     }
     return user_checked;
 }
-
