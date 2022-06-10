@@ -858,7 +858,7 @@ exports.del_group = async (request, response) => {
         });
 }
 
-let pattern = xlsx.readFile("./temp/temp.xlsx");
+//let pattern = xlsx.readFile("./temp/temp.xlsx");
 exports.get_result_excel = async (request, response) => {
     let data = request.query;
     console.log(data);
@@ -878,6 +878,15 @@ exports.get_result_excel = async (request, response) => {
             console.log(err);
         });
     
+    let test;
+    await tests.tests(data.id)
+        .then((res) => {
+            test = res[0][0];
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+    
     let test_results;
     await get_data.get_results_group_for_excel(data.id_group, data.id)
         .then((res) => {
@@ -886,12 +895,18 @@ exports.get_result_excel = async (request, response) => {
         .catch((err) => {
             console.log(err);
         });
+    for (let i = 0; i < test_results.length; i++) {
+        test_results[i]["Средний балл"] = Number(test_results[i]["Средний балл"]);
+    }
 
-    xlsx.writeFile(pattern, `./temp/${verify[0].login}.xlsx`);
-    let file = xlsx.readFile(`./temp/${verify[0].login}.xlsx`);
-
+    //xlsx.writeFile(pattern, `./temp/${verify[0].login}.xlsx`);
+    //let file = xlsx.readFile(`./temp/${verify[0].login}.xlsx`);
+    let file = xlsx.utils.book_new();
+    file.Workbook = test.name;
     let sheet = xlsx.utils.json_to_sheet(test_results);
-    xlsx.utils.book_append_sheet(file, sheet, group_shifr);
+    sheet['!cols'] = [{ wch: 15 },{ wch: 15 },{ wch: 15 },{ wch: 12 },{ wch: 12 },{ wch: 12 }];
+    
+    xlsx.utils.book_append_sheet(file, sheet, test.name);
     await xlsx.writeFile(file, `./temp/${verify[0].login}.xlsx`);
     
     response.download(pathDir + `/temp/${verify[0].login}.xlsx`, `Результаты ${group_shifr}.xlsx`,
