@@ -118,7 +118,7 @@ function processAdd(test) {
     add_test_req.onload = () => {
         if (add_test_req.status == 200) {
             setTimeout(() => {
-                alert(add_test_req.responseText);
+                //alert(add_test_req.responseText);
                 window.location.reload();
             }, 50);
         } else {
@@ -148,7 +148,7 @@ function processDel() {
     del_test_req.onload = () => {
         if (del_test_req.status == 200) {
             setTimeout(() => {
-                alert(del_test_req.responseText);
+                //alert(del_test_req.responseText);
                 window.location.reload();
             }, 50);
         } else {

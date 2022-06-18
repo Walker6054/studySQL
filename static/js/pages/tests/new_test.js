@@ -176,7 +176,7 @@ function processAdd(test) {
     add_test_req.onload = () => {
         if (add_test_req.status == 200) {
             setTimeout(() => {
-                alert(add_test_req.responseText);
+                //alert(add_test_req.responseText);
                 window.location = window.location.origin + "/tests";
             }, 50);
         } else {

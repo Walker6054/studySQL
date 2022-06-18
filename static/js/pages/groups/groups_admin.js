@@ -97,7 +97,7 @@ function processAdd(group) {
     add_group_req.onload = () => {
         if (add_group_req.status == 200) {
             setTimeout(() => {
-                alert(add_group_req.responseText);
+                //alert(add_group_req.responseText);
                 window.location.reload();
             }, 50);
         } else {
@@ -122,7 +122,7 @@ function processUpdate(group) {
     update_group_req.onload = () => {
         if (update_group_req.status == 200) {
             setTimeout(() => {
-                alert(update_group_req.responseText);
+                //alert(update_group_req.responseText);
                 window.location.reload();
             }, 50);
         } else {
@@ -158,7 +158,7 @@ function processDel() {
     del_group_req.onload = () => {
         if (del_group_req.status == 200) {
             setTimeout(() => {
-                alert(del_group_req.responseText);
+                //alert(del_group_req.responseText);
                 window.location.reload();
             }, 50);
         } else {

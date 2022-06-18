@@ -45,7 +45,7 @@ function processForgot(user) {
     ForgotReq.onload = () => {
         //в зависимости от статуса ответа сервера выводим сообщения об успехе или неудачи авторизации
         if (ForgotReq.status == 200) {
-            alert(ForgotReq.responseText);
+            //alert(ForgotReq.responseText);
             window.location = window.location.origin;
         } else {
             alert(ForgotReq.responseText);

@@ -153,7 +153,7 @@ function processReg(user) {
             case 200:
                 let token = RegReq.responseText;
                 document.cookie = "CookieUser = "+ token +"; Path=/; Expires=Session";
-                alert("Пользователь успешно зарегистрирован!");
+                //alert("Пользователь успешно зарегистрирован!");
                 window.location = window.location.origin;
                 break;
             default:

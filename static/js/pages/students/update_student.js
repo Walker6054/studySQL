@@ -111,7 +111,7 @@ function processUpdate(student) {
     update_student_req.onload = () => {
         if (update_student_req.status == 200) {
             setTimeout(() => {
-                alert(update_student_req.responseText);
+                //alert(update_student_req.responseText);
                 window.location.reload();
             }, 50);
         } else {

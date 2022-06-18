@@ -161,7 +161,7 @@ function processUpdate(user) {
     update_user_req.onload = () => {
         switch (update_user_req.status) {
             case 200:
-                alert(update_user_req.responseText);
+                //alert(update_user_req.responseText);
                 window.location.reload();
                 break;
             default:

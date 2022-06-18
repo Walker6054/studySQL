@@ -148,7 +148,7 @@ function processAdd(lecturer) {
     add_lecturer_req.onload = () => {
         if (add_lecturer_req.status == 200) {
             setTimeout(() => {
-                alert(add_lecturer_req.responseText);
+                //alert(add_lecturer_req.responseText);
                 window.location = window.location.origin + "/lecturers/";
             }, 50);
         } else {

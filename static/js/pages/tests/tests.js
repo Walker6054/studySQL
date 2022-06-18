@@ -47,7 +47,7 @@ function del_test() {
     del_test_req.onload = () => {
         if (del_test_req.status == 200) {
             setTimeout(() => {
-                alert(del_test_req.responseText);
+                //alert(del_test_req.responseText);
                 window.location.reload();
             }, 50);
         } else {

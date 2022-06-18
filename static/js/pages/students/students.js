@@ -47,7 +47,7 @@ function processDel() {
     del_student_req.onload = () => {
         if (del_student_req.status == 200) {
             setTimeout(() => {
-                alert(del_student_req.responseText);
+                //alert(del_student_req.responseText);
                 window.location.reload();
             }, 50);
         } else {

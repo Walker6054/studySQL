@@ -187,7 +187,7 @@ function processUpdate(test) {
     update_test_req.onload = () => {
         if (update_test_req.status == 200) {
             setTimeout(() => {
-                alert(update_test_req.responseText);
+                //alert(update_test_req.responseText);
                 window.location = window.location.origin + "/tests";
             }, 50);
         } else {

@@ -37,7 +37,7 @@ function processDel() {
     del_lecturer_req.onload = () => {
         if (del_lecturer_req.status == 200) {
             setTimeout(() => {
-                alert(del_lecturer_req.responseText);
+                //alert(del_lecturer_req.responseText);
                 window.location.reload();
             }, 50);
         } else {

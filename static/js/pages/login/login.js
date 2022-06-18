@@ -71,7 +71,7 @@ function processLog(user) {
             }
 
             setTimeout(() => {
-                alert("Вы успешно авторизовались!");
+                //alert("Вы успешно авторизовались!");
                 window.location = window.location.origin;
             }, 50);
         } else {
